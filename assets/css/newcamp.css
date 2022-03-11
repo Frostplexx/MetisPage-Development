@@ -17,11 +17,10 @@ iframe{
 	height: 2100px; 
 }
 
-.m7w29c{
-	background-color: var(--background-color);
-
-}
-
-.Uc2NEf{
-	color: white;
+#info{
+	margin-left: 5rem;
+	margin-right: 1rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #fff;
 }
