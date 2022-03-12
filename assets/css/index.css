@@ -29,11 +29,7 @@
 }
 
 #page-text img {
-	position: absolute;
-	margin-left: 30rem;
 	width: 300px;
-	margin-top: -60%;
-	border-radius: 25%;
 	-webkit-box-shadow: 5px 5px 20px 5px #000000; 
 	box-shadow: 5px 5px 20px 5px #000000;
 }
