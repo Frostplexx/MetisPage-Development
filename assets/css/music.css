@@ -1,0 +1,118 @@
+:root {
+    --main-accent-color: #ED2027;
+    --background-color: #36393f;
+    --background-color-darker: #2f3136;
+    --background-color-darkest: #202225;
+}
+
+#sessionInput {
+    width: 50%;
+    margin: 45px auto auto auto;
+}
+
+#login h1 {
+    filter: brightness(0.8);
+}
+
+#login h5 {
+    filter: brightness(0.6);
+}
+
+#login {
+    position: relative;
+    margin: auto auto auto auto;
+    top: 15rem;
+}
+
+#submitbutton {
+    margin: 30px auto auto auto;
+}
+
+
+
+#dashboard {
+    text-align: left;
+    display: none;
+	width: 70rem;
+}
+
+#dashboard .list-group {
+	width: inherit;
+	width: auto;
+    border-radius: 5px;
+    filter: brightness(0.8);
+}
+
+#btn-spinner {
+    display: none;
+}
+
+.btn-group {
+    float: right;
+}
+
+#volume {
+    float: right;
+}
+
+.list-group-item {
+    margin-left: 10px;
+}
+
+
+/* The slider itself */
+
+.slider {
+    -webkit-appearance: none;
+    border-radius: 5px;
+    /* Override default CSS styles */
+    appearance: none;
+    /* Full-width */
+    height: 10px;
+    /* Specified height */
+    background: var(--background-color);
+    /* Grey background */
+    outline: none;
+    /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s;
+    /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
+    appearance: none;
+    width: 15px;
+    /* Set a specific slider handle width */
+    height: 15px;
+    /* Slider handle height */
+    background: var(--main-accent-color);
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+    border: none;
+}
+
+.slider::-moz-range-thumb {
+    width: 15px;
+    /* Set a specific slider handle width */
+    height: 15px;
+    /* Slider handle height */
+    background: var(--main-accent-color);
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+    border: none;
+}
+
+#volume {
+    text-align: center;
+    margin-top: 5px;
+    text-align: left;
+    margin-bottom: auto;
+    margin-right: 20px;
+}

@@ -1,9 +1,11 @@
 // Custom.scss
 // Option A: Include all of Bootstrap
-
 // Your variable overrides
-$theme-colors: (
-  "primary": #ED2027,
-  "danger": #ff4136
-);
+$theme-colors: ( 
+"primary": #ED2027,
+ "danger": #ff4136, 
+ "list-group-bg": #202225, 
+ "list-group-color": #202225,
+  "dark": #2f3136, 
+  );
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<title>Metis Bot</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/music.css" />
+	<script type="text/javascript" src="assets/js/music.js"></script>
+	<link rel="icon" href="assets/images/logo.png">
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+		</script>
+	<script>
+		$(function () {
+			$("#header").load("header.html");
+			$("#footer").load("footer.html");
+		});
+	</script>
+</head>
+
+<body>
+	<div id="header"></div>
+	<div id="login" class="container my-3 col-10 text-center">
+		<h1 class="display-5 fw-bold text-center">Please enter your Session ID</h1>
+		<h5 class="display-10 text-center">This is required to authenticate with the discord server</h5>
+		<div class="form-group">
+			<input type="text" class="form-control" id="sessionInput" aria-describedby="emailHelp"
+				placeholder="Session ID">
+			<button type="submit" class="btn btn-primary text-center" id="submitbutton" onclick="authenticate()">
+				<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="btn-spinner"></span>
+				Authenticate
+			</button>
+		</div>
+	</div>
+
+
+	<div id="dashboard">
+		<ul class="list-group">
+			<li class="list-group-item bg-dark text-white fw-bold">
+				Ambient Outdoor
+				<div class="btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-pen"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-gear"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-play"></em>
+					</button>
+				  </div>
+				  <div id="volume">
+					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
+				</div>
+			</li>
+			<li class="list-group-item bg-dark text-white fw-bold">
+				Ambient Tavern
+				<div class="btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-pen"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-gear"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-play"></em>
+					</button>
+				  </div>
+				  <div id="volume">
+					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
+				</div>
+			</li>
+			<li class="list-group-item bg-dark text-white fw-bold" >
+				Fight Music
+				<div class="btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-pen"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-gear"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-play"></em>
+					</button>
+				  </div>
+				  <div id="volume">
+					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
+				</div>
+			</li>
+			<li class="list-group-item bg-dark text-white fw-bold">
+				Cave Ambient
+				<div class="btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-pen"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-gear"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-play"></em>
+					</button>
+				  </div>
+				  <div id="volume">
+					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
+				</div>
+			</li>
+			<li class="list-group-item bg-dark text-white fw-bold">
+				Mysterious Ambient
+				<div class="btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-pen"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-gear"></em>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<em class="fa-solid fa-play"></em>
+					</button>
+				  </div>
+				  <div id="volume">
+					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
+				</div>
+			</li>
+		</ul>
+	</div>
+
+</body>
+
+</html>
