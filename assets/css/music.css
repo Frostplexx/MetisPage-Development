@@ -33,36 +33,53 @@
 #dashboard {
     text-align: left;
     display: none;
-	width: 70rem;
 }
 
+
 #dashboard .list-group {
-	width: inherit;
-	width: auto;
+	margin-left: 5%;
     border-radius: 5px;
     filter: brightness(0.8);
+}
+
+.edit-btn{
+	position: relative;
+	margin-left: 100px;
+	float: right;
+}
+
+.add-btn{
+	width: fit-content;
+	margin-top: 10px !important;
+}
+
+.song-url{
+	display: block;
 }
 
 #btn-spinner {
     display: none;
 }
 
-.btn-group {
-    float: right;
+#dashboard .list-group a:hover{
+	filter: brightness(0.9);
 }
 
-#volume {
-    float: right;
+#songTitle{
+	margin-top: 10px;
 }
 
-.list-group-item {
-    margin-left: 10px;
+#play-btn{
+	position: relative;
+	float: right;
 }
-
 
 /* The slider itself */
 
 .slider {
+	position: relative;
+	margin-top: 20px !important;
+	width: 20%;
     -webkit-appearance: none;
     border-radius: 5px;
     /* Override default CSS styles */
@@ -115,4 +132,8 @@
     text-align: left;
     margin-bottom: auto;
     margin-right: 20px;
+}
+
+.song-url{
+	display: none;
 }

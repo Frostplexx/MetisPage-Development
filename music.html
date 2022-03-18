@@ -36,94 +36,49 @@
 	</div>
 
 
-	<div id="dashboard">
-		<ul class="list-group">
-			<li class="list-group-item bg-dark text-white fw-bold">
-				Ambient Outdoor
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-pen"></em>
-					</button>
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-gear"></em>
-					</button>
-					<button type="button" class="btn btn-primary" onclick="playsong('https://www.youtube.com/watch?v=xNN7iTA57jM')">
-						<em class="fa-solid fa-play"></em>
-					</button>
-				  </div>
-				  <div id="volume">
-					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
+	<div id="dashboard" class="container-fluid">
+		<div class="row">
+			<div class="col-lg float-left" id="songlist">
+				<ul class="list-group" id="song-list-wrapper">
+					<a href="#" class="list-group-item list-group-item-action bg-dark text-white play">
+						<div class="song-url">https://www.youtube.com/watch?v=xNN7iTA57jM</div>
+						Outdoor Music
+						<button type="button" class="btn btn-primary btn-sm edit-btn"><em class="fa-solid fa-pen"></em></button>
+					</a>
+					<a href="#" class="list-group-item list-group-item-action bg-dark text-white play">
+						<div class="song-url">https://www.youtube.com/watch?v=rv3Nl-Od9YU</div>
+						Tavern Ambient
+						<button type="button" class="btn btn-primary btn-sm edit-btn"><em class="fa-solid fa-pen"></em></button>
+					</a>
+					<a href="#" class="list-group-item list-group-item-action bg-dark text-white play">
+						<div class="song-url">https://www.youtube.com/watch?v=kxqJuc1HHbg</div>
+						Cave Ambient
+						<button type="button" class="btn btn-primary btn-sm edit-btn"><em class="fa-solid fa-pen"></em></button>
+					</a>
+					<a href="#" class="list-group-item list-group-item-action bg-dark text-white play">
+						<div class="song-url">https://www.youtube.com/watch?v=w0sUw735gRw</div>
+						Fight Music
+						<button type="button" class="btn btn-primary btn-sm edit-btn"><em class="fa-solid fa-pen"></em></button>
+					</a>
+					<button type="button" class="btn btn-primary btn-sm add-btn">Add Music <em class="fa-solid fa-plus"></em></button>
+				</ul>
+			</div>
+			<div class="col-lg float-right" id="player">
+				<div id="icon" class="container-fluid text-center">
+					<img src="" class="d-block mx-lg-auto img-responsive rounded" width="512" alt="cover art" id="cover">
+					<h3 class="h3 text-center" id="songTitle">Title</h3>
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<button type="button" class="btn btn-primary btn-lg" id="reverse"><em class="fa-solid fa-backward"></em></button>
+						<button type="button" class="btn btn-primary btn-lg play-btn play" id="btn-play"><em class="fa-solid fa-play"></em></button>
+						<button type="button" class="btn btn-primary btn-lg" id="skip"><em class="fa-solid fa-forward"></em></button>
+					</div>
+					<div class="slidecontainer">
+						<em class="fa-solid fa-volume-high"></em>
+						<input type="range" min="1" max="100" value="50" class="slider" id="volume">
+					  </div>
 				</div>
-			</li>
-			<li class="list-group-item bg-dark text-white fw-bold">
-				Ambient Tavern
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-pen"></em>
-					</button>
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-gear"></em>
-					</button>
-					<button type="button" class="btn btn-primary" onclick="playsong('https://www.youtube.com/watch?v=EULoybB2Nsw')">
-						<em class="fa-solid fa-play"></em>
-					</button>
-				  </div>
-				  <div id="volume">
-					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
-				</div>
-			</li>
-			<li class="list-group-item bg-dark text-white fw-bold" >
-				Fight Music
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-pen"></em>
-					</button>
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-gear"></em>
-					</button>
-					<button type="button" class="btn btn-primary" onclick="playsong('https://www.youtube.com/watch?v=w0sUw735gRw')">
-						<em class="fa-solid fa-play"></em>
-					</button>
-				  </div>
-				  <div id="volume">
-					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
-				</div>
-			</li>
-			<li class="list-group-item bg-dark text-white fw-bold">
-				Cave Ambient
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-pen"></em>
-					</button>
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-gear"></em>
-					</button>
-					<button type="button" class="btn btn-primary" onclick="playsong('https://www.youtube.com/watch?v=kxqJuc1HHbg')">
-						<em class="fa-solid fa-play"></em>
-					</button>
-				  </div>
-				  <div id="volume">
-					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
-				</div>
-			</li>
-			<li class="list-group-item bg-dark text-white fw-bold">
-				Mysterious Ambient
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-pen"></em>
-					</button>
-					<button type="button" class="btn btn-primary">
-						<em class="fa-solid fa-gear"></em>
-					</button>
-					<button type="button" class="btn btn-primary" onclick="playsong('https://www.youtube.com/watch?v=yEYxnJB4jZs')">
-						<em class="fa-solid fa-play"></em>
-					</button>
-				  </div>
-				  <div id="volume">
-					<input type="range" min="1" max="100" value="50" id="myNumber" class="slider">
-				</div>
-			</li>
-		</ul>
+			</div>
+		</div>
 	</div>
 
 </body>
