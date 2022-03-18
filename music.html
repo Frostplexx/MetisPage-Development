@@ -7,8 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<link rel="stylesheet" href="assets/css/music.css" />
-	<script>var exports = {};</script>
-	<script type="text/javascript" src="assets/js/music.js"></script>
+	<script type="module" src="assets/js/music.js"></script>
 	<link rel="icon" href="assets/images/logo.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
@@ -29,7 +28,7 @@
 		<div class="form-group">
 			<input type="text" class="form-control" id="sessionInput" aria-describedby="emailHelp"
 				placeholder="Session ID">
-			<button type="submit" class="btn btn-primary text-center" id="submitbutton" onclick="login()">
+			<button type="submit" class="btn btn-primary text-center" id="submitbutton">
 				<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="btn-spinner"></span>
 				Authenticate
 			</button>
