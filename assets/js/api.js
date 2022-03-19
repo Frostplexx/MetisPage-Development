@@ -1,58 +1,48 @@
-const topURL = "http://8184-2a02-810d-d40-65a0-d180-1fe0-37b0-dac8.ngrok.io"
+const topURL = "http://9ea1-2a02-810d-d40-65a0-9d82-62a2-8332-eab4.ngrok.io"
 export let code = "";
 
-export async function playMusic(_url) {
-	const postURL = topURL + "/api/music/player/create"
+export async function playMusic(songs) {
+	const postURL = topURL + "/api/player/create"
 	//generate random id
-	const id = Math.floor(Math.random() * 1000000)
 	const body = {
 		"pairing_code": code,
-		"songs": [
-			{
-				"song_id": id,
-				"url": _url,
-				"state": "playing",
-				"volume": "1",
-				"start_time": "0",
-			}
-		]
+		"songs": songs
 	}
-	const response = await runRequest("POST", body, postURL)
-	return {
-		id: id,
-		status: response.status
-	};
+	return runRequest("POST", body, postURL)
 }
 
 //pause music
-export async function pauseMusic(songid) {
-	const postURL = topURL + "/api/music/update/" + songid
+export async function pauseMusic() {
+	const postURL = topURL + "/api/player/update/" 
 	const body = {
 		"pairing_code": code,
-		"song": {
-			"song_id": songid,
-			"state": "paused",
-		}
+		"state": "paused",
+		"volume": document.getElementById("volume").value / 100,
 	}
 	const response = await runRequest("PUT", body, postURL)
 	console.log(response)
 	return response.status
 }
 
-export async function unpauseMusic(songid) {
-	const postURL = topURL + "/api/music/update/" + songid
+export async function unpauseMusic() {
+	const postURL = topURL + "/api/player/update/"
 	const body = {
 		"pairing_code": code,
-		"song": {
-			"song_id": songid,
-			"state": "playing",
-		}
+		"state": "playing",
+		"volume": document.getElementById("volume").value / 100
 	}
 	const response = await runRequest("PUT", body, postURL)
 	console.log(response)
 	return response.status
 }
 
+export async function skipMusic(){
+	const postURL = topURL + "/api/player/skip/"
+	const body = {
+		"pairing_code": code,
+	}
+	return runRequest("PUT", body, postURL)
+}
 
 //check if token is valid
 export async function authenticate(token) {

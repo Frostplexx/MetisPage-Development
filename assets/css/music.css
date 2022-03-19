@@ -22,7 +22,9 @@
     position: relative;
     margin: auto auto auto auto;
     top: 15rem;
+	transition: all 2s linear;
 }
+
 
 #submitbutton {
     margin: 30px auto auto auto;
@@ -66,7 +68,8 @@
 }
 
 #songTitle{
-	margin-top: 10px;
+	margin-top: 30px;
+	position: relative;
 }
 
 #play-btn{
@@ -74,6 +77,37 @@
 	float: right;
 }
 
+.btn-group{
+	margin-top: 30px !important;
+	position: relative;
+}
+
+#cover{
+	border-radius: 6%;
+}
+#icon{
+	width: fit-content;
+	height: fit-content;
+	padding-top: 30px !important;
+	padding-bottom: 30px !important;
+	padding-left: 30px !important;
+	padding-right: 30px !important;
+	border-radius: 5%;
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.5s 0s ease;
+	background-color: #282b2e;
+}
+
+#icon.active{
+	visibility: visible;
+	opacity: 1;
+	
+}
+
+#songlist{
+
+}
 /* The slider itself */
 
 .slider {
