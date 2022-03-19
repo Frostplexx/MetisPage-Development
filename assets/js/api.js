@@ -1,8 +1,8 @@
 const topURL = "http://8184-2a02-810d-d40-65a0-d180-1fe0-37b0-dac8.ngrok.io"
 export let code = "";
 
-export function playMusic(_url) {
-	const postURL = topURL + "/api/music/play"
+export async function playMusic(_url) {
+	const postURL = topURL + "/api/music/player/create"
 	//generate random id
 	const id = Math.floor(Math.random() * 1000000)
 	const body = {
@@ -17,12 +17,15 @@ export function playMusic(_url) {
 			}
 		]
 	}
-	runRequest("POST", body, postURL)
-	return id;
+	const response = await runRequest("POST", body, postURL)
+	return {
+		id: id,
+		status: response.status
+	};
 }
 
 //pause music
-export function pauseMusic(songid, _url) {
+export async function pauseMusic(songid) {
 	const postURL = topURL + "/api/music/update/" + songid
 	const body = {
 		"pairing_code": code,
@@ -31,7 +34,23 @@ export function pauseMusic(songid, _url) {
 			"state": "paused",
 		}
 	}
-	runRequest("PUT", body, postURL)
+	const response = await runRequest("PUT", body, postURL)
+	console.log(response)
+	return response.status
+}
+
+export async function unpauseMusic(songid) {
+	const postURL = topURL + "/api/music/update/" + songid
+	const body = {
+		"pairing_code": code,
+		"song": {
+			"song_id": songid,
+			"state": "playing",
+		}
+	}
+	const response = await runRequest("PUT", body, postURL)
+	console.log(response)
+	return response.status
 }
 
 
@@ -63,4 +82,13 @@ function runRequest(type, data, url) {
 			reject(xhr.statusText)
 		}
 	})
+}
+
+
+
+export async function getVideoTitle(url){
+	url.split("=");
+	let id = url.split("=")[1];
+	let res = await runRequest("POST", null, "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" + id);
+	return res.title;
 }

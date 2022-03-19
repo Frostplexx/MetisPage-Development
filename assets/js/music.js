@@ -1,10 +1,10 @@
-import { authenticate, setToken, playMusic, pauseMusic } from "./api.js";
+import { authenticate, setToken, playMusic, pauseMusic, unpauseMusic, getVideoTitle } from "./api.js";
 
 
 //authentication handling -- checks if token is valid
 const loginButton = document.getElementById("submitbutton");
 loginButton.addEventListener("click", login);
-
+let currentSong = null;
 async function login() {
 	const password = document.getElementById("sessionInput").value;
 	let loginwindow = document.getElementById("login");
@@ -21,21 +21,35 @@ async function login() {
 	}
 }
 
-// button event handling
+// List group click handling
 // const wrapper = document.getElementById("song-list-wrapper")
 // $('#song-list-wrapper a').addEventListener("click", (btnEvent) => mscBtnHandler(btnEvent));
-$('#song-list-wrapper a').on("click", (btnEvent) => mscBtnHandler(btnEvent));
+$('#song-list-wrapper a').on("click", (btnEvent) => mscListHandler(btnEvent));
 
-function mscBtnHandler(btnCLickEvent){
+function mscListHandler(btnCLickEvent){
 	//get the button that was clicked
 	let btn = btnCLickEvent.target;
 	//get the classes of the parent as a array
 	let classes = btn.classList;
 	//check if the parent has one of the event classes
 	console.log(classes);
-	if (classes.contains("play")) {
+	if (classes.contains("start")) {
 		//play the song
 		playSong(btn);
+	}
+}
+document.addEventListener("click", (btnEvent) => btnEventHanlder(btnEvent))
+
+function btnEventHanlder(btnCLickEvent){
+	//get the button that was clicked
+	let btn = btnCLickEvent.target.parentNode;
+	//get the classes of the parent as a array
+	let classes = btn.classList;
+	//check if the parent has one of the event classes
+	console.log(classes);
+	if (classes.contains("play")) {
+		//pause the song
+		unpauseSong(btn)
 	}
 	if (classes.contains("pause")) {
 		//pause the song
@@ -56,37 +70,56 @@ function mscBtnHandler(btnCLickEvent){
 }
 
 
-function playSong(btn){
+async function playSong(btn){
 	//get the song url
 	let url = btn.getElementsByClassName("song-url")[0].innerHTML;
-
 	console.log("URL: " + url);
-	let songId = playMusic(url);
+	let response = await playMusic(url);
+	let songId = response.id;
 	//get the children of the parent
-	delay(100).then(() => {changeButtonState(btn, "play", "pause");});
-	//add song id to the parent
-	document.getElementById("songTitle").innerText = btn.innerText;
-	document.getElementById("cover").src = parseYoutubeThumbnail(url);
-	console.log(btn.innerText)
-	btn.setAttribute("song-id", songId);
-	changePlayButtonState(true);
+	if(response.status){
+		delay(100).then(() => {changeButtonState(btn, "play", "pause");});
+		//add song id to the parent
+		document.getElementById("songTitle").innerText = btn.innerText;
+		document.getElementById("cover").src = parseYoutubeThumbnail(url);
+		document.getElementById("videoTitle").innerText = await getVideoTitle(url);
+		document.getElementById("btn-play").classList.remove("play");
+		document.getElementById("btn-play").classList.add("pause");
+		console.log(btn.innerText)
+		btn.setAttribute("song-id", songId);
+		currentSong = songId;
+		changePlayButtonState(true);
+	}
 }
 
 
 
-function pauseSong(parent){
-	let parent1 = parent.parentNode.parentNode;
-	let id = parent1.getAttribute("song-id");
-
-	let url = document.getElementById(parent1.id).getElementsByClassName("song-url")[0].innerHTML;
+async function pauseSong(parent){
 	//get the song id of the parent
-	pauseMusic(id, url);
-	changeButtonState(parent, "pause", "play");
-	let children = parent.children;
-	console.log(children)
-	children[0].classList.remove("fa-pause");
-	children[0].classList.add("fa-play");
-	console.log("Running pauseSong");
+	if(!currentSong) return
+	const resp = await pauseMusic(currentSong);
+	console.log(resp);
+	if(resp){
+		changeButtonState(parent, "pause", "play");
+		changePlayButtonState(false);
+		console.log("Running pauseSong");
+	} else {
+		console.log("Error pausing song");
+	}
+}
+
+async function unpauseSong(parent){
+	//get the song id of the parent
+	if(!currentSong) return
+	const resp = await unpauseMusic(currentSong);
+	console.log(resp);
+	if(resp){
+		changeButtonState(parent, "play", "pause");
+		changePlayButtonState(true);
+		console.log("Running unpauseSong");
+	} else {
+		console.log("Error unpausing song");
+	}
 }
 
 
@@ -94,9 +127,11 @@ function changePlayButtonState(state){
 	if(state){
 		$('#btn-play em').removeClass("fa-play");
 		$('#btn-play em').addClass("fa-pause");
+		console.log("show pause button")
 	} else if (!state){
 		$('#btn-play em').removeClass("fa-pause");
 		$('#btn-play em').addClass("fa-play");
+		console.log("show play button")
 	}
 }
 
@@ -116,3 +151,4 @@ function parseYoutubeThumbnail(url){
 	let id = url.split("=")[1];
 	return "https://img.youtube.com/vi/" + id + "/0.jpg";
 }
+
