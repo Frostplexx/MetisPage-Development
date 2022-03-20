@@ -88,6 +88,7 @@
 #icon{
 	width: fit-content;
 	height: fit-content;
+	min-width: 450px;
 	padding-top: 30px !important;
 	padding-bottom: 30px !important;
 	padding-left: 30px !important;
@@ -113,7 +114,7 @@
 .slider {
 	position: relative;
 	margin-top: 20px !important;
-	width: 20%;
+	width: 7rem;
     -webkit-appearance: none;
     border-radius: 5px;
     /* Override default CSS styles */

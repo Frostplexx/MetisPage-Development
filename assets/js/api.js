@@ -1,12 +1,15 @@
-const topURL = "http://9ea1-2a02-810d-d40-65a0-9d82-62a2-8332-eab4.ngrok.io"
+const topURL = "http://ea53-2a02-810d-d40-65a0-9d82-62a2-8332-eab4.ngrok.io"
 export let code = "";
 
 export async function playMusic(songs) {
+	let vol = document.getElementById("volume").value;
 	const postURL = topURL + "/api/player/create"
 	//generate random id
 	const body = {
 		"pairing_code": code,
-		"songs": songs
+		"songs": songs,
+		"volume": vol
+
 	}
 	return runRequest("POST", body, postURL)
 }
@@ -17,7 +20,6 @@ export async function pauseMusic() {
 	const body = {
 		"pairing_code": code,
 		"state": "paused",
-		"volume": document.getElementById("volume").value / 100,
 	}
 	const response = await runRequest("PUT", body, postURL)
 	console.log(response)
@@ -29,7 +31,6 @@ export async function unpauseMusic() {
 	const body = {
 		"pairing_code": code,
 		"state": "playing",
-		"volume": document.getElementById("volume").value / 100
 	}
 	const response = await runRequest("PUT", body, postURL)
 	console.log(response)
@@ -43,6 +44,16 @@ export async function skipMusic(){
 	}
 	return runRequest("PUT", body, postURL)
 }
+
+export async function changeVol(volume) {
+	const postURL = topURL + "/api/player/update/"
+	const body = {
+		"pairing_code": code,
+		"volume": (volume)
+	}
+	return runRequest("PUT", body, postURL)
+}
+
 
 //check if token is valid
 export async function authenticate(token) {

@@ -1,4 +1,28 @@
-import { authenticate, setToken, playMusic, pauseMusic, unpauseMusic, getVideoTitle, skipMusic } from "./api.js";
+import { authenticate, setToken, playMusic, pauseMusic, unpauseMusic, skipMusic, changeVol } from "./api.js";
+
+
+window.onload = async function () {
+	let pswd = document.getElementById("sessionInput").value;
+	console.log(pswd)
+	if(pswd !== "") {
+		let response = await authenticate(pswd);
+		if (response) {
+	
+			let loginwindow = document.getElementById("login");
+			let dashboardwindow = document.getElementById("dashboard");
+			loginwindow.style.display = "none";
+			loginwindow.style.opacity = "0";
+			dashboardwindow.style.display = "inline-block";
+			setToken(pswd);
+		} else {
+			document.getElementById("btn-spinner").style.display = "none";
+			document.getElementById("sessionInput").value = "";
+		}
+	}
+}
+
+
+
 
 
 //authentication handling -- checks if token is valid
@@ -42,13 +66,16 @@ function mscListHandler(btnCLickEvent) {
 document.addEventListener("click", (btnEvent) => btnEventHanlder(btnEvent))
 
 function btnEventHanlder(btnCLickEvent) {
+	
 	//get the button that was clicked
 	let btn = btnCLickEvent.target.parentNode;
 	//get the classes of the parent as a array
 	let classes = btn.classList;
+	console.log(classes)
 	//check if the parent has one of the event classes
 	if (classes.contains("play")) {
 		//pause the song
+		console.log("Play button clicked");
 		unpauseSong(btn)
 	}
 	if (classes.contains("pause")) {
@@ -66,6 +93,10 @@ function btnEventHanlder(btnCLickEvent) {
 	if (classes.contains("settings")) {
 		//edit the song
 		settingsSong(btn);
+	}
+
+	if(classes.contains("volume")){
+		changeVolume(btn);
 	}
 }
 
@@ -114,6 +145,12 @@ async function skipSong(btn) {
 		document.getElementById("cover").src = response.data.icon; 
 		document.getElementById("videoTitle").innerText = response.data.title
 	}
+	let res = await unpauseMusic();
+	if (res) {
+		const playbtn = document.getElementById("btn-play");
+		changeButtonState(playbtn, "play", "pause");
+		changePlayButtonState(true);
+	}
 }
 
 async function pauseSong(btn) {
@@ -131,7 +168,6 @@ async function pauseSong(btn) {
 
 async function unpauseSong(parent) {
 	//get the song id of the parent
-	if (!currentSong) return
 	const resp = await unpauseMusic();
 	console.log(resp);
 	if (resp) {
@@ -156,11 +192,19 @@ function changePlayButtonState(state) {
 	}
 }
 
+async function changeVolume(btn){
+	let volume = btn.children[1].value;
+	let res = await changeVol(volume);
+	console.log(res)
+	console.log(volume);
+}
+
 
 function changeButtonState(button, prevState, newState) {
 	button.classList.remove(prevState);
 	button.classList.add(newState);
 }
+
 
 function delay(time) {
 	return new Promise(resolve => setTimeout(resolve, time));
