@@ -1,13 +1,13 @@
-import { authenticate, setToken, playMusic, pauseMusic, unpauseMusic, skipMusic, changeVol } from "./api.js";
+import { authenticate, setToken, playMusic, pauseMusic, unpauseMusic, skipMusic, changeVol, getPlayerState } from "./api.js";
 
 
 window.onload = async function () {
 	let pswd = document.getElementById("sessionInput").value;
 	console.log(pswd)
-	if(pswd !== "") {
+	if (pswd !== "") {
 		let response = await authenticate(pswd);
 		if (response) {
-	
+			await setPlayerState(pswd);
 			let loginwindow = document.getElementById("login");
 			let dashboardwindow = document.getElementById("dashboard");
 			loginwindow.style.display = "none";
@@ -66,7 +66,7 @@ function mscListHandler(btnCLickEvent) {
 document.addEventListener("click", (btnEvent) => btnEventHanlder(btnEvent))
 
 function btnEventHanlder(btnCLickEvent) {
-	
+
 	//get the button that was clicked
 	let btn = btnCLickEvent.target.parentNode;
 	//get the classes of the parent as a array
@@ -95,7 +95,7 @@ function btnEventHanlder(btnCLickEvent) {
 		settingsSong(btn);
 	}
 
-	if(classes.contains("volume")){
+	if (classes.contains("volume")) {
 		changeVolume(btn);
 	}
 }
@@ -142,7 +142,7 @@ async function skipSong(btn) {
 	if (response.status) {
 		console.log("Icon: " + response.data.icon);
 		console.log("Title: " + response.data.title);
-		document.getElementById("cover").src = response.data.icon; 
+		document.getElementById("cover").src = response.data.icon;
 		document.getElementById("videoTitle").innerText = response.data.title
 	}
 	let res = await unpauseMusic();
@@ -192,7 +192,7 @@ function changePlayButtonState(state) {
 	}
 }
 
-async function changeVolume(btn){
+async function changeVolume(btn) {
 	let volume = btn.children[1].value;
 	let res = await changeVol(volume);
 	console.log(res)
@@ -211,9 +211,40 @@ function delay(time) {
 }
 
 
-function parseYoutubeThumbnail(url) {
-	url.split("=");
-	let id = url.split("=")[1];
-	return "https://img.youtube.com/vi/" + id + "/0.jpg";
+async function setPlayerState(token) {
+	const response = await getPlayerState(token);
+	if (!response.status) return;
+	const state = response.data
+	document.getElementById("icon").classList.add("active");
+	document.getElementById("cover").src = state.song.thumbnail;
+	document.getElementById("videoTitle").innerText = state.song.title;
+	document.getElementById("volume").value = state.volume;
+	if (state.state === "playing") {
+		document.getElementById("btn-play").classList.remove("play");
+		document.getElementById("btn-play").classList.add("pause");
+		changePlayButtonState(true);
+	}
+	var conty = document.getElementById("song-list-wrapper"),
+		divs = conty.querySelectorAll("div"),
+		myDiv = [...divs].filter(e => e.innerText == state.song.url);
+	const playlist = myDiv[0].parentNode.parentNode;
+	let child = playlist.firstChild,
+		texts = [];
+
+	while (child) {
+		if (child.nodeType == 3) {
+			texts.push(child.data);
+		}
+		child = child.nextSibling;
+	}
+
+	document.getElementById("songTitle").innerText = texts.join("").trim();
 }
 
+
+//tmp 
+/* <div class="playlist">
+<div class="song-url">https://www.youtube.com/watch?v=M-mtdN6R3bQ</div>
+<div class="song-url">https://www.youtube.com/watch?v=zGDzdps75ns</div>
+<div class="song-url">https://www.youtube.com/watch?v=CViLf52pZDs</div>
+</div> */

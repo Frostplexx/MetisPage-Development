@@ -1,4 +1,4 @@
-const topURL = "http://ea53-2a02-810d-d40-65a0-9d82-62a2-8332-eab4.ngrok.io"
+const topURL = "http://d8ba-2a02-810d-d40-65a0-d0d-e32a-c8ba-6e4.ngrok.io"
 export let code = "";
 
 export async function playMusic(songs) {
@@ -68,6 +68,13 @@ export async function authenticate(token) {
 
 export function setToken(token) {
 	code = token
+}
+
+export async function getPlayerState(tkn) {
+	const __url = topURL + "/api/player/get/" + tkn;
+	const body = {}
+	console.log("Token: " + tkn)
+	return runRequest("GET", body, __url);
 }
 
 function runRequest(type, data, url) {
