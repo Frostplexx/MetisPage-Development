@@ -1,26 +1,41 @@
-import { 
-	authenticate,
-	setToken,
-	playMusic,
-	pauseMusic,
-	unpauseMusic,
-	skipMusic,
-	changeVol,
-	getPlayerState,
- } from "./websocket.js";
+import { callSocket } from "./api";
+
+
+window.onload = async function () {
+	callSocket();
+	let pswd = document.getElementById("sessionInput").value;
+	console.log(pswd)
+	if (pswd !== "") {
+		let response = await authenticate(pswd);
+		if (response) {
+			await setPlayerState(pswd);
+			let loginwindow = document.getElementById("login");
+			let dashboardwindow = document.getElementById("dashboard");
+			loginwindow.style.display = "none";
+			loginwindow.style.opacity = "0";
+			dashboardwindow.style.display = "inline-block";
+			setToken(pswd);
+		} else {
+			document.getElementById("btn-spinner").style.display = "none";
+			document.getElementById("sessionInput").value = "";
+		}
+	}
+}
+
+
+
 
 
 //authentication handling -- checks if token is valid
 const loginButton = document.getElementById("submitbutton");
 loginButton.addEventListener("click", login);
-
+let currentSong = null;
 async function login() {
 	const password = document.getElementById("sessionInput").value;
 	let loginwindow = document.getElementById("login");
 	let dashboardwindow = document.getElementById("dashboard");
 	let response = await authenticate(password);
 	if (response) {
-		await setPlayerState(password);
 		loginwindow.style.display = "none";
 		loginwindow.style.opacity = "0";
 		document.getElementById("btn-spinner").style.display = "none";
@@ -49,8 +64,8 @@ function mscListHandler(btnCLickEvent) {
 		playSong(btn);
 	}
 }
-
 document.addEventListener("click", (btnEvent) => btnEventHanlder(btnEvent))
+
 function btnEventHanlder(btnCLickEvent) {
 
 	//get the button that was clicked
@@ -87,9 +102,6 @@ function btnEventHanlder(btnCLickEvent) {
 }
 
 
-
-
-// --------- music player functions ----------//
 async function playSong(btn) {
 	//get the song url
 	let songs = [];
@@ -107,7 +119,6 @@ async function playSong(btn) {
 		}
 	})
 	let response = await playMusic(songs);
-	console.log(response);
 	let songId = response.id;
 	console.log(response)
 	//get the children of the parent
@@ -121,10 +132,27 @@ async function playSong(btn) {
 		document.getElementById("btn-play").classList.remove("play");
 		document.getElementById("btn-play").classList.add("pause");
 		btn.setAttribute("song-id", songId);
+		currentSong = songId;
 		changePlayButtonState(true);
 	}
 }
 
+async function skipSong(btn) {
+	//get the song url
+	let response = await skipMusic();
+	if (response.status) {
+		console.log("Icon: " + response.data.icon);
+		console.log("Title: " + response.data.title);
+		document.getElementById("cover").src = response.data.icon;
+		document.getElementById("videoTitle").innerText = response.data.title
+	}
+	let res = await unpauseMusic();
+	if (res) {
+		const playbtn = document.getElementById("btn-play");
+		changeButtonState(playbtn, "play", "pause");
+		changePlayButtonState(true);
+	}
+}
 
 async function pauseSong(btn) {
 	//get the song id of the parent
@@ -152,84 +180,6 @@ async function unpauseSong(parent) {
 	}
 }
 
-async function skipSong(btn) {
-	//get the song url
-	let response = await skipMusic();
-	if (response.status) {
-		console.log("Icon: " + response.data.icon);
-		console.log("Title: " + response.data.title);
-		document.getElementById("cover").src = response.data.icon;
-		document.getElementById("videoTitle").innerText = response.data.title
-	}
-	let res = await unpauseMusic();
-	if (res) {
-		const playbtn = document.getElementById("btn-play");
-		changeButtonState(playbtn, "play", "pause");
-		changePlayButtonState(true);
-	}
-}
-
-async function changeVolume(btn) {
-	let volume = btn.children[1].value;
-	let res = await changeVol(volume);
-	console.log(res)
-	console.log(volume);
-}
-
-// -------------------//
-
-async function setPlayerState(token) {
-	const response = await getPlayerState(token);
-	const state = response.data
-	if (!response.status || state.song.url === undefined) return;
-	updatePlayer(state.song.thumbnail, state.song.title,state.volume, state.state, state.song.url);
-}
-
-
-
-/**
- * Update the player with the given data
- * @param  {} thubmnail
- * @param  {} title
- * @param  {} volume
- * @param  {} playState
- * @param  {} url
- */
-export function updatePlayer(thubmnail, title, volume, playState, url) {
-	document.getElementById("icon").classList.add("active");
-	document.getElementById("cover").src = thubmnail;
-	document.getElementById("videoTitle").innerText = title;
-	document.getElementById("volume").value = volume;
-	if (playState === "playing") {
-		document.getElementById("btn-play").classList.remove("play");
-		document.getElementById("btn-play").classList.add("pause");
-		changePlayButtonState(true);
-	}
-	// get the playlist title
-	var conty = document.getElementById("song-list-wrapper"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
-	const playlist = myDiv[0].parentNode.parentNode;
-	let child = playlist.firstChild, texts = [];
-
-	while (child) {
-		if (child.nodeType == 3) {
-			texts.push(child.data);
-		}
-		child = child.nextSibling;
-	}
-
-	document.getElementById("songTitle").innerText = texts.join("").trim();
-}
-
-// --------- helper functions ----------//
-function delay(time) {
-	return new Promise(resolve => setTimeout(resolve, time));
-}
-
-function changeButtonState(button, prevState, newState) {
-	button.classList.remove(prevState);
-	button.classList.add(newState);
-}
-
 
 function changePlayButtonState(state) {
 	if (state) {
@@ -242,3 +192,61 @@ function changePlayButtonState(state) {
 		console.log("show play button")
 	}
 }
+
+async function changeVolume(btn) {
+	let volume = btn.children[1].value;
+	let res = await changeVol(volume);
+	console.log(res)
+	console.log(volume);
+}
+
+
+function changeButtonState(button, prevState, newState) {
+	button.classList.remove(prevState);
+	button.classList.add(newState);
+}
+
+
+function delay(time) {
+	return new Promise(resolve => setTimeout(resolve, time));
+}
+
+
+async function setPlayerState(token) {
+	const response = await getPlayerState(token);
+	if (!response.status) return;
+	const state = response.data
+	document.getElementById("icon").classList.add("active");
+	document.getElementById("cover").src = state.song.thumbnail;
+	document.getElementById("videoTitle").innerText = state.song.title;
+	document.getElementById("volume").value = state.volume;
+	if (state.state === "playing") {
+		document.getElementById("btn-play").classList.remove("play");
+		document.getElementById("btn-play").classList.add("pause");
+		changePlayButtonState(true);
+	}
+	var conty = document.getElementById("song-list-wrapper"),
+		divs = conty.querySelectorAll("div"),
+		myDiv = [...divs].filter(e => e.innerText == state.song.url);
+	const playlist = myDiv[0].parentNode.parentNode;
+	let child = playlist.firstChild,
+		texts = [];
+
+	while (child) {
+		if (child.nodeType == 3) {
+			texts.push(child.data);
+		}
+		child = child.nextSibling;
+	}
+
+	document.getElementById("songTitle").innerText = texts.join("").trim();
+}
+
+
+//tmp 
+
+/* <div class="playlist">
+	<div class="song-url">https://www.youtube.com/watch?v=xNN7iTA57jM</div>
+	<div class="song-url">https://www.youtube.com/watch?v=qRTVg8HHzUo</div>
+	<div class="song-url">https://www.youtube.com/watch?v=ipf7ifVSeDU</div>
+</div> */
