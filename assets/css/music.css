@@ -5,43 +5,92 @@
     --background-color-darkest: #202225;
 }
 
-#sessionInput {
-    width: 50%;
-    margin: 45px auto auto auto;
-}
-
-#login h1 {
-    filter: brightness(0.8);
-}
-
-#login h5 {
-    filter: brightness(0.6);
-}
 
 #login {
     position: relative;
     margin: auto auto auto auto;
-    top: 15rem;
-	transition: all 2s linear;
 }
-
-
-#submitbutton {
-    margin: 30px auto auto auto;
-}
-
-
 
 #dashboard {
-    text-align: left;
     display: none;
 }
 
+#songlist{
+	overflow: scroll;
+	max-height: 600px;
+}
+
+.card{
+	margin: 20px;
+}
+
+.card:hover{
+	filter: brightness(0.6);
+	transition: all 0.15s;
+}
+
+a:hover .card:hover{
+	filter: brightness(1);
+}
 
 #dashboard .list-group {
 	margin-left: 5%;
     border-radius: 5px;
     filter: brightness(0.8);
+}
+
+#dashboard .list-group a:hover{
+	filter: brightness(0.9);
+}
+
+#player{
+	position: relative;
+	background: rgb(32,34,37);
+	background: linear-gradient(180deg, rgba(32,34,37,1) 0%, rgba(78,25,27,1) 100%); 
+	min-width: 30%;
+	max-width: 95%;
+	min-height: 100%;
+	margin-bottom: 0;
+	margin-top: auto;
+	margin-right: 5%;
+	border-radius: 40px;
+	padding-top: 50px !important; 
+}
+
+#btn-background{
+	color: white;
+	background-color: rgba(0, 0, 0, 0.5);
+	width: fit-content;
+	height: fit-content;
+	padding: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	border-radius: 40px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	backdrop-filter: blur(5px);
+}
+
+#songlist{
+	position: relative;
+	background: var(--background-color-darkest); 
+	border-radius: 40px;
+	margin: 30px !important;
+	float: right;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	margin-top: 0px;
+}
+
+#cover{
+	margin: auto;
+	min-width: 200px;
+	min-height: 250px;
+	max-height: 250px;
+	max-width: 250px;
+	background-size: cover;
+	background-position: center;
+	border-radius: 30px;
 }
 
 .edit-btn{
@@ -63,52 +112,9 @@
     display: none;
 }
 
-#dashboard .list-group a:hover{
-	filter: brightness(0.9);
-}
 
-#songTitle{
-	margin-top: 30px;
-	position: relative;
-}
 
-#play-btn{
-	position: relative;
-	float: right;
-}
 
-.btn-group{
-	margin-top: 30px !important;
-	position: relative;
-}
-
-#cover{
-	border-radius: 6%;
-}
-#icon{
-	width: fit-content;
-	height: fit-content;
-	min-width: 450px;
-	padding-top: 30px !important;
-	padding-bottom: 30px !important;
-	padding-left: 30px !important;
-	padding-right: 30px !important;
-	border-radius: 5%;
-	visibility: hidden;
-	opacity: 0;
-	transition: all 0.5s 0s ease;
-	background-color: #282b2e;
-}
-
-#icon.active{
-	visibility: visible;
-	opacity: 1;
-	
-}
-
-#songlist{
-
-}
 /* The slider itself */
 
 .slider {
@@ -163,10 +169,10 @@
 
 #volume {
     text-align: center;
-    margin-top: 5px;
     text-align: left;
     margin-bottom: auto;
     margin-right: 20px;
+	min-width: 150px;
 }
 
 .song-url{

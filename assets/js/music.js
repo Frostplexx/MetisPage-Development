@@ -1,4 +1,4 @@
-import { 
+import {
 	authenticate,
 	setToken,
 	playMusic,
@@ -7,7 +7,7 @@ import {
 	skipMusic,
 	changeVol,
 	getPlayerState,
- } from "./websocket.js";
+} from "./websocket.js";
 
 
 //authentication handling -- checks if token is valid
@@ -23,7 +23,6 @@ async function login() {
 		await setPlayerState(password);
 		loginwindow.style.display = "none";
 		loginwindow.style.opacity = "0";
-		document.getElementById("btn-spinner").style.display = "none";
 		dashboardwindow.style.display = "inline-block";
 		setToken(password);
 	} else {
@@ -59,6 +58,7 @@ function btnEventHanlder(btnCLickEvent) {
 	let classes = btn.classList;
 	console.log(classes)
 	//check if the parent has one of the event classes
+	if (classes === undefined) return;
 	if (classes.contains("play")) {
 		//pause the song
 		console.log("Play button clicked");
@@ -113,13 +113,11 @@ async function playSong(btn) {
 	//get the children of the parent
 	if (response.status) {
 		delay(100).then(() => { changeButtonState(btn, "play", "pause"); });
+		console.log(songs[1].url)
+		document.getElementById("player").classList.add("active");
+		updatePlayer(response.data.icon, response.data.title, document.getElementById("volume").value, "playing",songs[1].url);
+		changePlayButtonState(true);
 		//add song id to the parent
-		document.getElementById("icon").classList.add("active");
-		document.getElementById("songTitle").innerText = btn.innerText;
-		document.getElementById("cover").src = response.data.icon;
-		document.getElementById("videoTitle").innerText = response.data.title;
-		document.getElementById("btn-play").classList.remove("play");
-		document.getElementById("btn-play").classList.add("pause");
 		btn.setAttribute("song-id", songId);
 		changePlayButtonState(true);
 	}
@@ -156,9 +154,9 @@ async function skipSong(btn) {
 	//get the song url
 	let response = await skipMusic();
 	if (response.status) {
-		console.log("Icon: " + response.data.icon);
+		console.log("player: " + response.data.player);
 		console.log("Title: " + response.data.title);
-		document.getElementById("cover").src = response.data.icon;
+		document.getElementById("cover").src = response.data.player;
 		document.getElementById("videoTitle").innerText = response.data.title
 	}
 	let res = await unpauseMusic();
@@ -181,8 +179,8 @@ async function changeVolume(btn) {
 async function setPlayerState(token) {
 	const response = await getPlayerState(token);
 	const state = response.data
-	if (!response.status || state.song.url === undefined) return;
-	updatePlayer(state.song.thumbnail, state.song.title,state.volume, state.state, state.song.url);
+	if (!response.status || state.song.url === undefined) return;
+	updatePlayer(state.song.thumbnail, state.song.title, state.volume, state.state, state.song.url);
 }
 
 
@@ -196,28 +194,28 @@ async function setPlayerState(token) {
  * @param  {} url
  */
 export function updatePlayer(thubmnail, title, volume, playState, url) {
-	document.getElementById("icon").classList.add("active");
-	document.getElementById("cover").src = thubmnail;
+	document.getElementById("player").classList.add("active");
+	document.getElementById("cover").style.backgroundImage = `url(${thubmnail})`;
 	document.getElementById("videoTitle").innerText = title;
 	document.getElementById("volume").value = volume;
 	if (playState === "playing") {
 		document.getElementById("btn-play").classList.remove("play");
 		document.getElementById("btn-play").classList.add("pause");
-		changePlayButtonState(true);
+		changePlayButtonState(false);
 	}
 	// get the playlist title
-	var conty = document.getElementById("song-list-wrapper"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
-	const playlist = myDiv[0].parentNode.parentNode;
-	let child = playlist.firstChild, texts = [];
+	// var conty = document.getElementById("song-list-wrapper"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
+	// const playlist = myDiv[0].parentNode.parentNode;
+	// let child = playlist.firstChild, texts = [];
 
-	while (child) {
-		if (child.nodeType == 3) {
-			texts.push(child.data);
-		}
-		child = child.nextSibling;
-	}
+	// while (child) {
+	// 	if (child.nodeType == 3) {
+	// 		texts.push(child.data);
+	// 	}
+	// 	child = child.nextSibling;
+	// }
 
-	document.getElementById("songTitle").innerText = texts.join("").trim();
+	// document.getElementById("songTitle").innerText = texts.join("").trim();
 }
 
 // --------- helper functions ----------//

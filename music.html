@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<link rel="stylesheet" href="assets/css/music.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 	<script type="module" src="assets/js/music.js"></script>
 	<link rel="icon" href="assets/images/logo.png">
 	<base href=".">
@@ -24,76 +25,112 @@
 <body>
 	<div id="header"></div>
 	<div id="login" class="container my-3 col-10 text-center">
-		<h1 class="display-5 fw-bold text-center">Please enter your Session ID</h1>
-		<h5 class="display-10 text-center">This is required to authenticate with the discord server</h5>
-		<div class="form-group">
-			<input type="text" class="form-control" id="sessionInput" aria-describedby="emailHelp"
-				placeholder="Session ID">
-			<button type="submit" class="btn btn-primary text-center" id="submitbutton">
-				<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="btn-spinner"></span>
-				Authenticate
-			</button>
+		<img src="assets/images/Login Icon.svg" alt="Login logo" class="img-fluid">
+		<h1 class="display-4 fw-bold text-center" style="margin-top: 10px;">
+			Please enter your Session ID
+		</h1>
+		<h4 class="display-7 text-center fw-semi-bold" style="filter: brightness(0.6);">This is required to authenticate
+			with the discord server</h4>
+		<div style="width: fit-content; margin: auto;">
+			<div class="form-group text-center d-flex justify-content-center">
+				<div class="input-group" style="height: 2.5rem; margin-top: 50px; width: 600px;">
+					<input type="text" class="form-control fw-semi-bold" id="sessionInput" aria-describedby="emailHelp"
+						placeholder="Session ID">
+					<button type="submit" class="btn btn-primary text-center text-white fw-bold" id="submitbutton">
+						Enter
+						<em class="fas fa-sign-in"></em>
+					</button>
+
+				</div>
+			</div>
+			<a href="https://docs.metisbot.xyz"
+				style="color: inherit; filter: brightness(0.6); float: left; margin-top: 3px;" class="fw-light">I need
+				Help</a>
 		</div>
 	</div>
 
 
 	<div id="dashboard" class="container-fluid">
 		<div class="row">
-			<div class="col-lg float-left" id="songlist">
-				<ul class="list-group" id="song-list-wrapper">
-					<h4 class="text-center">Playlists</h4>
-					<a class="list-group-item list-group-item-action bg-dark text-white start">
-						<div class="playlist">
-							<div class="song-url">https://www.youtube.com/watch?v=M-mtdN6R3bQ</div>
-							<div class="song-url">https://www.youtube.com/watch?v=zGDzdps75ns</div>
-							<div class="song-url">https://www.youtube.com/watch?v=CViLf52pZDs</div>
-						</div>
-						Outdoor Music
-						<button type="button" class="btn btn-primary btn-sm edit-btn"><em class="fa-solid fa-pen"></em></button>
-					</a>
-					<a class="list-group-item list-group-item-action bg-dark text-white start">
-						<div class="playlist">
-							<div class="song-url">https://www.youtube.com/watch?v=rv3Nl-Od9YU</div>
-							<div class="song-url">https://www.youtube.com/watch?v=uZqn5YxgQ1I</div>
-							<div class="song-url">https://www.youtube.com/watch?v=vyg5jJrZ42s</div>
-						</div>
-						Tavern Ambient
-						<button type="button" class="btn btn-primary btn-sm edit-btn"><em class="fa-solid fa-pen"></em></button>
-					</a>
-					<a class="list-group-item list-group-item-action bg-dark text-white start">
-						<div class="playlist">
-							<div class="song-url">https://www.youtube.com/watch?v=3Hwr_BaekgM</div>
-							<div class="song-url">https://www.youtube.com/watch?v=kxqJuc1HHbg</div>
-							<div class="song-url">https://www.youtube.com/watch?v=PpC3mSaIX_o</div>
-						</div>
-						Cave Ambient
-						<button type="button" class="btn btn-primary btn-sm edit-btn"><em class="fa-solid fa-pen"></em></button>
-					</a>
-					<a class="list-group-item list-group-item-action bg-dark text-white start">
-						<div class="playlist">
-							<div class="song-url">https://www.youtube.com/watch?v=w0sUw735gRw</div>
-							<div class="song-url">https://www.youtube.com/watch?v=NtqRjGP3uoY</div>
-							<div class="song-url">https://www.youtube.com/watch?v=4szfmKTFoXA</div>
-						</div>						
-						Fight Music
-						<button type="button" class="btn btn-primary btn-sm edit-btn"><em class="fa-solid fa-pen"></em></button>
-					</a>
-					<button type="button" class="btn btn-primary btn-sm add-btn">Add Music <em class="fa-solid fa-plus"></em></button>
-				</ul>
-			</div>
-			<div class="col-lg float-right" id="player">
-				<div id="icon" class="container-fluid text-center">
-					<img src="" class="d-block mx-lg-auto img-responsive" width="256" height="256" alt="cover art" id="cover">
-					<h3 class="h3 text-center" id="songTitle">Title</h3>
-					<h5 class="h5 text-center text-muted" id="videoTitle">Video Title</h5>
-					<div class="btn-group" role="group" aria-label="Basic example">
-						<button type="button" class="btn btn-primary btn-lg play-btn play" id="btn-play"><em class="fa-solid fa-play"></em></button>
-						<button type="button" class="btn btn-primary btn-lg skip" id="skip"><em class="fa-solid fa-forward"></em></button>
+			<div class="col-lg-8 float-left" id="songlist">
+				<div class="card bg-dark" style="width: 13rem; border-radius: 15px; padding: 10px">
+					<img class="card-img-top" src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Card image cap" style="border-radius: 15px;">
+					<div class="card-body">
+						<h5 class="card-title">Ambient Outdoor</h5>
+						<p class="card-text text-muted">3 Songs</p>
+						<a class="btn btn-primary" style="float: inline-end;">
+							<em class="fa-solid fa-pen"></em>
+						</a>
 					</div>
-					<div class="slidecontainer volume">
-						<em class="fa-solid fa-volume-high"></em>
-						<input type="range" min="1" max="100" value="50" class="slider" id="volume">
-					  </div>
+				</div>
+
+				<div class="card bg-dark" style="width: 13rem; border-radius: 15px; padding: 10px">
+					<img class="card-img-top" src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Card image cap" style="border-radius: 15px;">
+					<div class="card-body">
+						<h5 class="card-title">Ambient Outdoor</h5>
+						<p class="card-text text-muted">3 Songs</p>
+						<a class="btn btn-primary" style="float: inline-end;">
+							<em class="fa-solid fa-pen"></em>
+						</a>
+					</div>
+				</div>
+
+				<div class="card bg-dark" style="width: 13rem; border-radius: 15px; padding: 10px">
+					<img class="card-img-top" src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Card image cap" style="border-radius: 15px;">
+					<div class="card-body">
+						<h5 class="card-title">Ambient Outdoor</h5>
+						<p class="card-text text-muted">3 Songs</p>
+						<a class="btn btn-primary" style="float: inline-end;">
+							<em class="fa-solid fa-pen"></em>
+						</a>
+					</div>
+				</div>
+
+				<div class="card bg-dark" style="width: 13rem; border-radius: 15px; padding: 10px">
+					<img class="card-img-top" src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Card image cap" style="border-radius: 15px;">
+					<div class="card-body">
+						<h5 class="card-title">Ambient Outdoor</h5>
+						<p class="card-text text-muted">3 Songs</p>
+						<a class="btn btn-primary" style="float: inline-end;">
+							<em class="fa-solid fa-pen"></em>
+						</a>
+					</div>
+				</div>
+
+				<div class="card bg-dark" style="width: 13rem; border-radius: 15px; padding: 10px">
+					<img class="card-img-top" src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Card image cap" style="border-radius: 15px;">
+					<div class="card-body">
+						<h5 class="card-title">Ambient Outdoor</h5>
+						<p class="card-text text-muted">3 Songs</p>
+						<a class="btn btn-primary" style="float: inline-end;">
+							<em class="fa-solid fa-pen"></em>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col float-right" id="player-grid">
+				<div id="player" class="container-fluid text-center">
+					<div id="cover">
+
+					</div>
+					<h3 class="text-center fw-bold" id="songTitle" style="margin-top: 80px; font-size: 36px">Title</h3>
+					<h5 class="h5 text-center text-muted" id="videoTitle">Video Title</h5>
+
+
+					<div id="btn-background">
+						<div class="btn-group" role="group" aria-label="Basic example"
+							style="-webkit-box-shadow: 0px 0px 10px 0px rgba(255,0,0,0.4); box-shadow: 0px 0px 10px 0px rgba(255,0,0,0.4);">
+							<button type="button" class="btn btn-primary btn-lg play-btn play" id="btn-play"><em
+									class="fa-solid fa-play"></em></button>
+							<button type="button" class="btn btn-primary btn-lg skip" id="skip"><em
+									class="fa-solid fa-forward"></em></button>
+						</div>
+						<div class="slidecontainer volume" style="margin-top: 20px;">
+							<em class="fa-solid fa-volume-high"></em>
+							<input type="range" min="1" max="100" value="50" class="slider" id="volume">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
