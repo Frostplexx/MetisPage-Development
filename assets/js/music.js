@@ -31,23 +31,6 @@ async function login() {
 	}
 }
 
-// List group click handling
-// const wrapper = document.getElementById("song-list-wrapper")
-// $('#song-list-wrapper a').addEventListener("click", (btnEvent) => mscBtnHandler(btnEvent));
-$('#song-list-wrapper a').on("click", (btnEvent) => mscListHandler(btnEvent));
-
-function mscListHandler(btnCLickEvent) {
-	//get the button that was clicked
-	let btn = btnCLickEvent.target;
-	//get the classes of the parent as a array
-	let classes = btn.classList;
-	//check if the parent has one of the event classes
-	console.log(classes);
-	if (classes.contains("start")) {
-		//play the song
-		playSong(btn);
-	}
-}
 
 document.addEventListener("click", (btnEvent) => btnEventHanlder(btnEvent))
 function btnEventHanlder(btnCLickEvent) {
@@ -56,7 +39,6 @@ function btnEventHanlder(btnCLickEvent) {
 	let btn = btnCLickEvent.target.parentNode;
 	//get the classes of the parent as a array
 	let classes = btn.classList;
-	console.log(classes)
 	//check if the parent has one of the event classes
 	if (classes === undefined) return;
 	if (classes.contains("play")) {
@@ -84,6 +66,9 @@ function btnEventHanlder(btnCLickEvent) {
 	if (classes.contains("volume")) {
 		changeVolume(btn);
 	}
+	if (classes.contains("start")) {
+		playSong(btn);
+	}
 }
 
 
@@ -93,9 +78,8 @@ function btnEventHanlder(btnCLickEvent) {
 async function playSong(btn) {
 	//get the song url
 	let songs = [];
-	console.log(btn);
 	//get playlist div from btn
-	const playlist = btn.getElementsByClassName("playlist")[0];
+	const playlist = btn.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("playlist")[0];
 	playlist.childNodes.forEach(song => {
 		const id = Math.floor(Math.random() * 1000000)
 		if (song.innerHTML !== "") {
@@ -204,18 +188,10 @@ export function updatePlayer(thubmnail, title, volume, playState, url) {
 		changePlayButtonState(false);
 	}
 	// get the playlist title
-	// var conty = document.getElementById("song-list-wrapper"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
-	// const playlist = myDiv[0].parentNode.parentNode;
-	// let child = playlist.firstChild, texts = [];
-
-	// while (child) {
-	// 	if (child.nodeType == 3) {
-	// 		texts.push(child.data);
-	// 	}
-	// 	child = child.nextSibling;
-	// }
-
-	// document.getElementById("songTitle").innerText = texts.join("").trim();
+	var conty = document.getElementById("playlists-container"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
+	const playlistName = myDiv[0].parentNode.parentNode.children[0].children[1].children[0].innerText;
+	console.log(playlistName);
+	document.getElementById("songTitle").innerText = playlistName;
 }
 
 // --------- helper functions ----------//
@@ -239,4 +215,28 @@ function changePlayButtonState(state) {
 		$('#btn-play em').addClass("fa-play");
 		console.log("show play button")
 	}
+}
+
+// modal-js
+$('#myModal').on('shown.bs.modal', function () {
+	$('#myInput').trigger('focus')
+  })
+
+
+window.onload = function ()  {
+	let children = document.getElementById("playlists-container").children;
+	for (const child of children) {
+		if(child.classList.contains("playlist-card")){
+			//set icon and amount of songs
+			const playlist = child.children[1]
+			const card = child.children[0] 
+			card.children[1].children[1].innerText = playlist.childElementCount + " Songs";
+			let thubmnailId = playlist.children[0].innerHTML.split("=")[1];
+			card.children[0].src = `https://img.youtube.com/vi/${thubmnailId}/hqdefault.jpg`;
+		
+		}
+	}
+
+	// load the local storage
+
 }
