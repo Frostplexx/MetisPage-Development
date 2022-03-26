@@ -3,7 +3,7 @@ import { updatePlayer } from "./music.js";
 export let code = "";
 
 //------- setting up ping-pong mechanism --------//
-var connection = new WebSocket('ws://4.tcp.ngrok.io:13547');
+var connection = new WebSocket('ws://0.tcp.ngrok.io:13503');
 var tm;
 function ping() {
 	connection.send(JSON.stringify({
@@ -12,6 +12,7 @@ function ping() {
 	tm = setTimeout(function () {
 		/// ---connection closed ///
 		console.error('connection closed');
+		document.getElementById("connection-status").innerHTML = 'Status: <em class="fas fa-unlink"></em> Disconnected'
 	}, 5000);
 }
 
@@ -112,6 +113,7 @@ async function makeRequest(body) {
 					checkresponse(msg);
 					resolve(JSON.parse(msg));
 				} else if(msg == '__pong__') {
+					document.getElementById("connection-status").innerHTML = 'Status: <em class="fas fa-link"></em> Connected'
 					pong();
 				}
 			}

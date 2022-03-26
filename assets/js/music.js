@@ -20,13 +20,14 @@ async function login() {
 	let dashboardwindow = document.getElementById("dashboard");
 	let response = await authenticate(password);
 	if (response) {
+		document.getElementById("connection-status").innerHTML = 'Status: <em class="fas fa-link"></em> Connected'
+		document.getElementById("session-id").innerText = password
 		await setPlayerState(password);
 		loginwindow.style.display = "none";
 		loginwindow.style.opacity = "0";
 		dashboardwindow.style.display = "inline-block";
 		setToken(password);
 	} else {
-		document.getElementById("btn-spinner").style.display = "none";
 		alert("Wrong Session ID");
 	}
 }
@@ -69,7 +70,7 @@ function btnEventHanlder(btnCLickEvent) {
 		playSong(btn);
 	}
 	if (classes.contains("add-song")) {
-		addSongInput(btn);
+		addSongInput("", "playlist-creator-urls");
 	}
 }
 
@@ -191,7 +192,7 @@ export function updatePlayer(thubmnail, title, volume, playState, url) {
 	}
 	// get the playlist title
 	var conty = document.getElementById("playlists-container"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
-	if(myDiv[0] === undefined) return; 
+	if (myDiv[0] === undefined) return;
 	const playlistName = myDiv[0].parentNode.parentNode.children[0].children[1].children[0].innerText;
 	console.log(playlistName);
 	document.getElementById("songTitle").innerText = playlistName;
@@ -222,23 +223,23 @@ function changePlayButtonState(state) {
 
 
 // --------- getting playlists info for dashboard ----------//
-window.onload = function ()  {
+window.onload = function () {
 	let children = document.getElementById("playlists-container").children;
 	for (const child of children) {
-		if(child.classList.contains("playlist-card")){
+		if (child.classList.contains("playlist-card")) {
 			//set icon and amount of songs
 			const playlist = child.children[1]
-			const card = child.children[0] 
+			const card = child.children[0]
 			card.children[1].children[1].innerText = playlist.childElementCount + " Songs";
 			let thubmnailId = playlist.children[0].innerHTML.split("=")[1];
 			card.children[0].src = `https://img.youtube.com/vi/${thubmnailId}/hqdefault.jpg`;
-		
+
 		}
 	}
 
 	// load the local storage
 	let playlists = JSON.parse(localStorage.getItem("playlists"));
-	if(playlists && playlists !== "{}"){
+	if (playlists && playlists !== "{}") {
 		allPlaylists = new Map(Object.entries(playlists));
 		loadPlaylists();
 	}
@@ -251,13 +252,14 @@ window.onload = function ()  {
 // add new song input field when you click on the add button
 var allPlaylists = new Map();
 
-document.getElementById("add-song-btn").addEventListener("click",(btnEvent) => addSongInput(btnEvent));
-function addSongInput(btnEvent) {
+document.getElementById("add-song-btn").addEventListener("click", () => addSongInput("", "playlist-creator-urls"));
+
+function addSongInput(value = "", appendID) {
+	console.log(appendID)
 	// create input group
 	const inputGroup = document.createElement("div");
 	inputGroup.classList.add("input-group");
 	inputGroup.style.marginTop = "10px";
-
 
 	//create the actual input field
 	const input = document.createElement("input");
@@ -265,6 +267,10 @@ function addSongInput(btnEvent) {
 	input.setAttribute("type", "text");
 	inputGroup.appendChild(input);
 
+	if (value !== "") {
+		console.log("adding value " + value);
+		input.value = value;
+	}
 
 	//creae the remove button
 	const removeBtn = document.createElement("button");
@@ -273,7 +279,8 @@ function addSongInput(btnEvent) {
 	//add the remove icon
 	removeBtn.innerHTML = `<em class="fa-solid fa-xmark"></em>`;
 	inputGroup.appendChild(removeBtn);
-	document.getElementById("playlist-creator-urls").appendChild(inputGroup);
+	document.getElementById(appendID).appendChild(inputGroup);
+
 }
 
 
@@ -283,9 +290,9 @@ function removeSongInput(btnEvent) {
 	console.log("click")
 	const btn = btnEvent.target;
 	console.log(btn)
-	if (btn.classList.contains("removeSongPlaylist") ) {
+	if (btn.classList.contains("removeSongPlaylist")) {
 		btn.parentNode.remove();
-	} else if(btn.parentNode.classList.contains("removeSongPlaylist")){
+	} else if (btn.parentNode.classList.contains("removeSongPlaylist")) {
 		btn.parentNode.parentNode.remove();
 	}
 }
@@ -296,30 +303,30 @@ document.getElementById("save-playlist-btn").addEventListener("click", (btnEvent
 async function savePlaylist(btnEvent) {
 	// get the playlist name
 	const playlistName = document.getElementById("playlist-creator-name").value;
-	if(playlistName === "") return;
+	if (playlistName === "") return;
 	//get the playlist urls
 	const playlistDivs = document.getElementById("playlist-creator-urls").children;
 	const URLs = [];
-	for (const child of playlistDivs){
+	for (const child of playlistDivs) {
 		let url = child.children[0].value;
 		URLs.push(url);
 	}
-	if(URLs.length === 0) return;
+	if (URLs.length === 0) return;
 	//generate playlist object
 	safePlaylist(playlistName, URLs);
 	loadPlaylists();
-} 
+}
 
 function safePlaylist(playlistName, URLs) {
 	allPlaylists.set(playlistName, URLs);
 	localStorage.setItem("playlists", JSON.stringify(Object.fromEntries(allPlaylists)));
 }
 
-function loadPlaylists(){
+function loadPlaylists() {
 	//delete old playlists 
 	document.getElementById("playlists-container").innerHTML = "";
 	//loop through all playlists
-	if(!allPlaylists) return;
+	if (!allPlaylists) return;
 	for (const [key, value] of allPlaylists) {
 		//generate the playlist card
 		const playlistCard = document.createElement("div");
@@ -331,7 +338,7 @@ function loadPlaylists(){
 		const card = document.createElement("div");
 		card.classList.add("card", "bg-dark");
 		card.style.width = "13rem";
-		card.style.borderRadius = "15px"; 
+		card.style.borderRadius = "15px";
 		card.style.padding = "10px";
 		playlistCard.appendChild(card);
 
@@ -378,6 +385,8 @@ function loadPlaylists(){
 		//generate the edit button
 		const editBtn = document.createElement("a");
 		editBtn.classList.add("btn", "btn-primary", "edit");
+		editBtn.setAttribute("data-bs-toggle", "modal")
+		editBtn.setAttribute("data-bs-target", "#editPlaylist")
 		editBtn.innerHTML = `<em class="fa-solid fa-pen"></em>`;
 		buttonGroup.appendChild(editBtn);
 
@@ -385,7 +394,7 @@ function loadPlaylists(){
 		const playlistContainer = document.createElement("div");
 		playlistContainer.classList.add("playlist");
 		playlistCard.appendChild(playlistContainer);
-		for(const url of value){
+		for (const url of value) {
 			const song = document.createElement("div");
 			song.classList.add("song-url");
 			song.innerText = url;
@@ -393,4 +402,53 @@ function loadPlaylists(){
 		}
 
 	}
+}
+
+
+// ------- playlist editor handler -------- //
+var oldTitle = "";
+// fill edit song modal
+function editSong(btn) {
+	const cardBody = btn.parentNode.parentNode
+	const playlistName = cardBody.parentNode.children[1].children[0].innerText
+	const URLDiv = cardBody.parentNode.parentNode.children[1].children
+	oldTitle = playlistName;
+	//set appropriate values in the modal
+	document.getElementById("playlist-editor-name").value = playlistName;
+	document.getElementById("playlist-editor-urls").innerHTML = "";
+	for (let child of URLDiv) {
+		if (child.classList.contains("song-url")) {
+			addSongInput(child.innerText, "playlist-editor-urls");
+		}
+	}
+}
+
+//remove song input field when you click on the remove button
+document.getElementById("songEditor").addEventListener("click", (btnEvent) => removeSongInput(btnEvent));
+
+// save new playlist 
+document.getElementById("save-edit-btn").addEventListener("click", (btnEvent) => saveEdit(btnEvent));
+async function saveEdit(btn) {
+	const title = btn.target.parentNode.parentNode.children[1].children[0].children[0].children[1].value;
+	const playlistDivs = btn.target.parentNode.parentNode.children[1].children[0].children[1].children[1].children;	
+	console.log(playlistDivs);
+	let playlists = [];
+	for(let child of playlistDivs) {
+		playlists.push(child.children[0].value);
+	}
+
+	//delete old playlist
+	allPlaylists.delete(oldTitle);
+	//safe the playlist
+	safePlaylist(title, playlists);
+	loadPlaylists();
+}
+
+// delete button handling 
+document.getElementById("delete-song-btn").addEventListener("click", (btnEvent) => deleteSong(btnEvent));
+function deleteSong(btn) {
+	const title = btn.target.parentNode.parentNode.children[1].children[0].children[0].children[1].value;
+	allPlaylists.delete(title);
+	localStorage.setItem("playlists", JSON.stringify(Object.fromEntries(allPlaylists)));
+	loadPlaylists();
 }
