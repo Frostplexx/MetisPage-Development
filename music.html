@@ -32,38 +32,42 @@
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content bg-dark text-white">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Create new Playlist</h5>
-					<button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+					<h5 class="modal-title" id="staticBackdropLabel">Create a new Playlist</h5>
+					<button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal"
+						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form>
 						<div class="mb-3">
-						  <label for="recipient-name" class="col-form-label">Playlist Title</label>
-						  <input type="text" class="form-control" id="recipient-name">
+							<label for="recipient-name" class="col-form-label">Playlist Title</label>
+							<input type="text" class="form-control" id="playlist-creator-name">
 						</div>
-						<div class="mb-3">
-						  <label for="message-text" class="col-form-label">Songs</label>
-						<div class="input-group">
-							<input type="text" class="form-control" id="recipient-name">
-							<button type="button" class="btn btn-primary text-white text-center" >
-								<em class="fa-solid fa-xmark"></em>
-							</button>  
+						<div class="mb-3" id="songAdder">
+							<label for="message-text" class="col-form-label">Songs</label>
+							<div id="playlist-creator-urls">
+								<div class="input-group">
+									<input type="text" class="form-control">
+									<button type="button" class="btn btn-primary text-white text-center removeSongPlaylist">
+										<em class="fa-solid fa-xmark"></em>
+									</button>
+								</div>
+							</div>
 						</div>
-						<button type="button" class="btn btn-primary text-white text-center" style="margin-top: 10px;">
-							Add Song
-						</button>
-						</div>
-					  </form>
+					</form>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-primary text-white text-center" id="add-song-btn"
+						style="float: left !important; position: relative; margin-left: 0 !important; margin-right: auto !important;">
+						Add Song
+					</button>
 					<button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary text-white">Save</button>
+					<button type="button" class="btn btn-primary text-white" id="save-playlist-btn">Save</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	
+
 	<div id="header"></div>
 	<div id="login" class="container my-3 col-10 text-center">
 		<img src="assets/images/Login Icon.svg" alt="Login logo" class="img-fluid">
@@ -91,67 +95,16 @@
 	</div>
 
 
+
+
 	<div id="dashboard" class="container-fluid">
+
 		<!-- start of playlists -->
 		<div class="row">
 			<div class="col-lg-8" id="songlist">
-				<div class="row" style="width: 100%; margin: auto;" id="playlists-container">
 
-					<!-- All the card elements -->
-
-					<div class="col col-sm-3 playlist-card" style="width: fit-content;">
-		
-						<div class="card bg-dark start" style="width: 13rem; border-radius: 15px; padding: 10px">
-							<img class="card-img-top" src="" alt="Card image cap" style="border-radius: 15px;">
-							<div class="card-body">
-								<h5 class="card-title">Ambient Outdoor</h5>
-								<p class="card-text text-muted"></p>
-
-								<div class="btn-group" role="group" aria-label="Basic example"
-									style="float: inline-end;">
-									<a class="btn btn-primary start">
-										<em class="fa-solid fa-play"></em>
-									</a>
-									<a class="btn btn-primary">
-										<em class="fa-solid fa-pen"></em>
-									</a>
-								</div>
-
-							</div>
-						</div>
-						<div class="playlist">
-							<div class="song-url">https://www.youtube.com/watch?v=M-mtdN6R3bQ</div>
-							<div class="song-url">https://www.youtube.com/watch?v=zGDzdps75ns</div>
-							<div class="song-url">https://www.youtube.com/watch?v=CViLf52pZDs</div>
-						</div>
-					</div>
-
-					<div class="col col-sm-3 playlist-card"  style="width: fit-content;">
-						<div class="card bg-dark start" style="width: 13rem; border-radius: 15px; padding: 10px">
-							<img class="card-img-top" src="" alt="Card image cap" style="border-radius: 15px;">
-							<div class="card-body">
-								<h5 class="card-title">Ambient Cave</h5>
-								<p class="card-text text-muted"></p>
-
-								<div class="btn-group" role="group" aria-label="Basic example"
-									style="float: inline-end;">
-									<a class="btn btn-primary start">
-										<em class="fa-solid fa-play"></em>
-									</a>
-									<a class="btn btn-primary">
-										<em class="fa-solid fa-pen"></em>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="playlist">
-							<div class="song-url">https://www.youtube.com/watch?v=3Hwr_BaekgM</div>
-							<div class="song-url">https://www.youtube.com/watch?v=kxqJuc1HHbg</div>
-							<div class="song-url">https://www.youtube.com/watch?v=PpC3mSaIX_o</div>
-						</div>
-					</div>
-
-				</div>
+				<div id="dashboar-header"></div>
+				<div class="row" style="width: 100%; margin: auto;" id="playlists-container"></div>
 
 				<!-- FAB for adding playlist -->
 				<div id="fab" data-bs-toggle="modal" data-bs-target="#addPlaylist">
@@ -159,6 +112,8 @@
 				</div>
 
 			</div>
+
+			<!-- Music Player -->
 			<div class="col float-right" id="player-grid">
 				<div id="player" class="container-fluid text-center">
 					<div id="cover">

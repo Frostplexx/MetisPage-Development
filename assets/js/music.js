@@ -34,7 +34,6 @@ async function login() {
 
 document.addEventListener("click", (btnEvent) => btnEventHanlder(btnEvent))
 function btnEventHanlder(btnCLickEvent) {
-
 	//get the button that was clicked
 	let btn = btnCLickEvent.target.parentNode;
 	//get the classes of the parent as a array
@@ -69,6 +68,9 @@ function btnEventHanlder(btnCLickEvent) {
 	if (classes.contains("start")) {
 		playSong(btn);
 	}
+	if (classes.contains("add-song")) {
+		addSongInput(btn);
+	}
 }
 
 
@@ -97,9 +99,9 @@ async function playSong(btn) {
 	//get the children of the parent
 	if (response.status) {
 		delay(100).then(() => { changeButtonState(btn, "play", "pause"); });
-		console.log(songs[1].url)
 		document.getElementById("player").classList.add("active");
-		updatePlayer(response.data.icon, response.data.title, document.getElementById("volume").value, "playing",songs[1].url);
+		let url = songs[0].url;
+		updatePlayer(response.data.icon, response.data.title, document.getElementById("volume").value, "playing", url);
 		changePlayButtonState(true);
 		//add song id to the parent
 		btn.setAttribute("song-id", songId);
@@ -189,6 +191,7 @@ export function updatePlayer(thubmnail, title, volume, playState, url) {
 	}
 	// get the playlist title
 	var conty = document.getElementById("playlists-container"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
+	if(myDiv[0] === undefined) return; 
 	const playlistName = myDiv[0].parentNode.parentNode.children[0].children[1].children[0].innerText;
 	console.log(playlistName);
 	document.getElementById("songTitle").innerText = playlistName;
@@ -217,12 +220,8 @@ function changePlayButtonState(state) {
 	}
 }
 
-// modal-js
-$('#myModal').on('shown.bs.modal', function () {
-	$('#myInput').trigger('focus')
-  })
 
-
+// --------- getting playlists info for dashboard ----------//
 window.onload = function ()  {
 	let children = document.getElementById("playlists-container").children;
 	for (const child of children) {
@@ -238,5 +237,160 @@ window.onload = function ()  {
 	}
 
 	// load the local storage
+	let playlists = JSON.parse(localStorage.getItem("playlists"));
+	if(playlists && playlists !== "{}"){
+		allPlaylists = new Map(Object.entries(playlists));
+		loadPlaylists();
+	}
+}
 
+
+
+// ------------- playlist creation handler -------------//
+
+// add new song input field when you click on the add button
+var allPlaylists = new Map();
+
+document.getElementById("add-song-btn").addEventListener("click",(btnEvent) => addSongInput(btnEvent));
+function addSongInput(btnEvent) {
+	// create input group
+	const inputGroup = document.createElement("div");
+	inputGroup.classList.add("input-group");
+	inputGroup.style.marginTop = "10px";
+
+
+	//create the actual input field
+	const input = document.createElement("input");
+	input.classList.add("form-control");
+	input.setAttribute("type", "text");
+	inputGroup.appendChild(input);
+
+
+	//creae the remove button
+	const removeBtn = document.createElement("button");
+	removeBtn.classList.add("btn", "btn-primary", "text-white", "text-center", "removeSongPlaylist");
+	removeBtn.setAttribute("type", "button");
+	//add the remove icon
+	removeBtn.innerHTML = `<em class="fa-solid fa-xmark"></em>`;
+	inputGroup.appendChild(removeBtn);
+	document.getElementById("playlist-creator-urls").appendChild(inputGroup);
+}
+
+
+//remove song input field when you click on the remove button
+document.getElementById("songAdder").addEventListener("click", (btnEvent) => removeSongInput(btnEvent));
+function removeSongInput(btnEvent) {
+	console.log("click")
+	const btn = btnEvent.target;
+	console.log(btn)
+	if (btn.classList.contains("removeSongPlaylist") ) {
+		btn.parentNode.remove();
+	} else if(btn.parentNode.classList.contains("removeSongPlaylist")){
+		btn.parentNode.parentNode.remove();
+	}
+}
+
+
+//save the playlist
+document.getElementById("save-playlist-btn").addEventListener("click", (btnEvent) => savePlaylist(btnEvent));
+async function savePlaylist(btnEvent) {
+	// get the playlist name
+	const playlistName = document.getElementById("playlist-creator-name").value;
+	if(playlistName === "") return;
+	//get the playlist urls
+	const playlistDivs = document.getElementById("playlist-creator-urls").children;
+	const URLs = [];
+	for (const child of playlistDivs){
+		let url = child.children[0].value;
+		URLs.push(url);
+	}
+	if(URLs.length === 0) return;
+	//generate playlist object
+	safePlaylist(playlistName, URLs);
+	loadPlaylists();
+} 
+
+function safePlaylist(playlistName, URLs) {
+	allPlaylists.set(playlistName, URLs);
+	localStorage.setItem("playlists", JSON.stringify(Object.fromEntries(allPlaylists)));
+}
+
+function loadPlaylists(){
+	//delete old playlists 
+	document.getElementById("playlists-container").innerHTML = "";
+	//loop through all playlists
+	if(!allPlaylists) return;
+	for (const [key, value] of allPlaylists) {
+		//generate the playlist card
+		const playlistCard = document.createElement("div");
+		playlistCard.classList.add("col", "col-sm-3", "playlist-card");
+		playlistCard.style.width = "fit-content";
+		document.getElementById("playlists-container").appendChild(playlistCard);
+
+		//generate the card
+		const card = document.createElement("div");
+		card.classList.add("card", "bg-dark");
+		card.style.width = "13rem";
+		card.style.borderRadius = "15px"; 
+		card.style.padding = "10px";
+		playlistCard.appendChild(card);
+
+		//generate the card image
+		const cardImg = document.createElement("img");
+		cardImg.classList.add("card-img-top");
+		cardImg.setAttribute("alt", "card header");
+		cardImg.style.borderRadius = "15px";
+		const thumbnailId = value[0].split("=")[1];
+		cardImg.src = `https://img.youtube.com/vi/${thumbnailId}/hqdefault.jpg`
+		card.appendChild(cardImg);
+
+		//generate the card body
+		const cardBody = document.createElement("div");
+		cardBody.classList.add("card-body");
+		card.appendChild(cardBody);
+
+		//generate the card title
+		const cardTitle = document.createElement("h5");
+		cardTitle.classList.add("card-title");
+		cardTitle.innerText = key;
+		cardBody.appendChild(cardTitle);
+
+		//generate the card text
+		const cardText = document.createElement("p");
+		cardText.classList.add("card-text", "text-muted");
+		cardText.innerText = value.length + " Songs";
+		cardBody.appendChild(cardText);
+
+		//generate the button group
+		const buttonGroup = document.createElement("div");
+		buttonGroup.classList.add("btn-group");
+		buttonGroup.setAttribute("role", "group");
+		buttonGroup.setAttribute("aria-label", "play and edit btn");
+		buttonGroup.style.float = "inline-end";
+		cardBody.appendChild(buttonGroup);
+
+		//generate the play button
+		const playBtn = document.createElement("a");
+		playBtn.classList.add("btn", "btn-primary", "start");
+		playBtn.innerHTML = `<em class="fa-solid fa-play"></em>`;
+		buttonGroup.appendChild(playBtn);
+
+		//generate the edit button
+		const editBtn = document.createElement("a");
+		editBtn.classList.add("btn", "btn-primary", "edit");
+		editBtn.innerHTML = `<em class="fa-solid fa-pen"></em>`;
+		buttonGroup.appendChild(editBtn);
+
+		//generate the playlist container
+		const playlistContainer = document.createElement("div");
+		playlistContainer.classList.add("playlist");
+		playlistCard.appendChild(playlistContainer);
+		for(const url of value){
+			const song = document.createElement("div");
+			song.classList.add("song-url");
+			song.innerText = url;
+			playlistContainer.appendChild(song);
+		}
+
+	}
 }
