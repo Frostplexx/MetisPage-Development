@@ -108,6 +108,31 @@
 	</div>
 
 
+
+		<!-- Settings Modal -->
+		<div class="modal fade" id="settingsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content bg-dark text-white">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Settings</h5>
+					<button type="button" class="btn-close text-white bg-white" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary text-white" id="save-settings-btn"
+						data-bs-dismiss="modal">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<!-- Website Header -->
 	<div id="header"></div>
 
@@ -144,54 +169,37 @@
 
 		<!-- start of playlists -->
 		<div class="row">
-			<div class="col-lg-8" id="songlist">
-				<!-- Dashboard header -->
-				<div id="dashboar-header" class="container">
-					<div class="row" style="height: 100%;">
-						<!-- Title and Session ID -->
-						<div class="col-sm" style="margin-left: 20px; margin-top: auto; margin-bottom: auto;">
-							<h3 class="display-10 fw-semi-bold" style="margin-bottom: 0px !important;">
-								<em class="fas fa-compact-disc"></em>
-								Music Player
-							</h3>
-							<div class="text-muted">
-								Your Session ID is: <span id="session-id" class="fw-semi-bold"></span>
-							</div>
-						</div>
+			<!-- Playlist Container background-->
+			<div class="col-lg-8 p-0" id="songlist">
 
-
-						<div class="col-sm" style="margin-top: auto; margin-bottom: auto;">
-							<div class="container float-end p-0 m-0">
-								<div class="row text-center row-cols-1 float-end p-2 m-0" style="width: 50%;">
-									<!-- Settins and Help Button -->
-									<div class="btn-group col d-grid d-md-block p-0 m-0 float-end" role="group" aria-label="Help and Settings">
-										<button type="button" class="btn btn-primary">
-											<em class="fas fa-cog"></em>
-										</button>
-										<button type="button" class="btn btn-primary">
-											<em class="fas fa-question"></em>
-										</button>
-									</div>
-								<!-- Connection Status -->
-								<div class="text-muted display-10 col w-semi-bold p-0 m-0"
-									id="connection-status" style="margin-left: auto; margin-right: auto;">
-									Status: Unknown
-								</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
+				<!-- Playlist Container -->
 				<div class="row" style="width: 100%; margin: auto;" id="playlists-container"></div>
 
 				<!-- FAB for adding playlist -->
-				<div id="fab" data-bs-toggle="modal" data-bs-target="#addPlaylist">
-					<img src="https://www.svgrepo.com/show/166655/plus.svg" alt="fab" style="margin: 15px;">
+				<div id="fab">
+					<div id="inner-fab-container">
+						<div class="inner-fab" data-bs-toggle="modal" data-bs-target="#settingsModal">
+							<em class="fa-solid fa-gear"></em>
+						</div>
+						<div class="inner-fab" data-bs-toggle="modal" data-bs-target="#addPlaylist">
+							<em class="fa-solid fa-file"></em>
+						</div>
+					</div>
+					<div id="outer-fab" class="showfab">
+						<img src="https://www.svgrepo.com/show/166655/plus.svg" alt="fab" style="margin: 15px;">
+					</div>
 				</div>
 
-			</div>
+				<div id="playlist-footer" class="align-bottom m-0">
+					<div id="playlist-footer-text">
+						<!-- Title and Session ID -->
+						<div class="text-muted" style="margin-left: 4rem;">
+							Status: <span id="connection-status">Unkown</span> | Your Session ID is: <span id="session-id" class="fw-semi-bold"></span>
+						</div>
 
+					</div>
+				</div>
+			</div>
 			<!-- Music Player -->
 			<div class="col float-right" id="player-grid">
 				<div id="player" class="container-fluid text-center">
@@ -220,7 +228,6 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 
 </html>

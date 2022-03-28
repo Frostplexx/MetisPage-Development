@@ -20,7 +20,7 @@ async function login() {
 	let dashboardwindow = document.getElementById("dashboard");
 	let response = await authenticate(password);
 	if (response) {
-		document.getElementById("connection-status").innerHTML = 'Status: <em class="fas fa-link"></em> Connected'
+		document.getElementById("connection-status").innerHTML = '<em class="fas fa-link"></em> Connected'
 		document.getElementById("session-id").innerText = password
 		await setPlayerState(password);
 		loginwindow.style.display = "none";
@@ -71,6 +71,9 @@ function btnEventHanlder(btnCLickEvent) {
 	}
 	if (classes.contains("add-song")) {
 		addSongInput("", "playlist-creator-urls");
+	}
+	if(classes.contains("showfab")) {
+		showFab()
 	}
 }
 
@@ -451,4 +454,19 @@ function deleteSong(btn) {
 	allPlaylists.delete(title);
 	localStorage.setItem("playlists", JSON.stringify(Object.fromEntries(allPlaylists)));
 	loadPlaylists();
+}
+
+
+//------ FAB ------//
+function showFab() {
+	let fab = document.getElementById("fab");
+	if(fab.classList.contains("active")){
+		document.getElementById("outer-fab").style.transform = "rotate(0deg)";
+		$("#inner-fab-container").hide();
+		fab.classList.remove("active");
+	} else {
+		document.getElementById("outer-fab").style.transform = "rotate(45deg)";
+		$("#inner-fab-container").show();
+		fab.classList.add("active");
+	}
 }
