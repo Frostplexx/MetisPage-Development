@@ -40,14 +40,8 @@ a:hover .card:hover{
 }
 
 #fab{
-	position: sticky !important;
-	float: left;
-	margin-top: 50%;
-	margin-left: 1rem;
-	margin-bottom: auto;
-	top: auto;
-	bottom: 2.5rem !important;
 	z-index: 3;
+	margin-left: 40px !important;
 }
 
 #outer-fab{
@@ -94,7 +88,7 @@ a:hover .card:hover{
 	margin-top: 50%;
 	margin-left: 1rem;
 	margin-bottom: auto;
-	top: auto;
+	top: 100%;
 	bottom: 0rem !important;
 	width: 100%;
 	z-index: 2;
