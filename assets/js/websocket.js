@@ -3,7 +3,7 @@ import { updatePlayer } from "./music.js";
 export let code = "";
 
 //------- setting up ping-pong mechanism --------//
-var connection = new WebSocket('ws://0.tcp.ngrok.io:13503');
+var connection = new WebSocket('ws://0.tcp.ngrok.io:12016');
 var tm;
 function ping() {
 	connection.send(JSON.stringify({

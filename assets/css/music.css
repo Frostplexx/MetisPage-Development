@@ -45,12 +45,13 @@ a:hover .card:hover{
 }
 
 #fab{
-	position: absolute;
-	float: right;
+	position: sticky !important;
+	float: left;
 	margin-top: auto;
-	margin-left: 20px;
-	margin-bottom: 20px !important;
-	bottom: 0 !important;
+	margin-left: 1rem;
+	margin-bottom: 2rem !important;
+	bottom: 2rem;
+	z-index: 2;
 	background-color: var(--main-accent-color);
 	border-radius: 50%;
 	height: 50px;
@@ -81,9 +82,16 @@ a:hover .card:hover{
 }
 
 #dashboar-header{
+	position: sticky !important;
+	top: 1rem;
+	bottom: auto;
+	z-index: 2;
+	margin-bottom: auto;
 	margin-top: 1rem;
-	height: 100px; 
-	background-color: var(--background-color-darker);
+	height: 80px; 
+	background: rgba(47, 49, 54, 0.95);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
 	border-radius: 35px;
 	width: 100% !important;
 }
