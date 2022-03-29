@@ -470,3 +470,43 @@ function showFab() {
 		fab.classList.add("active");
 	}
 }
+
+document.getElementById("exportPlaylists").addEventListener("click",() => exportPlaylists());
+function exportPlaylists(){
+	const data = JSON.stringify(Object.fromEntries(allPlaylists), "", "\t");
+	const filename = "playlists.json";
+	var file = new Blob([data], {type: "json"});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
+
+document.getElementById("importPlaylists").addEventListener("click",() => importPlaylists());
+function importPlaylists(){
+	//upload file
+	document.getElementById("file-upload").click();
+	document.getElementById("file-upload").addEventListener("change", (e) => {
+		const file = e.target.files[0];
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			const data = JSON.parse(e.target.result);
+			for (const [key, value] of Object.entries(data)) {
+				safePlaylist(key, value);
+			}
+			loadPlaylists();
+		}
+		reader.readAsText(file);
+	}
+	);
+}
