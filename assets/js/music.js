@@ -82,6 +82,8 @@ function btnEventHanlder(btnCLickEvent) {
 
 // --------- music player functions ----------//
 async function playSong(btn) {
+	btn.children[0].style.display = "none";
+	btn.children[1].style.display = "inline-block";
 	//get the song url
 	let songs = [];
 	//get playlist div from btn
@@ -104,6 +106,9 @@ async function playSong(btn) {
 	if (response.status) {
 		delay(100).then(() => { changeButtonState(btn, "play", "pause"); });
 		document.getElementById("player").classList.add("active");
+		btn.children[0].style.display = "inline-block";
+		btn.children[1].style.display = "none";
+		$("#player-grid").show();
 		let url = songs[0].url;
 		updatePlayer(response.data.icon, response.data.title, document.getElementById("volume").value, "playing", url);
 		changePlayButtonState(true);
@@ -169,8 +174,12 @@ async function changeVolume(btn) {
 async function setPlayerState(token) {
 	const response = await getPlayerState(token);
 	const state = response.data
-	if (!response.status || state.song.url === undefined) return;
-	updatePlayer(state.song.thumbnail, state.song.title, state.volume, state.state, state.song.url);
+	if (!response.status || state.song.url === undefined){
+		$("#player-grid").hide();
+	} else{
+		updatePlayer(state.song.thumbnail, state.song.title, state.volume, state.state, state.song.url);
+		$("#player-grid").show();
+	}
 }
 
 
@@ -188,10 +197,11 @@ export function updatePlayer(thubmnail, title, volume, playState, url) {
 	document.getElementById("cover").style.backgroundImage = `url(${thubmnail})`;
 	document.getElementById("videoTitle").innerText = title;
 	document.getElementById("volume").value = volume;
+	console.log(playState);
 	if (playState === "playing") {
 		document.getElementById("btn-play").classList.remove("play");
 		document.getElementById("btn-play").classList.add("pause");
-		changePlayButtonState(false);
+		changePlayButtonState(true);
 	}
 	// get the playlist title
 	var conty = document.getElementById("playlists-container"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
@@ -211,7 +221,10 @@ function changeButtonState(button, prevState, newState) {
 	button.classList.add(newState);
 }
 
-
+/**
+ * Change the play button state: true = show pause btn, false = show play btn
+ * @param  {} state
+ */
 function changePlayButtonState(state) {
 	if (state) {
 		$('#btn-play em').removeClass("fa-play");
@@ -385,6 +398,14 @@ function loadPlaylists() {
 		playBtn.innerHTML = `<em class="fa-solid fa-play"></em>`;
 		buttonGroup.appendChild(playBtn);
 
+		//generate the loading spinner 
+		const spinner = document.createElement("div");
+		spinner.classList.add("spinner-border", "spinner-border-sm");
+		spinner.setAttribute("role", "status");
+		spinner.setAttribute("aria-hidden", "true");
+		spinner.style.display = "none";
+		playBtn.appendChild(spinner);
+
 		//generate the edit button
 		const editBtn = document.createElement("a");
 		editBtn.classList.add("btn", "btn-primary", "edit");
@@ -463,14 +484,18 @@ function showFab() {
 	if(fab.classList.contains("active")){
 		document.getElementById("outer-fab").style.transform = "rotate(0deg)";
 		$("#inner-fab-container").hide();
+		$("#inner-fab-container").css("opacity", "0");
 		fab.classList.remove("active");
 	} else {
 		document.getElementById("outer-fab").style.transform = "rotate(45deg)";
 		$("#inner-fab-container").show();
+		$("#inner-fab-container").css("opacity", "1");
 		fab.classList.add("active");
 	}
 }
 
+
+//------ Backup and Restore ------//
 document.getElementById("exportPlaylists").addEventListener("click",() => exportPlaylists());
 function exportPlaylists(){
 	const data = JSON.stringify(Object.fromEntries(allPlaylists), "", "\t");
