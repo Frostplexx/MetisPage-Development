@@ -3,7 +3,7 @@ import { updatePlayer } from "./music.js";
 export let code = "";
 var serverURL = localStorage.getItem("serverURL");
 if(serverURL != null) serverURL.replace("tcp://", "wss://") 
-if (serverURL == null || serverURL === "" || serverURL === undefined) {
+if (serverURL == null || serverURL === "" || serverURL === undefined || serverURL.includes("ws://")) {
 	serverURL = "wss://preview.webhook.metisbot.xyz";
 }
 //------- setting up ping-pong mechanism --------//
