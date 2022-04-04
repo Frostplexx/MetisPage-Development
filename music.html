@@ -94,11 +94,15 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger text-white text-center" id="delete-song-btn"
-						data-bs-dismiss="modal"
-						style="float: left !important; position: relative; margin-left: 0 !important; margin-right: auto !important;">
+					<div class="btn-group float-start" style="float: left !important; margin-left: 0; margin-right: auto;" role="group">
+						<button type="button" class="btn btn-danger text-white text-center" id="delete-song-btn"
+						data-bs-dismiss="modal">
 						Delete Playlist
 					</button>
+					<button type="button" class="btn btn-primary text-white text-center add-song" id="add-edit-song-btn">
+						Add Song
+					</button>
+					</div>
 					<button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary text-white" id="save-edit-btn"
 						data-bs-dismiss="modal">Save</button>
@@ -174,6 +178,16 @@
 			<a href="https://docs.metisbot.xyz"
 				style="color: inherit; filter: brightness(0.6); float: left; margin-top: 3px;" class="fw-light">I need
 				Help</a>
+			<div style="color: inherit; filter: brightness(0.6); float: right; margin-top: 3px; transition: all 0.1s;" class="fw-light advanced"  id="advancedMode">
+				<div class="advanced">Advanced
+					<em class="fa-solid fa-angle-up" id="advancedArrow" style="transition: all 0.2s;"></em>
+				</div>	
+			</div>
+			<div>
+				<input type="text" class="form-control fw-semi-bold" id="customServer" aria-describedby="customserver"
+						placeholder="Custom Server Address">
+			</div>
+
 		</div>
 	</div>
 

@@ -1,9 +1,13 @@
 import { updatePlayer } from "./music.js";
 
 export let code = "";
-
+var serverURL = localStorage.getItem("serverURL").replace("tcp://", "ws://");
+if (serverURL == null || serverURL === "" || serverURL === undefined) {
+	serverURL = "ws://preview.webhook.metisbot.xyz";
+}
 //------- setting up ping-pong mechanism --------//
-var connection = new WebSocket('ws://peview.webhook.metisbot.xyz');
+console.log("Connecting to " + serverURL);
+var connection = new WebSocket(serverURL);
 var tm;
 function ping() {
 	connection.send(JSON.stringify({
@@ -112,7 +116,7 @@ async function makeRequest(body) {
 				if (msg !== '__pong__') {
 					checkresponse(msg);
 					resolve(JSON.parse(msg));
-				} else if(msg == '__pong__') {
+				} else if (msg == '__pong__') {
 					document.getElementById("connection-status").innerHTML = '<em class="fas fa-link"></em> Connected'
 					pong();
 				}
@@ -124,7 +128,7 @@ async function makeRequest(body) {
 }
 
 
-async function checkresponse(msg){
+async function checkresponse(msg) {
 	let type = JSON.parse(msg).type;
 	switch (type) {
 		case "songChange":

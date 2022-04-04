@@ -91,6 +91,16 @@ a:hover .card:hover{
 	filter: brightness(2);
 }
 
+#customServer{
+	margin-top: 1rem;
+	display: none;
+}
+
+#customServer.active{
+	display: block;
+}
+
+
 #playlist-footer{
 	position: sticky !important;
 	float: left;

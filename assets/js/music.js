@@ -39,6 +39,7 @@ function btnEventHanlder(btnCLickEvent) {
 	let btn = btnCLickEvent.target.parentNode;
 	//get the classes of the parent as a array
 	let classes = btn.classList;
+	console.log(classes);
 	//check if the parent has one of the event classes
 	if (classes === undefined) return;
 	if (classes.contains("play")) {
@@ -72,8 +73,11 @@ function btnEventHanlder(btnCLickEvent) {
 	if (classes.contains("add-song")) {
 		addSongInput("", "playlist-creator-urls");
 	}
-	if(classes.contains("showfab")) {
+	if (classes.contains("showfab")) {
 		showFab()
+	}
+	if (classes.contains("advanced")) {
+		toggleAdvanced()
 	}
 }
 
@@ -174,9 +178,9 @@ async function changeVolume(btn) {
 async function setPlayerState(token) {
 	const response = await getPlayerState(token);
 	const state = response.data
-	if (!response.status || state.song.url === undefined){
+	if (!response.status || state.song.url === undefined) {
 		$("#player-grid").hide();
-	} else{
+	} else {
 		updatePlayer(state.song.thumbnail, state.song.title, state.volume, state.state, state.song.url);
 		$("#player-grid").show();
 	}
@@ -259,6 +263,9 @@ window.onload = function () {
 		allPlaylists = new Map(Object.entries(playlists));
 		loadPlaylists();
 	}
+
+	const srvurl = localStorage.getItem("serverURL");
+	document.getElementById("customServer").value = srvurl;
 }
 
 
@@ -269,6 +276,7 @@ window.onload = function () {
 var allPlaylists = new Map();
 
 document.getElementById("add-song-btn").addEventListener("click", () => addSongInput("", "playlist-creator-urls"));
+document.getElementById("add-edit-song-btn").addEventListener("click", () => addSongInput("", "playlist-editor-urls"));
 
 function addSongInput(value = "", appendID) {
 	console.log(appendID)
@@ -325,13 +333,23 @@ async function savePlaylist(btnEvent) {
 	const URLs = [];
 	for (const child of playlistDivs) {
 		let url = child.children[0].value;
-		URLs.push(url);
+		if (url.includes("youtube.com/watch?v=") || url.includes("youtu.be/")) {
+			URLs.push(url);
+		} else if (url.includes("https://www.youtube.com/playlist?")) {
+			console.error("playlist url not supported yet");
+		}
 	}
 	if (URLs.length === 0) return;
 	//generate playlist object
 	safePlaylist(playlistName, URLs);
 	loadPlaylists();
 }
+
+function getPlaylist(){
+	//return the songs from a youtube playlist
+
+}
+
 
 function safePlaylist(playlistName, URLs) {
 	allPlaylists.set(playlistName, URLs);
@@ -454,10 +472,10 @@ document.getElementById("songEditor").addEventListener("click", (btnEvent) => re
 document.getElementById("save-edit-btn").addEventListener("click", (btnEvent) => saveEdit(btnEvent));
 async function saveEdit(btn) {
 	const title = btn.target.parentNode.parentNode.children[1].children[0].children[0].children[1].value;
-	const playlistDivs = btn.target.parentNode.parentNode.children[1].children[0].children[1].children[1].children;	
+	const playlistDivs = btn.target.parentNode.parentNode.children[1].children[0].children[1].children[1].children;
 	console.log(playlistDivs);
 	let playlists = [];
-	for(let child of playlistDivs) {
+	for (let child of playlistDivs) {
 		playlists.push(child.children[0].value);
 	}
 
@@ -471,7 +489,7 @@ async function saveEdit(btn) {
 // delete button handling 
 document.getElementById("delete-song-btn").addEventListener("click", (btnEvent) => deleteSong(btnEvent));
 function deleteSong(btn) {
-	const title = btn.target.parentNode.parentNode.children[1].children[0].children[0].children[1].value;
+	const title = btn.target.parentNode.parentNode.parentNode.children[1].children[0].children[0].children[1].value;
 	allPlaylists.delete(title);
 	localStorage.setItem("playlists", JSON.stringify(Object.fromEntries(allPlaylists)));
 	loadPlaylists();
@@ -481,7 +499,7 @@ function deleteSong(btn) {
 //------ FAB ------//
 function showFab() {
 	let fab = document.getElementById("fab");
-	if(fab.classList.contains("active")){
+	if (fab.classList.contains("active")) {
 		document.getElementById("outer-fab").style.transform = "rotate(0deg)";
 		$("#inner-fab-container").hide();
 		$("#inner-fab-container").css("opacity", "0");
@@ -496,29 +514,29 @@ function showFab() {
 
 
 //------ Backup and Restore ------//
-document.getElementById("exportPlaylists").addEventListener("click",() => exportPlaylists());
-function exportPlaylists(){
+document.getElementById("exportPlaylists").addEventListener("click", () => exportPlaylists());
+function exportPlaylists() {
 	const data = JSON.stringify(Object.fromEntries(allPlaylists), "", "\t");
 	const filename = "playlists.json";
-	var file = new Blob([data], {type: "json"});
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
-        window.navigator.msSaveOrOpenBlob(file, filename);
-    else { // Others
-        var a = document.createElement("a"),
-                url = URL.createObjectURL(file);
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  
-        }, 0); 
-    }
+	var file = new Blob([data], { type: "json" });
+	if (window.navigator.msSaveOrOpenBlob) // IE10+
+		window.navigator.msSaveOrOpenBlob(file, filename);
+	else { // Others
+		var a = document.createElement("a"),
+			url = URL.createObjectURL(file);
+		a.href = url;
+		a.download = filename;
+		document.body.appendChild(a);
+		a.click();
+		setTimeout(function () {
+			document.body.removeChild(a);
+			window.URL.revokeObjectURL(url);
+		}, 0);
+	}
 }
 
-document.getElementById("importPlaylists").addEventListener("click",() => importPlaylists());
-function importPlaylists(){
+document.getElementById("importPlaylists").addEventListener("click", () => importPlaylists());
+function importPlaylists() {
 	//upload file
 	document.getElementById("file-upload").click();
 	document.getElementById("file-upload").addEventListener("change", (e) => {
@@ -535,3 +553,21 @@ function importPlaylists(){
 	}
 	);
 }
+
+//------ Developer Mode Stuff ------//
+function toggleAdvanced() {
+	const advanced = document.getElementById("advancedMode");
+	if (advanced.classList.contains("active")) {
+		advanced.classList.remove("active");
+		$("#advancedArrow").css("transform", "rotate(0deg)");
+		$("#customServer").hide();
+	} else {
+		advanced.classList.add("active");
+		$("#advancedArrow").css("transform", "rotate(180deg)");
+		$("#customServer").show();
+	}
+}
+
+document.getElementById("customServer").addEventListener("change", () => {
+	localStorage.setItem("serverURL", document.getElementById("customServer").value);
+})
