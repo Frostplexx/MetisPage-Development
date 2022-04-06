@@ -337,6 +337,8 @@ async function savePlaylist(btnEvent) {
 			URLs.push(url);
 		} else if (url.includes("https://www.youtube.com/playlist?")) {
 			console.error("playlist url not supported yet");
+		} else if(url.includes("https://open.spotify.com/track/")){
+			URLs.push(url);
 		}
 	}
 	if (URLs.length === 0) return;
