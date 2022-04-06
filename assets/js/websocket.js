@@ -4,7 +4,7 @@ export let code = "";
 var serverURL = localStorage.getItem("serverURL");
 if(serverURL != null) serverURL.replace("tcp://", "wss://") 
 if (serverURL == null || serverURL === "" || serverURL === undefined || serverURL.includes("ws://")) {
-	serverURL = "wss://preview.webhook.metisbot.xyz";
+	serverURL = "wss://preview.webhook.metisbot.xyz/ws";
 }
 //------- setting up ping-pong mechanism --------//
 console.log("Connecting to " + serverURL);
