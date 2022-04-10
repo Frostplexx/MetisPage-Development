@@ -7,6 +7,7 @@ import {
 	skipMusic,
 	changeVol,
 	getPlayerState,
+	code,
 } from "./websocket.js";
 
 
@@ -15,10 +16,13 @@ const loginButton = document.getElementById("submitbutton");
 loginButton.addEventListener("click", login);
 
 async function login() {
+	loginButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+	loginButton.disabled = true;
 	const password = document.getElementById("sessionInput").value;
 	let loginwindow = document.getElementById("login");
 	let dashboardwindow = document.getElementById("dashboard");
 	let response = await authenticate(password);
+	console.log(response);
 	if (response) {
 		document.getElementById("connection-status").innerHTML = '<em class="fas fa-link"></em> Connected'
 		document.getElementById("session-id").innerText = password
@@ -27,9 +31,16 @@ async function login() {
 		loginwindow.style.opacity = "0";
 		dashboardwindow.style.display = "inline-block";
 		setToken(password);
+		enableLoginBtn();
 	} else {
 		alert("Wrong Session ID");
+		enableLoginBtn();
 	}
+}
+
+function enableLoginBtn() {
+	loginButton.innerHTML = 'Enter <em em class="fas fa-sign-in" ></em>';
+	loginButton.disabled = false;
 }
 
 
@@ -266,6 +277,32 @@ window.onload = function () {
 
 	const srvurl = localStorage.getItem("serverURL");
 	document.getElementById("customServer").value = srvurl;
+
+	//see if search parameter is present 
+	const params = new Proxy(new URLSearchParams(window.location.search), {
+		get: (searchParams, prop) => searchParams.get(prop),
+	});
+	// Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+	let id = params.session; // "some_value"
+	if (id !== undefined && id !== null) {
+		document.getElementById("sessionInput").value = id;
+	}
+
+
+	// auto login 
+	const tkn = document.getElementById("sessionInput").value
+	if (tkn !== "" && tkn !== undefined) {
+		//set timeout to prevent the user from clicking the login button
+		setTimeout(() => {
+			login();
+		}
+			, 500);
+	} else if(code !== undefined && code !== ""){
+		setTimeout(() => {
+			loginWithCode();
+		}
+			, 500);
+	}
 }
 
 
@@ -333,11 +370,11 @@ async function savePlaylist(btnEvent) {
 	const URLs = [];
 	for (const child of playlistDivs) {
 		let url = child.children[0].value;
-		if (url.includes("youtube.com/watch?v=") || url.includes("youtu.be/")) {
+		if (url.includes("youtube.com/watch?v=") || url.includes("youtu.be/")) {
 			URLs.push(url);
 		} else if (url.includes("https://www.youtube.com/playlist?")) {
 			console.error("playlist url not supported yet");
-		} else if(url.includes("https://open.spotify.com/track/")){
+		} else if (url.includes("https://open.spotify.com/track/")) {
 			URLs.push(url);
 		}
 	}
@@ -347,7 +384,7 @@ async function savePlaylist(btnEvent) {
 	loadPlaylists();
 }
 
-function getPlaylist(){
+function getPlaylist() {
 	//return the songs from a youtube playlist
 
 }
