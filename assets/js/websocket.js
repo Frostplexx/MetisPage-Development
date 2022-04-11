@@ -141,7 +141,7 @@ async function checkresponse(msg) {
 			data = JSON.parse(msg).data;
 			if(JSON.parse(msg).token === code) {
 				console.log("received broadcast: " + JSON.stringify(data));
-				updatePlayer(data.icon, data.title, data.volume, data.state, data.url);
+				updatePlayer(data.icon, data.title, data.volume, data.state, data.url, data.playercreated);
 			}
 			break;
 		default:

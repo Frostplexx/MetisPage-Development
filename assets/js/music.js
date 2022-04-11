@@ -128,7 +128,6 @@ async function playSong(btn) {
 		changePlayButtonState(true);
 		//add song id to the parent
 		btn.setAttribute("song-id", songId);
-		changePlayButtonState(true);
 	}
 }
 
@@ -207,9 +206,19 @@ async function setPlayerState(token) {
  * @param  {} playState
  * @param  {} url
  */
-export function updatePlayer(thubmnail, title, volume, playState, url) {
+export function updatePlayer(thubmnail, title, volume, playState, url, playercreated = false) {
 	document.getElementById("player").classList.add("active");
-
+	//if its the first time a player is created
+	if(playercreated){
+		delay(100).then(() => { changeButtonState(btn, "play", "pause"); });
+		document.getElementById("player").classList.add("active");
+		btn.children[0].style.display = "inline-block";
+		btn.children[1].style.display = "none";
+		$("#player-grid").show();
+		changePlayButtonState(true);
+		//add song id to the parent
+		btn.setAttribute("song-id", songId);
+	}
 	//update thumbnail
 	if (thubmnail !== undefined) {
 		document.getElementById("cover").style.backgroundImage = `url(${thubmnail})`;
