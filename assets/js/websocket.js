@@ -131,10 +131,18 @@ async function makeRequest(body) {
 
 async function checkresponse(msg) {
 	let type = JSON.parse(msg).type;
+	let data = ""; 
 	switch (type) {
 		case "songChange":
-			const data = JSON.parse(msg).data;
+			data = JSON.parse(msg).data;
 			updatePlayer(data.icon, data.title, data.volume, data.state, data.url);
+			break;
+		case "__broadcast__":
+			data = JSON.parse(msg).data;
+			if(JSON.parse(msg).token === code) {
+				console.log("received broadcast: " + JSON.stringify(data));
+				updatePlayer(data.icon, data.title, data.volume, data.state, data.url);
+			}
 			break;
 		default:
 			break;

@@ -116,9 +116,8 @@ async function playSong(btn) {
 	let response = await playMusic(songs);
 	console.log(response);
 	let songId = response.id;
-	console.log(response)
 	//get the children of the parent
-	if (response.status) {
+	if (response.type === "__broadcast__") {
 		delay(100).then(() => { changeButtonState(btn, "play", "pause"); });
 		document.getElementById("player").classList.add("active");
 		btn.children[0].style.display = "inline-block";
@@ -188,6 +187,7 @@ async function changeVolume(btn) {
 
 async function setPlayerState(token) {
 	const response = await getPlayerState(token);
+	console.log(response);
 	const state = response.data
 	if (!response.status || state.song.url === undefined) {
 		$("#player-grid").hide();
@@ -209,21 +209,46 @@ async function setPlayerState(token) {
  */
 export function updatePlayer(thubmnail, title, volume, playState, url) {
 	document.getElementById("player").classList.add("active");
-	document.getElementById("cover").style.backgroundImage = `url(${thubmnail})`;
-	document.getElementById("videoTitle").innerText = title;
-	document.getElementById("volume").value = volume;
-	console.log(playState);
-	if (playState === "playing") {
-		document.getElementById("btn-play").classList.remove("play");
-		document.getElementById("btn-play").classList.add("pause");
-		changePlayButtonState(true);
+
+	//update thumbnail
+	if (thubmnail !== undefined) {
+		document.getElementById("cover").style.backgroundImage = `url(${thubmnail})`;
 	}
-	// get the playlist title
-	var conty = document.getElementById("playlists-container"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
-	if (myDiv[0] === undefined) return;
-	const playlistName = myDiv[0].parentNode.parentNode.children[0].children[1].children[0].innerText;
-	console.log(playlistName);
-	document.getElementById("songTitle").innerText = playlistName;
+	//update title
+	if (title !== undefined) {
+		document.getElementById("videoTitle").innerText = title;
+	}
+	//update volume
+	if (volume !== undefined) {
+		document.getElementById("volume").value = volume;
+	}
+	//update play state
+	if (playState !== undefined) {
+		if (playState === "playing") {
+			document.getElementById("btn-play").classList.remove("play");
+			document.getElementById("btn-play").classList.add("pause");
+			changePlayButtonState(true);
+		} else if (playState === "paused") {
+			document.getElementById("btn-play").classList.remove("pause");
+			document.getElementById("btn-play").classList.add("play");
+			changePlayButtonState(false);
+		}
+	}
+	//update url
+	if (url !== undefined) {
+		console.log("url: " + url);
+		console.log("searching for playlist name")
+		// get the playlist title
+		var conty = document.getElementById("playlists-container"), divs = conty.querySelectorAll("div"), myDiv = [...divs].filter(e => e.innerText == url);
+		console.log("conty", conty);
+		if (myDiv[0] === undefined) return;
+		let playlistName = myDiv[0].parentNode.parentNode.children[0].children[1].children[0].innerText;
+		console.log("playlistName: " + playlistName);
+		console.log(playlistName);
+		if(playlistName.includes("https://")) playlistName = myDiv[0].parentNode.children[0].children[1].children[0].innerText;
+		document.getElementById("songTitle").innerText = playlistName;
+	}
+
 }
 
 // --------- helper functions ----------//
@@ -297,7 +322,7 @@ window.onload = function () {
 			login();
 		}
 			, 500);
-	} else if(code !== undefined && code !== ""){
+	} else if (code !== undefined && code !== "") {
 		setTimeout(() => {
 			loginWithCode();
 		}
