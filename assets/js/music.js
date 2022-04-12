@@ -401,10 +401,8 @@ async function savePlaylist(btnEvent) {
 	const URLs = [];
 	for (const child of playlistDivs) {
 		let url = child.children[0].value;
-		if (url.includes("youtube.com/watch?v=") || url.includes("youtu.be/")) {
+		if (url.includes("youtube.com/watch?v=") || url.includes("youtu.be/") || url.includes("https://www.youtube.com/playlist?")) {
 			URLs.push(url);
-		} else if (url.includes("https://www.youtube.com/playlist?")) {
-			console.error("playlist url not supported yet");
 		} else if (url.includes("https://open.spotify.com/track/")) {
 			URLs.push(url);
 		}
