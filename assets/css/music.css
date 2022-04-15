@@ -5,6 +5,9 @@
     --background-color-darkest: #202225;
 }
 
+body{
+	overflow: hidden;
+}
 
 #login {
     position: relative;
@@ -25,24 +28,13 @@ a:hover .card:hover{
 }
 
 
-#player{
-	position: relative;
-	background: rgb(32,34,37);
-	background: linear-gradient(180deg, rgba(32,34,37,1) 0%, rgba(78,25,27,1) 100%); 
-	min-width: 30%;
-	max-width: 95%;
-	min-height: 100%;
-	margin-bottom: 0;
-	margin-top: auto;
-	margin-right: 5%;
-	border-radius: 40px;
-	padding-top: 50px !important; 
-}
-
 #fab{
+	position: sticky;
+	bottom: 0.5rem;
+	left: 0.5rem;
 	z-index: 3;
-	margin-left: 40px !important;
-	margin-bottom: -0.5rem;
+	margin-bottom: -1rem;
+	margin-left: 0.5rem;
 }
 
 #outer-fab{
@@ -107,7 +99,6 @@ a:hover .card:hover{
 	margin-top: 50%;
 	margin-left: 1rem;
 	margin-bottom: auto;
-	top: 100%;
 	bottom: 0rem !important;
 	width: 100%;
 	z-index: 2;
@@ -118,46 +109,48 @@ a:hover .card:hover{
 
 
 
-#btn-background{
-	color: white;
-	background-color: rgba(0, 0, 0, 0.5);
-	width: fit-content;
-	height: fit-content;
-	padding: 30px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	border-radius: 40px;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	backdrop-filter: blur(5px);
-}
-
-
 #songlist{
 	overflow: auto;
-	max-height: 41rem;
 	position: relative;
 	background: var(--background-color-darkest); 
-	border-radius: 40px;
+	border-radius: 2rem;
 	margin-left: 30px !important;
 	margin-right: 30px !important;
-	min-height: 40rem;
-	float: right;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	margin-top: 0px;
+	height: 37rem;
+	z-index: 1;
 }
 
 
+#player{
+	bottom: 0 !important;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0 !important;
+	margin-top: auto;
+	position: absolute !important;
+	width: 100%;
+	background-color: var(--background-color-darkest);
+	padding: 3px;
+	border-radius: 2rem 2rem 0 0; 
+	height: fit-content !important;
+	z-index: 1;
+}
+
+#player-grid{
+	min-height: fit-content;
+	z-index: 100;
+}
+
 #cover{
-	margin: auto;
-	min-width: 200px;
-	min-height: 250px;
-	max-height: 250px;
-	max-width: 250px;
+	margin-top: 0.75rem !important;
+	margin-bottom: 0.75rem !important;
+	margin-left: 2rem;
+	height: 5.5rem;
+	width: 5.5rem;
 	background-size: cover;
 	background-position: center;
-	border-radius: 30px;
+	border-radius: 10%;
 }
 
 .edit-btn{
