@@ -1,29 +1,171 @@
 <!DOCTYPE HTML>
 <html lang="en">
-	<head>
-		<title>Metis Bot</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/newcamp.css" />
-		<script
-			src="https://code.jquery.com/jquery-3.3.1.js"
-			integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-			crossorigin="anonymous">
+
+<head>
+	<title>Metis Bot</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/newcamp.css" />
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
 		</script>
-		<script> 
-			$(function(){
-			$("#header").load("header.html"); 
-			$("#footer").load("footer.html"); 
-			});
-		</script> 
-	</head>
-	<body>
-		<div id="header"></div>
-		<!--Remaining section-->
-		<h1 class="display-5 fw-bold text-center">So you want to create a new Campaign?</h1>
-		<h6 class="text-center" style="filter: brightness(0.8);" id="info">To create a new Campaign, please fill out this 
-		Google form and send it. Your Campaign will appear shortly on the server </h6>
-		<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdWllScs_nsnIQ4qpS5wRkkOmFtua0gx9l7ngzQnaSfHmSmOA/viewform?embedded=true" title="Google Form" loading="lazy">Loading the form</iframe>
-		<div id="footer"></div>
-	</body>
+	<script>
+		$(function () {
+			$("#header").load("header.html");
+			$("#footer").load("footer.html");
+		});
+	</script>
+</head>
+
+<body>
+	<div id="header"></div>
+	<!--Remaining section-->
+	<h1 class="display-5 fw-bold text-center">So you want to create a new Campaign?</h1>
+	<h6 class="text-center" style="filter: brightness(0.8);" id="info">To create a new Campaign, please fill out this
+		Form and send it. After submission your campaign should appear on the server. </h6>
+	<div class="container" style="margin-top: 4rem">
+		<form style="margin-bottom: 5rem;">
+
+			<div class="card bg-dark" style="margin-bottom: 1rem;">
+				<div class="card-header">General Campaign Info</div>
+				<div class="card-body">
+					<div class="mb-3">
+						<label for="campaignName" class="form-label">Campaign Name</label>
+						<input type="text" class="form-control" id="campaignName" aria-describedby="campaignNameHelp">
+						<div id="campaignName" class="form-text">Please enter the name of your campaign.</div>
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">Language</label>
+
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+								checked>
+							<label class="form-check-label" for="flexRadioDefault1">
+								Deutsch
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+							<label class="form-check-label" for="flexRadioDefault2">
+								English
+							</label>
+						</div>
+						<div class="btn-group" data-toggle="buttons" id="btn-group-id">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="flexRadioDefault" id="otherLang">
+							</div>
+							<input type="text" name="other_reason" placeholder="Other Language" style="color: white; border-color: grey; border-style: none none solid none; background-color: transparent; border-width: 1px;"/>
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="cmpDesc" class="form-label">Campaign Description</label>
+						<textarea class="form-control" id="cmpDesc" aria-describedby="cmpDescHelp"></textarea>
+						<div id="cmpDescHelp" class="form-text">Describe in short what your campaign is about</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="location" class="form-label">Where (online/irl & location)</label>
+						<input type="text" class="form-control" id="location" aria-describedby="locationHelp">
+						<div id="locationHelp" class="form-text">Where do your campaigns normally take place?</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="time" class="form-label">When (day/s & time)</label>
+						<input type="text" class="form-control" id="time" aria-describedby="timeHelp">
+						<div id="timeHelp" class="form-text">When do your campaigns normally take place?</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="maxPlayers" class="form-label">Maximum amount of Players</label>
+						<input type="number" class="form-control" id="maxPlayers" aria-describedby="maxPlayersHelp">
+						<div id="maxPlayersHelp" class="form-text">Set how many players can join your campaign</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="card bg-dark" style="margin-bottom: 1rem;">
+				<div class="card-header">Additional Campaign Settings</div>
+				<div class="card-body">
+					<div class="mb-3">
+						<label class="form-label">Difficulty</label>
+
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="diffucltyRadio" id="beginnerDiff"
+								checked>
+							<label class="form-check-label" for="beginnerDiff">
+								Beginner/Easy
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="diffucltyRadio" id="mediumDiff">
+							<label class="form-check-label" for="mediumDiff">
+								Medium
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="diffucltyRadio" id="hardDiff">
+							<label class="form-check-label" for="hardDiff">
+								Expert/Difficult
+							</label>
+						</div>
+					</div>
+
+
+
+					<div class="mb-3">
+						<label for="notes" class="form-label">Additional Notes</label>
+						<textarea class="form-control" id="notes" aria-describedby="notesHelp"></textarea>
+						<div id="notesHelp" class="form-text">Write any additional notes here</div>
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">Campaign Icon</label>
+
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="iconRadios" id="diceRadio" checked>
+							<label class="form-check-label" for="diceRadio">
+								Dice
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="iconRadios" id="swordsRadio">
+							<label class="form-check-label" for="swordsRadio">
+								Swords
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="iconRadios" id="shieldRadio">
+							<label class="form-check-label" for="shieldRadio">
+								Shield
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card bg-dark" style="margin-bottom: 1rem;">
+				<div class="card-header">DM Info</div>
+				<div class="card-body">
+					<div class="mb-3">
+						<label for="dmName" class="form-label">Dungeon Master Name</label>
+						<input type="text" class="form-control" id="dmName" aria-describedby="dmNameHelp">
+						<div id="dmNameHelp" class="form-text">This is the Name that will appear on the campaign Message
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="dm_tag" class="form-label">Discord Tag</label>
+						<input type="text" class="form-control" id="dm_tag" aria-describedby="dm_tagHelp">
+						<div id="dm_tagHelp" class="form-text">Enter here your own Discord Tag.</div>
+					</div>
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+</body>
+
 </html>
