@@ -8,7 +8,7 @@ import {
 	changeVol,
 	getPlayerState,
 	code,
-} from "./websocket.js";
+} from "./MusicWebsocket.js";
 
 
 //authentication handling -- checks if token is valid

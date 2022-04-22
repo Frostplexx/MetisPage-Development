@@ -1,3 +1,5 @@
+import { wsSendForms } from "./FormWebsocket.js";
+
 // Fetch all the forms we want to apply custom Bootstrap validation styles to
 var forms = document.querySelectorAll('.needs-validation')
 
@@ -45,23 +47,28 @@ $('#germanLang').click(function () {
 });
 
 
-function sendForm(form){
+async function sendForm(form){
 	//parse form to senable google forms data
 	const googleFormsData = parseHTMLFormToGoogleFormData(form);
 	console.log(googleFormsData);
-
-	
+	//open ws connection 
+	const response = await wsSendForms(googleFormsData);
+	//forward the user to a endscreen
+	console.log(response);
+	if(response.data === null || response.data === undefined){
+		window.location.href = "formEndScreen.html" + "?message=" + response.message + "&success=" + response.status;
+	} else {
+		window.location.href = "formEndScreen.html" + "?message=" + response.message + "&success=" + response.status + "&data=" + response.data;
+	}
 }
 
 
 function parseHTMLFormToGoogleFormData(form) {
-	//console.log(form);
 	const formData = new FormData(form);
-	const formJSON = JSON.stringify(Object.fromEntries(formData.entries()));
 	return {
 		"campaign_name": formData.get("campaign_name"),
 		"dm_name": formData.get("dm_name"),
-		"language": getLanguage(form),
+		"language": getLanguage(),
 		"description": formData.get("description"),
 		"difficulty": document.querySelector('input[name="diffucltyRadio"]:checked').value,
 		"players_max": formData.get("players_max"),
@@ -73,7 +80,7 @@ function parseHTMLFormToGoogleFormData(form) {
 	}
 }
 
-function getLanguage(form) {
+function getLanguage() {
 	const lang = document.querySelector('input[name="languageRadio"]:checked').value;
 	switch (lang) {
 		case "en":
@@ -84,4 +91,3 @@ function getLanguage(form) {
 			return document.getElementById("otherLangInput").value;
 	}
 }
-
