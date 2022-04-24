@@ -4,6 +4,7 @@ var connection = new WebSocket(serverURL);
 var tm;
 
 connection.onerror=function(event){
+	console.error("WebSocket error observed:", event);
     window.location.href = "formEndScreen.html" + "?message=Error: Connection to the server couldn't be established. Please contact an someone with the \"@Devs\" role on the LMU-DnD discord server&success=false";
 }
 
@@ -14,7 +15,6 @@ function ping() {
 	tm = setTimeout(function () {
 		/// ---connection closed ///
 		console.error('connection closed');
-		window.location.href = "formEndScreen.html" + "?message=Error: Connection to the serrver lost. Try reloading the page, if the problem persists please contact an someone with the \"@Devs\" role on the LMU-DnD discord server&success=false";
 	}, 5000);
 }
 
