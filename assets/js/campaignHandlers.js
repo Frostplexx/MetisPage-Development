@@ -48,6 +48,9 @@ $('#germanLang').click(function () {
 
 
 async function sendForm(form){
+	const button = form.querySelector('button[type="submit"]');
+	button.disabled = true;
+	button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
 	//parse form to senable google forms data
 	const googleFormsData = parseHTMLFormToGoogleFormData(form);
 	console.log(googleFormsData);
@@ -55,11 +58,9 @@ async function sendForm(form){
 	const response = await wsSendForms(googleFormsData);
 	//forward the user to a endscreen
 	console.log(response);
-	if(response.data === null || response.data === undefined){
-		window.location.href = "formEndScreen.html" + "?message=" + response.message + "&success=" + response.status;
-	} else {
-		window.location.href = "formEndScreen.html" + "?message=" + response.message + "&success=" + response.status + "&data=" + response.data;
-	}
+	window.location.href = "formEndScreen.html" + "?message=" + response.message + "&success=" + response.status;
+	button.innerHTML = "Submit Form";
+	button.disabled = false;
 }
 
 
