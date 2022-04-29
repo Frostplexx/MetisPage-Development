@@ -1,8 +1,6 @@
-import { wsSendForms } from "./FormWebsocket.js";
-
 // Fetch all the forms we want to apply custom Bootstrap validation styles to
 var forms = document.querySelectorAll('.needs-validation')
-
+const TOKEN = "3aK_u++&sNALk$+ZKv4Q"
 // Loop over them and prevent submission
 Array.prototype.slice.call(forms)
 	.forEach(function (form) {
@@ -55,7 +53,7 @@ async function sendForm(form){
 	const googleFormsData = parseHTMLFormToGoogleFormData(form);
 	console.log(googleFormsData);
 	//open ws connection 
-	const response = await wsSendForms(googleFormsData);
+	const response = await httpSendForms(googleFormsData);
 	//forward the user to a endscreen
 	console.log(response);
 	window.location.href = "formEndScreen.html" + "?message=" + response.message + "&success=" + response.status;
@@ -91,4 +89,17 @@ function getLanguage() {
 		case "ot":
 			return document.getElementById("otherLangInput").value;
 	}
+}
+
+async function httpSendForms(formData) {
+	const response = await fetch('https://preview.metisbot.xyz/form', {
+		method: 'POST',
+		body: JSON.stringify(formData),
+		headers: {
+			'Content-Type': 'application/json',
+			//authorization: 'Bearer ' + token
+			'Authorization': 'Bearer ' + TOKEN
+		}
+	});
+	return await response.json();
 }
