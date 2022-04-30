@@ -92,7 +92,7 @@ function getLanguage() {
 }
 
 async function httpSendForms(formData) {
-	const response = await fetch('https://preview.metisbot.xyz/form', {
+	const response = await fetch('https://preview.webhook.metisbot.xyz;z/form', {
 		method: 'POST',
 		body: JSON.stringify(formData),
 		headers: {
