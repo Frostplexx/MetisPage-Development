@@ -58,7 +58,7 @@
 								<div class="form-check">
 									<input class="form-check-input" type="radio" name="languageRadio" id="otherLang" value="ot">
 								</div>
-								<input type="text" name="other_language" placeholder="Other Language" id="otherLangInput"
+								<input type="text" name="other_language" placeholder="Other Language" id="otherLangInput" maxlength="200"
 									style="color: white; border-color: grey; border-style: none none solid none; background-color: transparent; border-width: 1px;"/>
 							</div>
 						</div>
@@ -66,21 +66,21 @@
 					<!-- Campaign Description -->
 					<div class="mb-3">
 						<label for="cmpDesc" class="form-label">Campaign Description</label>
-						<textarea class="form-control" id="cmpDesc" name="description" aria-describedby="cmpDescHelp" required></textarea>
+						<textarea class="form-control" id="cmpDesc" name="description" aria-describedby="cmpDescHelp" maxlength="1000" required></textarea>
 						<div id="cmpDescHelp" class="form-text">Describe in short what your campaign is about</div>
 					</div>
 
 					<!-- Campaign Location -->
 					<div class="mb-3">
 						<label for="location" class="form-label">Where (online/irl & location)</label>
-						<input type="text" class="form-control" name="location" id="location" aria-describedby="locationHelp" required>
+						<input type="text" class="form-control" name="location" id="location" aria-describedby="locationHelp" maxlength="200" required>
 						<div id="locationHelp" class="form-text">Where do your campaigns normally take place?</div>
 					</div>
 
 					<!-- Campaign Time -->
 					<div class="mb-3">
 						<label for="time" class="form-label">When (day/s & time)</label>
-						<input type="text" class="form-control" name="time" id="time" aria-describedby="timeHelp" required>
+						<input type="text" class="form-control" name="time" id="time" aria-describedby="timeHelp" maxlength="200" required>
 						<div id="timeHelp" class="form-text">When do your campaigns normally take place?</div>
 					</div>
 
@@ -130,7 +130,7 @@
 					<!-- Additional Notes -->
 					<div class="mb-3">
 						<label for="notes" class="form-label">Additional Notes</label>
-						<textarea class="form-control" id="notes" name="notes" aria-describedby="notesHelp"></textarea>
+						<textarea class="form-control" id="notes" name="notes" aria-describedby="notesHelp" maxlength="1000"></textarea>
 						<div id="notesHelp" class="form-text">Write any additional notes here</div>
 					</div>
 
@@ -167,7 +167,7 @@
 					<!-- DM Name -->
 					<div class="mb-3">
 						<label for="dmName" class="form-label">Dungeon Master Name</label>
-						<input type="text" class="form-control" name="dm_name" id="dmName" aria-describedby="dmNameHelp" required>
+						<input type="text" class="form-control" name="dm_name" id="dmName" aria-describedby="dmNameHelp" maxlength="200" required>
 						<div id="dmNameHelp" class="form-text">This is the Name that will appear on the campaign Message
 						</div>
 					</div>
@@ -176,7 +176,7 @@
 					<div class="mb-3">
 						<label for="dm_tag" class="form-label">Discord Tag</label>
 						<input type="text" class="form-control" name="dm_tag" id="dm_tag" aria-describedby="dm_tagHelp"
-							pattern="[a-zA-Z]+#\d\d\d\d" required>
+							pattern="[a-zA-Z]+#\d\d\d\d" maxlength="200" required>
 						<div id="dm_tagHelp" class="form-text">Enter here your own Discord Tag.</div>
 						<div class="invalid-feedback">
 							Your Discord Tag has to follow the pattern Username#XXXX e.g. Wumpus#1234

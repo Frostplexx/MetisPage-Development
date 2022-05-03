@@ -1,6 +1,6 @@
 // Fetch all the forms we want to apply custom Bootstrap validation styles to
 var forms = document.querySelectorAll('.needs-validation')
-const TOKEN = "3aK_u++&sNALk$+ZKv4Q"
+const TOKEN = "M2FLX3UrKyZzTkFMayQrWkt2NFE="
 // Loop over them and prevent submission
 Array.prototype.slice.call(forms)
 	.forEach(function (form) {
