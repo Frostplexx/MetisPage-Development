@@ -1,4 +1,69 @@
-import { baseUrl, bearerToken } from "./globals.js"
+import { baseUrl, bearerToken } from "./globals.js";
+let campid = ""; //id of the campaign
+window.onload = async function () {
+	//see if search parameter is present
+	const params = new Proxy(new URLSearchParams(window.location.search), {
+		get: (searchParams, prop) => searchParams.get(prop),
+	});
+
+	// Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+	let id = params.id; // "some_value"
+	console.log(id);
+	if (id == null || id == "") {
+		window.location.href = "formEndScreen.html?message=Error: Campaign ID is empty&success=false";
+	} else {
+		campid = id;
+		const campaign = await requestCampaignInfo(id);
+		fillInForm(campaign);
+	}
+};
+
+async function requestCampaignInfo(id) {
+	const response = await fetch(baseUrl + "/id/" + id, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			//authorization: 'Bearer ' + token
+			Authorization: "Bearer " + bearerToken,
+		},
+	});
+	return response.json();
+}
+
+function fillInForm(campaign) {
+	console.log(campaign);
+	const form = document.getElementById("editCampForm");
+	form.querySelector('input[name="campaign_name"]').value = campaign.campaign_name;
+	form.querySelector('input[name="dm_name"]').value = campaign.dm_name;
+	form.querySelector('textarea[name="description"]').value = campaign.description;
+	form.querySelector('input[name="players_max"]').value = campaign.players_max;
+	form.querySelector('input[name="location"]').value = campaign.location;
+	form.querySelector('input[name="time"]').value = campaign.time;
+	form.querySelector('textarea[name="notes"]').value = campaign.notes;
+
+	//parse language
+	if (campaign.language == "English") {
+		form.querySelector('input[name="languageRadio"][value="en"]').checked = true;
+	} else if (campaign.language == "Deutsch") {
+		form.querySelector('input[name="languageRadio"][value="de"]').checked = true;
+	} else {
+		form.querySelector('input[name="languageRadio"][value="ot"]').checked = true;
+		form.querySelector('input[name="other_language"]').value = campaign.language;
+	}
+
+	//parse difficulty
+	if (campaign.difficulty == "Easy") {
+		form.querySelector('input[name="diffucltyRadio"][value="Easy"]').checked = true;
+	}
+	if (campaign.difficulty == "Medium") {
+		form.querySelector('input[name="diffucltyRadio"][value="Medium"]').checked = true;
+	}
+	if (campaign.difficulty == "Expert/Difficult") {
+		form.querySelector('input[name="diffucltyRadio"][value="Expert/Difficult"]').checked = true;
+	}
+}
+
+// send the form
 
 // Fetch all the forms we want to apply custom Bootstrap validation styles to
 var forms = document.querySelectorAll('.needs-validation')
@@ -75,8 +140,6 @@ function parseHTMLFormToGoogleFormData(form) {
 		"location": formData.get("location"),
 		"time": formData.get("time"),
 		"notes": formData.get("notes"),
-		"icon": document.querySelector('input[name="iconRadios"]:checked').value,
-		"dm_tag": formData.get("dm_tag"),
 	}
 }
 
@@ -93,8 +156,8 @@ function getLanguage() {
 }
 
 async function httpSendForms(formData) {
-	const response = await fetch(baseUrl + '/form', {
-		method: 'POST',
+	const response = await fetch(baseUrl + '/id/' + campid, {
+		method: 'PATCH',
 		body: JSON.stringify(formData),
 		headers: {
 			'Content-Type': 'application/json',

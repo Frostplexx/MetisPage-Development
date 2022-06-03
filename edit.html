@@ -6,7 +6,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/newcamp.css" />
-	<script type="module" src="assets/js/campaignHandlers.js"></script>
+	<script type="module" src="assets/js/editCampaign.js"></script>
 	<script type="module" src="assets/js/globals.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
@@ -22,11 +22,10 @@
 <body>
 	<div id="header"></div>
 	<!--Remaining section-->
-	<h1 class="display-5 fw-bold text-center">So you want to create a new Campaign?</h1>
-	<h6 class="text-center" style="filter: brightness(0.8);" id="info">To create a new Campaign, please fill out this
-		Form and send it. After submitting it your campaign should appear on the server. </h6>
+	<h1 class="display-5 fw-bold text-center">Edit your campaign</h1>
+	<h6 class="text-center" style="filter: brightness(0.8);" id="info">Make the changes to this form and then click on "Appy Changes"</h6>
 	<div class="container" style="margin-top: 4rem">
-		<form style="margin-bottom: 5rem;" class="needs-validation" id="campaignForm" novalidate>
+		<form style="margin-bottom: 5rem;" class="needs-validation" id="editCampForm" novalidate>
 
 			<div class="card bg-dark" style="margin-bottom: 1rem;">
 				<div class="card-header">General Campaign Info</div>
@@ -135,29 +134,6 @@
 						<div id="notesHelp" class="form-text">Write any additional notes here</div>
 					</div>
 
-					<!-- Campaign Icon -->
-					<div class="mb-3">
-						<label class="form-label">Campaign Icon</label>
-
-						<div class="form-check">
-							<input class="form-check-input" type="radio" name="iconRadios" value="Dice" id="diceRadio" checked>
-							<label class="form-check-label" for="diceRadio">
-								Dice
-							</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="radio" name="iconRadios" value="Swords" id="swordsRadio">
-							<label class="form-check-label" for="swordsRadio">
-								Swords
-							</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="radio" name="iconRadios" value="Shield" id="shieldRadio">
-							<label class="form-check-label" for="shieldRadio">
-								Shield
-							</label>
-						</div>
-					</div>
 				</div>
 			</div>
 
@@ -173,21 +149,11 @@
 						</div>
 					</div>
 
-					<!-- DM Discord Tag -->
-					<div class="mb-3">
-						<label for="dm_tag" class="form-label">Discord Tag</label>
-						<input type="text" class="form-control" name="dm_tag" id="dm_tag" aria-describedby="dm_tagHelp"
-							pattern="[a-zA-Z]+#\d\d\d\d" maxlength="200" required>
-						<div id="dm_tagHelp" class="form-text">Enter here your own Discord Tag.</div>
-						<div class="invalid-feedback">
-							Your Discord Tag has to follow the pattern Username#XXXX e.g. Wumpus#1234
-						</div>
-					</div>
 				</div>
 			</div>
 
 			<div class="mb-3">
-				<button type="submit" class="btn btn-primary text-white" id="submitCampForm">Submit Form</button>
+				<button type="submit" class="btn btn-primary text-white" id="submitCampForm">Apply Changes</button>
 			</div>
 		</form>
 	</div>
