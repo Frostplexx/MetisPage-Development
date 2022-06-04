@@ -18,7 +18,8 @@ window.onload = async function () {
 			fillInForm(campaign);
 		} catch (error) {
 			console.log(error);
-			window.location.href = "formEndScreen.html?message=Could not connect to server&success=false";
+			// window.location.href = "formEndScreen.html?message=Could not connect to server&success=false";
+			
 		}
 	}
 };
