@@ -10,11 +10,16 @@ window.onload = async function () {
 	let id = params.id; // "some_value"
 	console.log(id);
 	if (id == null || id == "") {
-		window.location.href = "formEndScreen.html?message=Error: Campaign ID is empty&success=false";
+		window.location.href = "formEndScreen.html?message=Campaign ID is empty&success=false";
 	} else {
 		campid = id;
-		const campaign = await requestCampaignInfo(id);
-		fillInForm(campaign);
+		try {
+			const campaign = await requestCampaignInfo(id);
+			fillInForm(campaign);
+		} catch (error) {
+			console.log(error);
+			window.location.href = "formEndScreen.html?message=Could not connect to server&success=false";
+		}
 	}
 };
 
@@ -66,59 +71,60 @@ function fillInForm(campaign) {
 // send the form
 
 // Fetch all the forms we want to apply custom Bootstrap validation styles to
-var forms = document.querySelectorAll('.needs-validation')
+var forms = document.querySelectorAll(".needs-validation");
 // Loop over them and prevent submission
-Array.prototype.slice.call(forms)
-	.forEach(function (form) {
-		form.addEventListener('submit', function (event) {
+Array.prototype.slice.call(forms).forEach(function (form) {
+	form.addEventListener(
+		"submit",
+		function (event) {
 			if (!form.checkValidity()) {
-				event.preventDefault()
-				event.stopPropagation()
+				event.preventDefault();
+				event.stopPropagation();
 			} else {
 				// If the form is valid, submit it
 				console.log("Form is valid, submitting...");
-				event.preventDefault()
-				sendForm(event.target)
+				event.preventDefault();
+				sendForm(event.target);
 			}
 
-			form.classList.add('was-validated')
-		}, false)
-	})
-
+			form.classList.add("was-validated");
+		},
+		false
+	);
+});
 
 //when the user selects other Language, set the input field to required
-$('#otherLang').click(function () {
-    if($(this).is(':checked')) {
-        $('#otherLangInput').attr('required');
-    } else {
-        $('#otherLangInput').removeAttr('required');
-    }
+$("#otherLang").click(function () {
+	if ($(this).is(":checked")) {
+		$("#otherLangInput").attr("required");
+	} else {
+		$("#otherLangInput").removeAttr("required");
+	}
 });
-$('#englishLang').click(function () {
-    if(!$(this).is(':checked')) {
-        $('#otherLangInput').attr('required');
-    } else {
-        $('#otherLangInput').removeAttr('required');
-    }
-});
-
-$('#germanLang').click(function () {
-    if(!$(this).is(':checked')) {
-        $('#otherLangInput').attr('required');
-    } else {
-        $('#otherLangInput').removeAttr('required');
-    }
+$("#englishLang").click(function () {
+	if (!$(this).is(":checked")) {
+		$("#otherLangInput").attr("required");
+	} else {
+		$("#otherLangInput").removeAttr("required");
+	}
 });
 
+$("#germanLang").click(function () {
+	if (!$(this).is(":checked")) {
+		$("#otherLangInput").attr("required");
+	} else {
+		$("#otherLangInput").removeAttr("required");
+	}
+});
 
-async function sendForm(form){
+async function sendForm(form) {
 	const button = form.querySelector('button[type="submit"]');
 	button.disabled = true;
 	button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
 	//parse form to senable google forms data
 	const googleFormsData = parseHTMLFormToGoogleFormData(form);
 	console.log(googleFormsData);
-	//open ws connection 
+	//open ws connection
 	const response = await httpSendForms(googleFormsData);
 	//forward the user to a endscreen
 	console.log(response);
@@ -127,20 +133,19 @@ async function sendForm(form){
 	button.disabled = false;
 }
 
-
 function parseHTMLFormToGoogleFormData(form) {
 	const formData = new FormData(form);
 	return {
-		"campaign_name": formData.get("campaign_name"),
-		"dm_name": formData.get("dm_name"),
-		"language": getLanguage(),
-		"description": formData.get("description"),
-		"difficulty": document.querySelector('input[name="diffucltyRadio"]:checked').value,
-		"players_max": formData.get("players_max"),
-		"location": formData.get("location"),
-		"time": formData.get("time"),
-		"notes": formData.get("notes"),
-	}
+		campaign_name: formData.get("campaign_name"),
+		dm_name: formData.get("dm_name"),
+		language: getLanguage(),
+		description: formData.get("description"),
+		difficulty: document.querySelector('input[name="diffucltyRadio"]:checked').value,
+		players_max: formData.get("players_max"),
+		location: formData.get("location"),
+		time: formData.get("time"),
+		notes: formData.get("notes"),
+	};
 }
 
 function getLanguage() {
@@ -156,14 +161,18 @@ function getLanguage() {
 }
 
 async function httpSendForms(formData) {
-	const response = await fetch(baseUrl + '/id/' + campid, {
-		method: 'PATCH',
+	const response = await fetch(baseUrl + "/id/" + campid, {
+		method: "PATCH",
 		body: JSON.stringify(formData),
 		headers: {
-			'Content-Type': 'application/json',
+			"Content-Type": "application/json",
 			//authorization: 'Bearer ' + token
-			'Authorization': 'Bearer ' + bearerToken
-		}
+			Authorization: "Bearer " + bearerToken,
+		},
 	});
 	return await response.json();
 }
+
+document.getElementById("cancelCampForm").addEventListener("click", function () {
+	window.location.href = "index.html";
+});
