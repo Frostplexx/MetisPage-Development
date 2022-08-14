@@ -1,5 +1,9 @@
 import { baseUrl, bearerToken } from "./globals.js";
-let campid = ""; //id of the campaign
+let AuthObject = {
+	campaignID: "",
+	userID: "",
+	token: "",
+};
 window.onload = async function () {
 	//see if search parameter is present
 	const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -7,15 +11,30 @@ window.onload = async function () {
 	});
 
 	// Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-	let id = params.id; // "some_value"
+	let id = params.token; // "some_value"
 	console.log(id);
 	if (id == null || id == "") {
 		window.location.href = "formEndScreen.html?message=Campaign ID is empty&success=false";
 	} else {
-		campid = id;
+
+		// convert from base64 to ascii
+		id = atob(id);
+		const ids = id.split("-");
+		AuthObject = {
+			campaignID: ids[0],
+			userID: ids[1],
+			token: ids[2],
+		}
 		try {
-			const campaign = await requestCampaignInfo(id);
+			// check if campaign is even editable
+			const editable = await checkIfCampaignEditable(AuthObject);
+			console.log(editable);
+			if (editable.status == false) {
+				window.location.href = "formEndScreen.html?message=" + editable.message + "&success=false";
+			} else {
+			const campaign = await requestCampaignInfo(AuthObject.campaignID);
 			fillInForm(campaign);
+			}
 		} catch (error) {
 			console.log(error);
 			// window.location.href = "formEndScreen.html?message=Could not connect to server&success=false";
@@ -26,6 +45,18 @@ window.onload = async function () {
 
 async function requestCampaignInfo(id) {
 	const response = await fetch(baseUrl + "/id/" + id, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			//authorization: 'Bearer ' + token
+			Authorization: "Bearer " + bearerToken,
+		},
+	});
+	return response.json();
+}
+
+async function checkIfCampaignEditable(AuthObject){
+	const response = await fetch(baseUrl + "/checkEditable/" + AuthObject.token + "-" + AuthObject.campaignID, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -126,7 +157,7 @@ async function sendForm(form) {
 	const googleFormsData = parseHTMLFormToGoogleFormData(form);
 	console.log(googleFormsData);
 	//open ws connection
-	const response = await httpSendForms(googleFormsData);
+	const response = await httpSendForms(googleFormsData, AuthObject);
 	//forward the user to a endscreen
 	console.log(response);
 	window.location.href = "formEndScreen.html" + "?message=" + response.message + "&success=" + response.status;
@@ -161,10 +192,16 @@ function getLanguage() {
 	}
 }
 
-async function httpSendForms(formData) {
-	const response = await fetch(baseUrl + "/id/" + campid, {
+async function httpSendForms(formData, AuthObject) {
+	// combine formData and AuthObject
+	const data = {
+		...AuthObject,
+		...formData,
+	};
+	console.log(data);
+	const response = await fetch(baseUrl + "/id/" + AuthObject.campaignID, {
 		method: "PATCH",
-		body: JSON.stringify(formData),
+		body: JSON.stringify(data),
 		headers: {
 			"Content-Type": "application/json",
 			//authorization: 'Bearer ' + token
