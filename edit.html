@@ -149,6 +149,18 @@
 						</div>
 					</div>
 
+					<!-- Transfer DM status to another user -->
+					<div class="mb-3">
+						<label for="new_dm_tag" class="form-label">Transfer DM status</label>
+						<input type="text" class="form-control" name="new_dm_tag" id="new_dm_tag" aria-describedby="new_dm_tagHelp"
+							pattern="[a-zA-Z]+#\d\d\d\d" maxlength="200" required>
+						<div id="new_dm_tagHelp" class="form-text">Enter here the users Discord tag you want to tranfer the DM status to. Leave this empty otherwise.</div>
+						<div class="invalid-feedback">
+							The Discord Tag has to follow the pattern Username#XXXX e.g. Wumpus#1234
+						</div>
+					</div>
+
+
 				</div>
 			</div>
 
