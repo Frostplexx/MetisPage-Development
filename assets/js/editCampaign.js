@@ -201,7 +201,7 @@ async function httpSendForms(formData, AuthObject) {
 	};
 	console.log(data);
 	const response = await fetch(baseUrl + "/id/" + AuthObject.campaignID, {
-		method: "PATCH",
+		method: "PUT",
 		body: JSON.stringify(data),
 		headers: {
 			"Content-Type": "application/json",
