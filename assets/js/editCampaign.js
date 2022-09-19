@@ -177,7 +177,7 @@ function parseHTMLFormToGoogleFormData(form) {
 		location: formData.get("location"),
 		time: formData.get("time"),
 		notes: formData.get("notes"),
-		new_dm_tag: formData.get("new_dm_tag"),
+		new_dm_tag: formData.get("new_dm_tag") ? formData.get("new_dm_tag") : "",
 	};
 }
 
