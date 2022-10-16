@@ -2,10 +2,20 @@ import { updatePlayer } from "./music.js";
 
 export let code = "";
 var serverURL = localStorage.getItem("serverURL");
-if(serverURL != null) serverURL.replace("tcp://", "wss://").replace("http://", "wss://").replace("https://", "wss://");
-if (serverURL == null || serverURL === "" || serverURL === undefined || serverURL.includes("ws://")) {
+
+// if the serverURL is not set, use the default one
+if (serverURL == null || serverURL === "" || serverURL === undefined) {
 	serverURL = "wss://preview.webhook.metisbot.xyz/ws";
 }
+// if the serverURL does not start with wss://, replace the protocol with wss://
+if (!serverURL.startsWith("wss://")) {
+	serverURL = serverURL.replace("tcp://", "ws://").replace("http://", "ws://").replace("https://", "wss://");
+}
+// if the url does not end with /ws, add it
+if (!serverURL.endsWith("/ws")) {
+	serverURL += "/ws";
+}
+
 //------- setting up ping-pong mechanism --------//
 console.log("Connecting to " + serverURL);
 var connection = new WebSocket(serverURL);
