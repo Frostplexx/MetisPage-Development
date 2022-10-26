@@ -25,7 +25,8 @@ async function login() {
 	console.log(response);
 	if (response) {
 		document.getElementById("connection-status").innerHTML = '<em class="fas fa-link"></em> Connected'
-		document.getElementById("session-id").innerText = password
+		document.getElementById("session-id").innerHTML = password + '<i id="session-copy" class="fa-regular fa-copy" style="margin-left: 5px"></i>'
+		
 		await setPlayerState(password);
 		loginwindow.style.display = "none";
 		loginwindow.style.opacity = "0";
@@ -563,6 +564,18 @@ function deleteSong(btn) {
 	loadPlaylists();
 }
 
+//copy session id
+document.getElementById("session-id").addEventListener("click", (btnEvent) => copySessionId(btnEvent));
+function copySessionId(btn) {
+	const sessionId = btn.target.innerText;
+	navigator.clipboard.writeText(sessionId);
+	//show toast
+	const toast = document.getElementById("copy-toast");
+	toast.style.display = "inline";
+	setTimeout(() => {
+		toast.style.display = "none";
+	}, 1000);
+}
 
 //------ FAB ------//
 function showFab() {

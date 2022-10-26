@@ -27,13 +27,20 @@ a:hover .card:hover{
 	filter: brightness(1);
 }
 
+#fabAndFooter{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
 
 #fab{
 	position: sticky;
 	bottom: 0.5rem;
 	left: 0.5rem;
 	z-index: 3;
-	margin-bottom: -1rem;
+	margin-bottom: 0.5rem;
 	margin-left: 0.5rem;
 }
 
@@ -45,8 +52,12 @@ a:hover .card:hover{
 	-webkit-box-shadow: 0px 0px 13px -2px rgba(0,0,0,0.89); 
 	box-shadow: 0px 0px 13px -2px rgba(0,0,0,0.89);
 	transition: all 0.15s;
-}
 
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
+}
 
 #outer-fab:hover{
 	filter: brightness(2);
@@ -57,11 +68,17 @@ a:hover .card:hover{
 	white-space: nowrap;
 	position: absolute;
 	display: none;
-	margin-left: auto; 
+	margin-left: auto;
 	margin-right: auto;
 	width: 50px;
-	bottom: 3.5rem;
+	bottom: 0;
 	transition: all 0.1s;
+	padding: none;
+
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
 }
 
 
@@ -72,11 +89,15 @@ a:hover .card:hover{
 	line-height: 40px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	background-color: var(--main-accent-color);
 	border-radius: 50%;
 	width: 40px;
 	height: 40px;
+}
+
+#firstbtn{
+	margin-bottom: 60px;
 }
 
 .inner-fab:hover{
@@ -92,9 +113,29 @@ a:hover .card:hover{
 	display: block;
 }
 
+#session-id{
+	border-radius: 25px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+#session-copy{
+	display: none;
+}
+
+#session-id:hover{
+	background-color: rgba(128, 128, 128, 0.162);
+	cursor: grab;
+}
+
+#session-id:hover #session-copy{
+	display: inline;
+}
 
 #playlist-footer{
-	position: sticky !important;
+	position: absolute !important;
 	float: left;
 	margin-top: 50%;
 	margin-left: 1rem;
@@ -110,7 +151,7 @@ a:hover .card:hover{
 
 
 #songlist{
-	overflow: auto;
+	overflow: none;
 	position: relative;
 	background: var(--background-color-darkest); 
 	border-radius: 2rem;
@@ -119,6 +160,12 @@ a:hover .card:hover{
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	height: 37rem;
 	z-index: 1;
+}
+
+#playlists-container{
+	height: 96%;
+	overflow: auto;
+	border-radius: inherit;
 }
 
 
