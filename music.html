@@ -296,8 +296,13 @@
 								<div class="inner-fab" data-bs-toggle="modal" data-bs-target="#settingsModal">
 									<em class="fa-solid fa-gear"></em>
 								</div>
-						
-								<div class="inner-fab" data-bs-toggle="modal" data-bs-target="#addPlaylist" id="firstbtn">
+
+								<div
+									class="inner-fab"
+									data-bs-toggle="modal"
+									data-bs-target="#addPlaylist"
+									id="firstbtn"
+								>
 									<em class="fa-solid fa-file"></em>
 								</div>
 							</div>
@@ -313,11 +318,19 @@
 						<div id="playlist-footer" class="align-bottom m-0">
 							<div id="playlist-footer-text">
 								<!-- Title and Session ID -->
-								<div class="text-muted" style="margin-left: 4rem; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">
+								<div
+									class="text-muted"
+									style="
+										margin-left: 4rem;
+										-webkit-user-select: none;
+										-moz-user-select: none;
+										-ms-user-select: none;
+										user-select: none;
+									"
+								>
 									Status: <span id="connection-status">Unkown</span> | Your Session ID is:
-									<span id="session-id" class="fw-semi-bold">
-									</span>
-									<span  id="copy-toast" style="display: none;">Copied!</span>
+									<span id="session-id" class="fw-semi-bold"> </span>
+									<span id="copy-toast" style="display: none">Copied!</span>
 								</div>
 							</div>
 						</div>
@@ -353,7 +366,12 @@
 								<button type="button" class="btn btn-primary btn-lg skip" id="skip">
 									<em class="fa-solid fa-backward"></em>
 								</button>
-								<button type="button" class="btn btn-primary btn-lg play-btn play" id="btn-play">
+								<button
+									type="button"
+									class="btn btn-primary btn-lg play-btn play"
+									id="btn-play"
+									onclick="togglePlay(this)"
+								>
 									<em class="fa-solid fa-play"></em>
 								</button>
 								<button type="button" class="btn btn-primary btn-lg skip" id="skip">
@@ -362,7 +380,7 @@
 							</div>
 						</div>
 						<div class="slidecontainer volume col d-flex">
-							<em class="fa-solid fa-volume-high"></em>
+							<em class="fa-solid fa-volume-high" style="display: inline"></em>
 							<input type="range" min="1" max="100" value="50" class="slider" id="volume" />
 						</div>
 					</div>

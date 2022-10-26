@@ -166,6 +166,13 @@ a:hover .card:hover{
 	height: 96%;
 	overflow: auto;
 	border-radius: inherit;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
 }
 
 
@@ -218,8 +225,6 @@ a:hover .card:hover{
 #btn-spinner {
     display: none;
 }
-
-
 
 
 /* The slider itself */

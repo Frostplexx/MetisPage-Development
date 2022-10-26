@@ -133,7 +133,7 @@ async function playSong(btn) {
 }
 
 
-async function pauseSong(btn) {
+export async function pauseSong(btn) {
 	//get the song id of the parent
 	const resp = await pauseMusic();
 	console.log(resp);
@@ -146,7 +146,7 @@ async function pauseSong(btn) {
 	}
 }
 
-async function unpauseSong(parent) {
+export async function unpauseSong(parent) {
 	//get the song id of the parent
 	const resp = await unpauseMusic();
 	console.log(resp);
