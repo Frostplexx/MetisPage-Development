@@ -16,7 +16,6 @@ window.onload = async function () {
 	if (id == null || id == "") {
 		window.location.href = "formEndScreen.html?message=Campaign ID is empty&success=false";
 	} else {
-
 		// convert from base64 to ascii
 		id = atob(id);
 		const ids = id.split("-");
@@ -24,7 +23,7 @@ window.onload = async function () {
 			campaignID: ids[0],
 			userID: ids[1],
 			token: ids[2],
-		}
+		};
 		try {
 			// check if campaign is even editable
 			const editable = await checkIfCampaignEditable(AuthObject);
@@ -32,39 +31,63 @@ window.onload = async function () {
 			if (editable.status == false) {
 				window.location.href = "formEndScreen.html?message=" + editable.message + "&success=false";
 			} else {
-			const campaign = await requestCampaignInfo(AuthObject.campaignID);
-			fillInForm(campaign);
+				const campaign = await requestCampaignInfo(AuthObject.campaignID);
+				fillInForm(campaign);
 			}
 		} catch (error) {
 			console.log(error);
-			// window.location.href = "formEndScreen.html?message=Could not connect to server&success=false";
-			
 		}
 	}
 };
-
+// http://127.0.0.1:3000/edit.html?token=OGI3NTMyOTFhMzItMzM2ODA2MTk3MTU4MjE1NjgyLTY2ZTU2M2FjM2Y=
 async function requestCampaignInfo(id) {
-	const response = await fetch(baseUrl + "/id/" + id, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			//authorization: 'Bearer ' + token
-			Authorization: "Bearer " + bearerToken,
-		},
-	});
-	return response.json();
+	try {
+		const response = await fetch(baseUrl + "/id/" + id, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				//authorization: 'Bearer ' + token
+				Authorization: "Bearer " + bearerToken,
+			},
+		});
+		return response.json();
+	} catch (error) {
+		if (error.message === "Load failed") {
+			document.getElementById("campConnectionErrorMessage").innerText = "420 - Connection to server failed. Wrong URL?";
+			//show campConnectionErrorModal modal
+			$("#campConnectionErrorModal").modal("show");			
+		} else {
+			document.getElementById("campConnectionErrorMessage").innerText = error.message;
+			//show campConnectionErrorModal modal
+			$("#campConnectionErrorModal").modal("show");
+		}
+	}
 }
 
-async function checkIfCampaignEditable(AuthObject){
-	const response = await fetch(baseUrl + "/checkEditable/" + AuthObject.token + "-" + AuthObject.campaignID, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			//authorization: 'Bearer ' + token
-			Authorization: "Bearer " + bearerToken,
-		},
-	});
-	return response.json();
+async function checkIfCampaignEditable(AuthObject) {
+	try {
+		const response = await fetch(baseUrl + "/checkEditable/" + AuthObject.token + "-" + AuthObject.campaignID, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				//authorization: 'Bearer ' + token
+				Authorization: "Bearer " + bearerToken,
+			},
+		});
+		return response.json();
+	} catch (error) {
+		if (error.message === "Load failed") {
+			document.getElementById("campConnectionErrorMessage").innerText = "420 - Connection to server failed. Wrong URL?";
+			//show campConnectionErrorModal modal
+			$("#campConnectionErrorModal").modal("show");			
+		} else {
+			document.getElementById("campConnectionErrorMessage").innerText = error.message;
+			//show campConnectionErrorModal modal
+			$("#campConnectionErrorModal").modal("show");
+		}
+
+		return false;
+	}
 }
 
 function fillInForm(campaign) {
