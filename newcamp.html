@@ -318,22 +318,34 @@
 							</div>
 						</div>
 
+						<!-- Select Server	-->
+						<div class="mb-3">
+							<label for="dmServer" class="form-label">Select Server</label>
+							<select
+								class="form-select"
+								id="dmServer"
+								name="dmServer"
+								aria-describedby="dmNameHelp"
+								required
+							>
+								<option value="" selected disabled>Select Server</option>
+							</select>
+							<div id="selservhelp" class="form-text">
+								Select the server you want to post the campaign on
+							</div>
+						</div>
+
 						<!-- DM Discord Tag -->
 						<div class="mb-3">
 							<label for="dm_tag" class="form-label">Discord Tag</label>
-							<input
-								type="text"
-								class="form-control"
-								name="dm_tag"
-								id="dm_tag"
-								aria-describedby="dm_tagHelp"
-								pattern="[a-zA-Z]+#\d\d\d\d"
-								maxlength="200"
-								required
-							/>
-							<div id="dm_tagHelp" class="form-text">Enter here your own Discord Tag.</div>
-							<div class="invalid-feedback">
-								Your Discord Tag has to follow the pattern Username#XXXX e.g. Wumpus#1234
+							<div>
+								<img
+									id="dmDiscordTagImg"
+									src=""
+									alt="Discord Tag"
+									style="width: 100%; max-width: 40px; position: relative; border-radius: 100%"
+								/>
+								<span id="dmDiscordTag">Temprary</span>
 							</div>
 						</div>
 					</div>
