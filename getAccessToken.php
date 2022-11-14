@@ -1,11 +1,12 @@
 <?php
-
-$clientID = "950427347780259940";
-$clientSecret = "uURJxG5ZjpIBAZkrCT9nAWXaUwP83wIv";
-$redirectURI = "http://localhost:3000/newcamp.php";
+require_once 'env.php';
 
 // make api call to discord
 $code = $_GET['code'];
+
+$clientID = getenv('DISCORD_CLIENT_ID');
+$clientSecret = getenv('DISCORD_CLIENT_SECRET');
+$redirectURI = getenv('DISCORD_REDIRECT_URI');
 
 $crl = curl_init();
 
@@ -45,10 +46,29 @@ curl_setopt($crl, CURLOPT_HTTPHEADER, array(
 $response = curl_exec($crl);
 $decoded_response = json_decode($response, true);
 
-$_SESSION["avatar"] = "https://cdn.discordapp.com/avatars/" .(string)$decoded_response["user"]["id"]  ."/" .$decoded_response["user"]["avatar"] .".png";
-$_SESSION["username"] = $decoded_response["user"]["username"] ."#" .$decoded_response["user"]["discriminator"]; 
+$_SESSION["avatar"] = "https://cdn.discordapp.com/avatars/" . (string)$decoded_response["user"]["id"]  . "/" . $decoded_response["user"]["avatar"] . ".png";
+$_SESSION["username"] = $decoded_response["user"]["username"] . "#" . $decoded_response["user"]["discriminator"];
 $_SESSION["id"] = (string)$decoded_response["user"]["id"];
 
 curl_close($crl);
+
+
+// load guilds from discord
+
+$crl = curl_init();
+
+curl_setopt($crl, CURLOPT_URL, "https://discord.com/api/v10/users/@me/guilds");
+curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($crl, CURLOPT_HTTPHEADER, array(
+	"Content-Type: application/json",
+	"Authorization: Bearer $acces_token"
+));
+
+$response = curl_exec($crl);
+$decoded_response = json_decode($response, true);
+
+curl_close($crl);
+
+$_SESSION["guilds"] = $decoded_response;
 
 header('Location: http://localhost:3000/loadnewCampForm.php');

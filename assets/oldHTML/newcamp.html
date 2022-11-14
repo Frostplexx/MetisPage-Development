@@ -4,7 +4,7 @@
 		<title>Metis Bot</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/newcamp.css" />
+		<link rel="stylesheet" href="/assets/css/newcamp.css" />
 		<!-- jQuery -->
 		<script
 			src="https://code.jquery.com/jquery-3.3.1.js"
@@ -322,8 +322,9 @@
 								required
 							>
 								<option value="" selected disabled>Select Server</option>
+								SeerverListOptions
 							</select>
-							<div id="selservhelp" class="form-text">
+							<div id="serverhelp" class="form-text">
 								Select the server you want to post the campaign on
 							</div>
 						</div>
@@ -331,7 +332,7 @@
 						<!-- DM Discord Tag -->
 						<div class="mb-3">
 							<label for="dm_tag" class="form-label">Discord Tag</label>
-							<div>
+							<div id="usercard">
 								<img
 									id="dmDiscordTagImg"
 									src="discordAvatarSourceURL"
@@ -347,6 +348,7 @@
 				<div class="mb-3" style="margin-top: 5px;">
 					<button type="submit" class="btn btn-primary text-white" id="submitCampForm">Submit Form</button>
 					<button type="button" class="btn btn-primary text-white" onclick="window.location.href = 'http://localhost:3000/logout.php';">Logout</button>
+
 				</div>
 			</form>
 		</div>
