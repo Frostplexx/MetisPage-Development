@@ -1,7 +1,7 @@
 <?php
 require_once 'env.php';
 
-// make api call to discord
+//------------- make api call to discord to get access token 
 $code = $_GET['code'];
 
 $clientID = getenv('DISCORD_CLIENT_ID');
@@ -19,6 +19,7 @@ curl_setopt($crl, CURLOPT_HTTPHEADER, array(
 ));
 
 $response = curl_exec($crl);
+echo $response;
 curl_close($crl);
 
 // decode to json
@@ -31,8 +32,7 @@ session_start();
 $_SESSION['access_token'] = $acces_token;
 $_SESSION['expires_in'] = $expires_in;
 
-// get userinfo from discord
-
+//-------------- get user info from discord
 
 $crl = curl_init();
 
@@ -53,7 +53,7 @@ $_SESSION["id"] = (string)$decoded_response["user"]["id"];
 curl_close($crl);
 
 
-// load guilds from discord
+//------------ load guilds from discord
 
 $crl = curl_init();
 
@@ -71,4 +71,4 @@ curl_close($crl);
 
 $_SESSION["guilds"] = $decoded_response;
 
-header('Location: http://localhost:3000/loadnewCampForm.php');
+header('Location: http://localhost:3000/src/loadnewCampForm.php');

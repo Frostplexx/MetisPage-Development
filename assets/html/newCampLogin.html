@@ -1,12 +1,28 @@
 <body>
-	<h1>Login</h1>
-	<span>Lgin test lorem ipsum ssss</span>
-	<a
-		type="button"
-		class="btn btn-primary text-white"
-		id="submitCampForm"
-		href="https://discord.com/api/oauth2/authorize?client_id=950427347780259940&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fnewcamp.php&response_type=code&scope=identify%20guilds"
-	>
-		Log in with Discord
-	</a>
+	<div class="d-flex justify-content-center"
+	style="margin-top: 10rem;">
+		<div class="text-center w-50">
+			<h1 class="text-center" style="font-weight: bold">
+				<i class="fa-brands fa-discord"></i>
+
+				Discord login
+			</h1>
+			<span class="text-center text-wrap"
+				>To create a campaign, please log in with Discord. No personal information will be saved outside of your
+				computer or shared with anyone other than Discord.</span
+			>
+		</div>
+	</div>
+	<div class="d-flex justify-content-center m-3">
+		<a
+			style="font-size: 18px"
+			type="button"
+			class="btn btn-primary text-white text-center"
+			id="submitCampForm"
+			href="https://discord.com/api/oauth2/authorize?client_id=950427347780259940&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fsrc%2Fnewcamp.php&response_type=code&scope=identify%20guilds"
+		>
+			<i class="fa-solid fa-right-to-bracket pe-1"></i>
+			Login
+		</a>
+	</div>
 </body>

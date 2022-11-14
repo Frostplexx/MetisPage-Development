@@ -4,7 +4,7 @@
 		<title>Metis Bot</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="/assets/css/newcamp.css" />
+		<link rel="stylesheet" href="../../assets/css/newcamp.css" />
 		<!-- jQuery -->
 		<script
 			src="https://code.jquery.com/jquery-3.3.1.js"
@@ -67,7 +67,14 @@
 			appear on the server.
 		</h6>
 		<div class="container" style="margin-top: 4rem">
-			<form style="margin-bottom: 5rem" class="needs-validation" id="campaignForm" novalidate>
+			<form
+				style="margin-bottom: 5rem"
+				class="needs-validation"
+				id="campaignForm"
+				novalidate
+				action="sendCampForm.php"
+				method="POST"
+			>
 				<div class="card bg-dark" style="margin-bottom: 1rem">
 					<div class="card-header">General Campaign Info</div>
 					<div class="card-body">
@@ -345,12 +352,52 @@
 					</div>
 				</div>
 				<div class="g-recaptcha" data-sitekey="6Lf7jgMjAAAAAIwh8qf-Mz4SD4e8qmmGFcH1J65l"></div>
-				<div class="mb-3" style="margin-top: 5px;">
-					<button type="submit" class="btn btn-primary text-white" id="submitCampForm">Submit Form</button>
-					<button type="button" class="btn btn-primary text-white" onclick="window.location.href = 'http://localhost:3000/logout.php';">Logout</button>
-
+				<div id="recaptchaError"></div>
+				<!-- recaptchaError -->
+				<div class="mb-3" style="margin-top: 5px">
+					<button type="submit" class="btn btn-primary text-white">Submit Form</button>
+					<button
+						type="button"
+						class="btn btn-primary text-white"
+						onclick="window.location.href = 'http://localhost:3000/src/logout.php';"
+					>
+						Logout
+					</button>
 				</div>
 			</form>
 		</div>
+		<script>
+			// Example starter JavaScript for disabling form submissions if there are invalid fields
+			(() => {
+				"use strict";
+
+				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+				const forms = document.querySelectorAll(".needs-validation");
+
+				// Loop over them and prevent submission
+				Array.from(forms).forEach((form) => {
+					form.addEventListener(
+						"submit",
+						(event) => {
+							console.log(grecaptcha.getResponse());
+							if (!form.checkValidity()) {
+								event.preventDefault();
+								event.stopPropagation();
+							}
+							if (grecaptcha.getResponse() == "") {
+								event.preventDefault();
+								event.stopPropagation();
+								document.getElementById("recaptchaError").innerHTML =
+									"<p class='text-danger'>Please complete the captcha</p>";
+							} else {
+								document.getElementById("recaptchaError").innerHTML = "";
+							}
+							form.classList.add("was-validated");
+						},
+						false
+					);
+				});
+			})();
+		</script>
 	</body>
 </html>
