@@ -7,7 +7,6 @@ echo fread($header, filesize("../assets/oldHTML/header.html"));
 session_start(); // start session
 // get date
 $today = time();
-
 if(isset($_GET['code'])){
 	$code = $_GET['code'];
 }
