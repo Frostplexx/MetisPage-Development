@@ -69,6 +69,22 @@ $decoded_response = json_decode($response, true);
 
 curl_close($crl);
 
+// ----- send guilds to bot to get the correct guilds back 
+$guilds = $response; 
+$crl = curl_init();
+curl_setopt($crl, CURLOPT_URL, getenv("BOT_URL")."/guilds");
+curl_setopt($crl, CURLOPT_POST, 1);
+curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($crl, CURLOPT_POSTFIELDS, $guilds);
+curl_setopt($crl, CURLOPT_HTTPHEADER, array(
+	"Content-Type: application/json",
+	"Authorization: Bearer ".getenv("BOT_BEARER")
+));
+
+$response = curl_exec($crl);
+$decoded_response = json_decode($response, true);
 $_SESSION["guilds"] = $decoded_response;
+
+curl_close($crl);
 
 header('Location: http://localhost:3000/src/loadnewCampForm.php');
