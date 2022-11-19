@@ -11,6 +11,23 @@ body {
 }
 
 
+section{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: relative !important;
+    min-height: 50rem;
+}
+
+.tmp{
+    min-height: 55rem !important;
+}
+
+.middle{
+    min-height: 20rem !important;
+}
+
 
 #info {
     margin-left: 5rem;
@@ -57,4 +74,28 @@ body {
 
 .card:hover {
     border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+
+.custom-shape-divider-bottom-1668894501 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+    z-index: -1;
+}
+
+.custom-shape-divider-bottom-1668894501 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 123px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1668894501 .shape-fill {
+    fill: #202225;
 }

@@ -5,29 +5,46 @@
     --background-color-darkest: #202225;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: dimgray;
+    border-radius: 25px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: grey;
+}
 
 
 #header{
     position: absolute;
     width: 100%;
-    z-index: 100;
     background: var(--background-color);
     z-index: 100;
     font-family: 'Open Sans', sans-serif;
-    padding: .3rem !important;
+    padding: .5rem !important;
     max-width: 100rem;
 }
 
 
-#header img{
-    margin-left: 10px;
-    width: 4rem;
-}
 #header span{
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 700;
     margin-left: 10px;
+    margin-top: .5rem;
+
     font-size: 20px;
 }
 
@@ -69,7 +86,6 @@
     width: 100%;
     height: 25px;
     background-color: var(--background-color-darkest);
-    position: fixed;
     bottom: 0;
     left: 0;
     z-index: 100;

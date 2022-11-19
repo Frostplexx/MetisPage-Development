@@ -4,7 +4,11 @@
 		<title>Metis Bot</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="../assets/css/newcamp.css" />
+		<link rel="stylesheet" href="../assets/css/main.css"/>
+
 		<!-- jQuery -->
 		<script
 			src="https://code.jquery.com/jquery-3.3.1.js"
@@ -22,7 +26,6 @@
 	</head>
 
 	<body>
-
 		<!--Connection Error Popup-->
 		<div
 			class="modal"
@@ -59,243 +62,258 @@
 				</div>
 			</div>
 		</div>
-		<!--Remaining section-->
-		<div class="container text-white"
-		>
-			<div>
-				<h1 class="fw-bold">Let the Adventure begin
-					<i class="fa-solid fa-swords text-white"></i>
-				</h1>
-				<h5 class="mb-3" style="opacity: .7;">Fill out this form for your campaign to be listed on your server</h5>
-			</div>
-			<form
-				style="margin-bottom: 5rem"
-				class="needs-validation"
-				id="campaignForm"
-				novalidate
-				action="sendCampForm.php"
-				method="POST"
+
+		<section class="tmp"></section>
+		<section class="middle">
+			<div class="text-white container"
+				 style="position: absolute"
 			>
-				<div class="card bg-dark" style="margin-bottom: 1rem">
-					<div class="card-header">
-						<i class="fa-solid fa-circle-info"></i>
-						General Campaign Info</div>
-					<div class="card-body">
-						<div class="mb-3">
-							<!-- Campaign Name -->
-							<label for="campaignName" class="form-label">Campaign Name</label>
-							<input
-								type="text"
-								class="form-control"
-								id="campaignName"
-								name="campaign_name"
-								aria-describedby="campaignNameHelp"
-								required
-							/>
-							<div id="campaignNameHelp" class="form-text">Please enter the name of your campaign.</div>
-						</div>
-						<!-- Language Section -->
-						<div class="mb-3">
-							<label class="form-label">Language</label>
-							<input
-								class="form-control"
-								id="cmpDesc"
-								name="language"
-								aria-describedby="langHelpDesc"
-								maxlength="100"
-								required
-							></input>
-							<div id="langHelpDesc" class="form-text">State the language / languages your campaign will be in</div>
-						</div>
-						<!-- Campaign Description -->
-						<div class="mb-3">
-							<label for="cmpDesc" class="form-label">Campaign Description</label>
-							<textarea
-								class="form-control"
-								id="cmpDesc"
-								name="description"
-								aria-describedby="cmpDescHelp"
-								maxlength="1000"
-								required
-							></textarea>
-							<div id="cmpDescHelp" class="form-text">Describe in short what your campaign is about</div>
-						</div>
-
-						<!-- Campaign Location -->
-						<div class="mb-3">
-							<label for="location" class="form-label">Where (online/irl & location)</label>
-							<input
-								type="text"
-								class="form-control"
-								name="location"
-								id="location"
-								aria-describedby="locationHelp"
-								maxlength="200"
-								required
-							/>
-							<div id="locationHelp" class="form-text">Where do your campaigns normally take place?</div>
-						</div>
-
-						<!-- Campaign Time -->
-						<div class="mb-3">
-							<label for="time" class="form-label">When (day/s & time)</label>
-							<input
-								type="text"
-								class="form-control"
-								name="time"
-								id="time"
-								aria-describedby="timeHelp"
-								maxlength="200"
-								required
-							/>
-							<div id="timeHelp" class="form-text">When do your campaigns normally take place?</div>
-						</div>
-
-						<!-- Max Players -->
-						<div class="mb-3">
-							<label for="maxPlayers" class="form-label">Maximum amount of Players</label>
-							<input
-								type="number"
-								class="form-control"
-								name="players_max"
-								id="maxPlayers"
-								aria-describedby="maxPlayersHelp"
-								min="1"
-								max="100"
-								value="1"
-								required
-							/>
-							<div id="maxPlayersHelp" class="form-text">Set how many players can join your campaign</div>
-							<div class="invalid-feedback">Please enter a valid number between 1 and 100.</div>
-						</div>
-					</div>
+				<div>
+					<h1 class="fw-bold" style="font-family: 'Montserrat', sans-serif;">Let the Adventure begin
+						<i class="fa-solid fa-swords text-white"></i>
+					</h1>
+					<h5 class="mb-3" style="opacity: .7;">Fill out this form for your campaign to be listed on your server</h5>
 				</div>
-				<div class="card bg-dark" style="margin-bottom: 1rem">
-					<div class="card-header">
-						<i class="fa-solid fa-pen"></i>
-						Additional Campaign Settings</div>
-					<div class="card-body">
-						<!-- Campaign Difficulty -->
-						<div class="mb-3">
-							<label class="form-label">Difficulty</label>
-
-							<div class="form-check">
+				<form
+						style="margin-bottom: 5rem"
+						class="needs-validation"
+						id="campaignForm"
+						novalidate
+						action="sendCampForm.php"
+						method="POST"
+				>
+					<div class="card bg-dark" style="margin-bottom: 1rem">
+						<div class="card-header">
+							<i class="fa-solid fa-circle-info"></i>
+							General Campaign Info</div>
+						<div class="card-body">
+							<div class="mb-3">
+								<!-- Campaign Name -->
+								<label for="campaignName" class="form-label">Campaign Name</label>
 								<input
-									class="form-check-input"
-									type="radio"
-									name="diffucltyRadio"
-									value="Beginner/Easy"
-									id="beginnerDiff"
-									checked
+										type="text"
+										class="form-control"
+										id="campaignName"
+										name="campaign_name"
+										aria-describedby="campaignNameHelp"
+										required
 								/>
-								<label class="form-check-label" for="beginnerDiff"> Beginner/Easy </label>
+								<div id="campaignNameHelp" class="form-text">Please enter the name of your campaign.</div>
 							</div>
-							<div class="form-check">
+							<!-- Language Section -->
+							<div class="mb-3">
+								<label class="form-label">Language</label>
 								<input
-									class="form-check-input"
-									type="radio"
-									name="diffucltyRadio"
-									value="Medium"
-									id="mediumDiff"
-								/>
-								<label class="form-check-label" for="mediumDiff"> Medium </label>
+										class="form-control"
+										id="cmpDesc"
+										name="language"
+										aria-describedby="langHelpDesc"
+										maxlength="100"
+										required
+								></input>
+								<div id="langHelpDesc" class="form-text">State the language / languages your campaign will be in</div>
 							</div>
-							<div class="form-check">
+							<!-- Campaign Description -->
+							<div class="mb-3">
+								<label for="cmpDesc" class="form-label">Campaign Description</label>
+								<textarea
+										class="form-control"
+										id="cmpDesc"
+										name="description"
+										aria-describedby="cmpDescHelp"
+										maxlength="1000"
+										required
+								></textarea>
+								<div id="cmpDescHelp" class="form-text">Describe in short what your campaign is about</div>
+							</div>
+
+							<!-- Campaign Location -->
+							<div class="mb-3">
+								<label for="location" class="form-label">Where (online/irl & location)</label>
 								<input
-									class="form-check-input"
-									type="radio"
-									name="diffucltyRadio"
-									value="Expert/Difficult"
-									id="hardDiff"
+										type="text"
+										class="form-control"
+										name="location"
+										id="location"
+										aria-describedby="locationHelp"
+										maxlength="200"
+										required
 								/>
-								<label class="form-check-label" for="hardDiff"> Expert/Difficult </label>
+								<div id="locationHelp" class="form-text">Where do your campaigns normally take place?</div>
 							</div>
-						</div>
 
-						<!-- Additional Notes -->
-						<div class="mb-3">
-							<label for="notes" class="form-label">Additional Notes</label>
-							<textarea
-								class="form-control"
-								id="notes"
-								name="notes"
-								aria-describedby="notesHelp"
-								maxlength="1000"
-							></textarea>
-							<div id="notesHelp" class="form-text">Write any additional notes here</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="card bg-dark" style="margin-bottom: 1rem">
-					<div class="card-header">
-						<i class="fa-solid fa-user"></i>
-						DM Info</div>
-					<div class="card-body">
-						<!-- DM Name -->
-						<div class="mb-3">
-							<label for="dmName" class="form-label">Dungeon Master Name</label>
-							<input
-								type="text"
-								class="form-control"
-								name="dm_name"
-								id="dmName"
-								aria-describedby="dmNameHelp"
-								maxlength="200"
-								required
-							/>
-							<div id="dmNameHelp" class="form-text">
-								This is the Name that will appear on the campaign Message
-							</div>
-						</div>
-
-						<!-- Select Server	-->
-						<div class="mb-3">
-							<label for="dmServer" class="form-label">Select Server</label>
-							<select
-								class="form-select"
-								id="dmServer"
-								name="dmServer"
-								aria-describedby="dmNameHelp"
-								required
-							>
-								<option value="" selected disabled>Select Server</option>
-								SeerverListOptions
-							</select>
-							<div id="serverhelp" class="form-text">
-								Select the server you want to post the campaign on
-							</div>
-						</div>
-
-						<!-- DM Discord Tag -->
-						<div class="mb-3">
-							<label for="dm_tag" class="form-label">Discord Tag</label>
-							<div id="usercard">
-								<img
-									id="dmDiscordTagImg"
-									src="discordAvatarSourceURL"
-									alt="Discord Tag"
+							<!-- Campaign Time -->
+							<div class="mb-3">
+								<label for="time" class="form-label">When (day/s & time)</label>
+								<input
+										type="text"
+										class="form-control"
+										name="time"
+										id="time"
+										aria-describedby="timeHelp"
+										maxlength="200"
+										required
 								/>
-								<span id="dmDiscordTag">Discord#1234</span>
+								<div id="timeHelp" class="form-text">When do your campaigns normally take place?</div>
+							</div>
+
+							<!-- Max Players -->
+							<div class="mb-3">
+								<label for="maxPlayers" class="form-label">Maximum amount of Players</label>
+								<input
+										type="number"
+										class="form-control"
+										name="players_max"
+										id="maxPlayers"
+										aria-describedby="maxPlayersHelp"
+										min="1"
+										max="100"
+										value="1"
+										required
+								/>
+								<div id="maxPlayersHelp" class="form-text">Set how many players can join your campaign</div>
+								<div class="invalid-feedback">Please enter a valid number between 1 and 100.</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="g-recaptcha" data-sitekey="6Lf7jgMjAAAAAIwh8qf-Mz4SD4e8qmmGFcH1J65l"></div>
-				<div id="recaptchaError"></div>
-				<!-- recaptchaError -->
-				<div class="mb-3" style="margin-top: 5px">
-					<button type="submit" class="btn btn-primary text-white">Submit Form</button>
-					<button
-						type="button"
-						class="btn btn-secondary text-white"
-						onclick="window.location.href = 'http://localhost:3001/src/logout.php';"
-					>
-						Logout
-					</button>
-				</div>
-			</form>
-		</div>
+					<div class="card bg-dark" style="margin-bottom: 1rem">
+						<div class="card-header">
+							<i class="fa-solid fa-pen"></i>
+							Additional Campaign Settings</div>
+						<div class="card-body">
+							<!-- Campaign Difficulty -->
+							<div class="mb-3">
+								<label class="form-label">Difficulty</label>
+
+								<div class="form-check">
+									<input
+											class="form-check-input"
+											type="radio"
+											name="diffucltyRadio"
+											value="Beginner/Easy"
+											id="beginnerDiff"
+											checked
+									/>
+									<label class="form-check-label" for="beginnerDiff"> Beginner/Easy </label>
+								</div>
+								<div class="form-check">
+									<input
+											class="form-check-input"
+											type="radio"
+											name="diffucltyRadio"
+											value="Medium"
+											id="mediumDiff"
+									/>
+									<label class="form-check-label" for="mediumDiff"> Medium </label>
+								</div>
+								<div class="form-check">
+									<input
+											class="form-check-input"
+											type="radio"
+											name="diffucltyRadio"
+											value="Expert/Difficult"
+											id="hardDiff"
+									/>
+									<label class="form-check-label" for="hardDiff"> Expert/Difficult </label>
+								</div>
+							</div>
+
+							<!-- Additional Notes -->
+							<div class="mb-3">
+								<label for="notes" class="form-label">Additional Notes</label>
+								<textarea
+										class="form-control"
+										id="notes"
+										name="notes"
+										aria-describedby="notesHelp"
+										maxlength="1000"
+								></textarea>
+								<div id="notesHelp" class="form-text">Write any additional notes here</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="card bg-dark" style="margin-bottom: 1rem">
+						<div class="card-header">
+							<i class="fa-solid fa-user"></i>
+							DM Info</div>
+						<div class="card-body">
+							<!-- DM Name -->
+							<div class="mb-3">
+								<label for="dmName" class="form-label">Dungeon Master Name</label>
+								<input
+										type="text"
+										class="form-control"
+										name="dm_name"
+										id="dmName"
+										aria-describedby="dmNameHelp"
+										maxlength="200"
+										required
+								/>
+								<div id="dmNameHelp" class="form-text">
+									This is the Name that will appear on the campaign Message
+								</div>
+							</div>
+
+							<!-- Select Server	-->
+							<div class="mb-3">
+								<label for="dmServer" class="form-label">Select Server</label>
+								<select
+										class="form-select"
+										id="dmServer"
+										name="dmServer"
+										aria-describedby="dmNameHelp"
+										required
+								>
+									<option value="" selected disabled>Select Server</option>
+									SeerverListOptions
+								</select>
+								<div id="serverhelp" class="form-text">
+									Select the server you want to post the campaign on
+								</div>
+							</div>
+
+							<!-- DM Discord Tag -->
+							<div class="mb-3">
+								<label for="dm_tag" class="form-label">Discord Tag</label>
+								<div id="usercard">
+									<img
+											id="dmDiscordTagImg"
+											src="discordAvatarSourceURL"
+											alt="Discord Tag"
+									/>
+									<span id="dmDiscordTag">Discord#1234</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="g-recaptcha" data-sitekey="6Lf7jgMjAAAAAIwh8qf-Mz4SD4e8qmmGFcH1J65l"></div>
+					<div id="recaptchaError"></div>
+					<!-- recaptchaError -->
+					<div class="mb-3" style="margin-top: 5px">
+						<button type="submit" class="btn btn-primary text-white">Submit Form</button>
+						<button
+								type="button"
+								class="btn btn-secondary text-white"
+								onclick="window.location.href = 'http://localhost:3001/src/logout.php';"
+						>
+							Logout
+						</button>
+					</div>
+				</form>
+			</div  >
+			<div class="custom-shape-divider-bottom-1668894501">
+				<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+					<path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+					<path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+					<path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+				</svg>
+			</div>
+		</section>
+		<!--Remaining section-->
+		<section style="background: #202225; z-index: -1">
+
+		</section>
 		<script>
 			// Example starter JavaScript for disabling form submissions if there are invalid fields
 			(() => {

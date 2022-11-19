@@ -31,10 +31,11 @@ if(isset($_GET["error"])) {
 }
 
 // loop trough the guilds and add them to a string
-foreach ($guilds as $guild) {
-	$guildsString .= '<option value="'. $guild["id"].'">'.$guild["name"].'</option>';
+if($guilds != null){
+    foreach($guilds as $guild){
+        $guildsString .= "<option value='" . $guild["id"] . "'>" . $guild["name"] . "</option>";
+    }
 }
-
 $campForm = str_replace("SeerverListOptions", $guildsString, $campForm);
 
 echo fread($header, filesize("../assets/oldHTML/header.html"));
