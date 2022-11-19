@@ -3,4 +3,4 @@
 session_start(); 
 session_destroy(); 
 
-header('Location: http://localhost:3000/index.php');
+header('Location: http://localhost:3001/index.php');

@@ -1,40 +1,163 @@
-@import "bootstrap-overrides";
-@import "custom.sass";
 :root{
 	--main-accent-color: #ED2027;
 	--background-color: #36393f;
 	--background-color-darker: #2f3136;
-	--background-color-darkest: #202225; 
+	--background-color-darkest: #202225;
 }
 
-#page-text {
-	margin: auto;
-	position: relative;
-	width: 20%;
-	font-size: 1.8em;
-	font-weight: bold;
-	color: #fff;
-	text-align: left;
-	top: 150px;
-	margin-left: 10%;
-}
-#page-text a{
-	color: #fff;
-	position: relative;
-	text-decoration: none;
-	filter: brightness(0.45);
-	font-size: 20px;
-	font-weight: 550;
-	top: -25px;
+body{
+	color: white;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	font-family: 'Open Sans', sans-serif;
+	background: var(--background-color);
 }
 
-#page-text img {
-	width: 300px;
-	-webkit-box-shadow: 5px 5px 20px 5px #000000; 
-	box-shadow: 5px 5px 20px 5px #000000;
+#header{
+	background: transparent !important;
 }
 
-#git-button{
+
+section{
+	position: relative !important;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 50rem;
+
+}
+
+
+.red{
+	background: var(--background-color-darkest);
+}
+
+
+.purple{
+	background: var(--main-accent-color);
+}
+
+#hero-logo{
+	width: 17rem;
+	fill: url(#MyGradient);
+}
+
+
+
+#hero-text{
+	max-width: 45rem;
+}
+#hero-text > h1{
+	font-size: 2.5rem;
+}
+
+h1{
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 800 !important;
+}
+
+#hero-text > p{
+	font-size: 1.4rem;
+	opacity: .7;
+}
+
+.scroll-indicator-div {
 	position: absolute;
-	margin-top: 50px;
+	bottom: 0;
+	margin: .5rem;
+	z-index: 100;
+	margin-bottom: 3vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: opacity .3s ease;
+
+
 }
+
+.scroll-indicator-div > span{
+	font-size: 1.2rem;
+	opacity: .7;
+	margin-bottom: 2.5rem;
+	opacity: 0;
+}
+
+.scroll-indicator-div > .scroll-indicator{
+	position: absolute;
+	font-size: 40px;
+	animation: bounce 2s infinite;
+}
+
+.scroll-indicator-div:hover > .scroll-text{
+	opacity: .7;
+	transition: opacity .3s ease;
+}
+
+@keyframes bounce {
+	0% { bottom: 0px; opacity: .7; }
+	50%   { bottom: 10px; opacity: .3;}
+	100% { bottom: 0px;  opacity: .7;}
+}
+
+
+.get-started{
+	margin-top: 1rem;
+	font-size: large;
+	font-weight: 500;
+	border: none;
+	color: white;
+	background: linear-gradient(34deg, #ED2027 0%, #d33174 100%);
+	padding: .5rem;
+	border-radius: 15px;
+	transition: box-shadow .2s ease;
+}
+.get-started:hover{
+	box-shadow: 0px 0px 5px 1px #ED2027;
+}
+
+/*Custom Waves*/
+.custom-shape-divider-bottom-1668879277 {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+	transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1668879277 svg {
+	position: relative;
+	display: block;
+	width: calc(100% + 1.3px);
+	height: 58px;
+}
+
+.custom-shape-divider-bottom-1668879277 .shape-fill {
+	fill: #202225;
+}
+
+.custom-shape-divider-bottom-1668879377 {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+	transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1668879377 svg {
+	position: relative;
+	display: block;
+	width: calc(100% + 1.3px);
+	height: 49px;
+}
+
+.custom-shape-divider-bottom-1668879377 .shape-fill {
+	fill: #ED2027;
+}
+
