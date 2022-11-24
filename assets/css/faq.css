@@ -1,4 +1,6 @@
-
+:root{
+	font-family: 'Montserrat', sans-serif;
+}
 #top-bar{
 	width: 100%;
 	height: 60px;
