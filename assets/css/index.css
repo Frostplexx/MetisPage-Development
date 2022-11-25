@@ -3,14 +3,28 @@ body{
 	height: 100%;
 	width: 100%;
 	margin: 0;
-	font-family: 'Open Sans', sans-serif;
 	background: var(--background-color);
+}
+
+@font-face {
+	font-family: "Montserrat";
+	src: url("http://localhost:8888/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf");
 }
 
 #header{
 	background: transparent !important;
 }
 
+#hero-text > h1{
+	font-family: 'Montserrat', sans-serif !important;
+
+}
+
+#hero-logo{
+	width: 20rem;
+	height: 20rem;
+	fill: url(#MyGradient);
+}
 
 section{
 	position: relative !important;
@@ -23,7 +37,6 @@ section{
 }
 
 .main-page-card ul li{
-	font-family: 'Open Sans', sans-serif;
 	font-weight: 600;
 	font-size: 1.2rem;
 	padding: .5rem;
@@ -33,7 +46,6 @@ section{
 	margin-top: 3rem;
 }
 #more-commands li {
-	font-family: 'Open Sans', sans-serif;
 	font-weight: 600;
 	font-size: 1.2rem;
 	padding: .5rem;
@@ -54,13 +66,10 @@ section{
 	background: #bd0bfcff;
 }
 
-#hero-logo{
-	width: 17rem;
-	fill: url(#MyGradient);
-}
 
 
 
+/*
 #hero-text{
 	max-width: 45rem;
 }
@@ -77,6 +86,7 @@ h1{
 	font-size: 1.4rem;
 	opacity: .7;
 }
+*/
 
 .scroll-indicator-div {
 	position: absolute;

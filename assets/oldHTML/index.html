@@ -2,50 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="icon" href="assets/images/logo.png" style="border-radius: 50%;">
     <link rel="stylesheet" href="assets/css/index.css"/>
     <script type="module" src="assets/js/index.js"></script>
-
 </head>
 <body>
 <main>
     <section class="main">
-        <div id="hero" class="d-flex flex-row justify-content-center align-items-center">
-            <svg id="hero-logo" width="100%" height="100%" viewBox="0 0 2000 2000" version="1.1"
-                 xmlns="http://www.w3.org/2000/svg"
-                 xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
-                 style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-            <g transform="matrix(1.7865,0,0,1.6404,-740.045,-502.556)">
-                <g id="Layer1">
-                    <g>
-                        <path d="M561.043,1346.19C561.912,1342.22 571.425,1204.48 588.94,1131.59C626.214,976.487 651.375,891.905 697.321,828.246C806.205,677.386 904.338,668.706 1102.33,622.793C1264.66,585.15 1332.04,485.751 1332.04,485.751C1333.68,524.223 1325.38,658.114 1199.99,721.403C1129.02,757.221 925.917,761.097 842.153,928.842M842.153,928.842C834.311,942.918 902.706,859.278 1071.79,839.054C1213.87,822.06 1274,785.787 1282.45,780.693C1333.83,749.739 1343.71,723.17 1343.71,723.17C1343.71,723.17 1337.88,818.115 1260.54,915.15C1183.2,1012.19 1054.39,1004.28 1001.08,1021.17C907.005,1050.99 856.942,1099.71 849.135,1132.53C849.135,1132.53 864.221,1103.95 1001.08,1083.95C1159.59,1060.79 1220.05,1050.02 1275.1,1000C1275.1,1000 1184.5,1201.91 957.855,1246.9C731.214,1291.89 757.009,1227.75 561.043,1346.19"
-                        />
-                    </g>
-                </g>
-            </g>
-                <defs>
-                <linearGradient id="MyGradient" x1="50%" y1="0%" x2="50%" y2="100%">
-                    <stop offset="0%" stop-color="#bd0bfcff">
-                        <animate attributeName="stop-color" values="#bd0bfcff;#ED2027;#bd0bfcff" dur="4s"
-                                 repeatCount="indefinite"/>
-                    </stop>
-                    <stop offset="100%" stop-color="#ED2027">
-                        <animate attributeName="stop-color" values="#ED2027;#bd0bfcff; #ED2027" dur="4s"
-                                 repeatCount="indefinite"/>
-                    </stop>
+        <div class="container col-xxl-10 px-4 py-5">
+            <div id="hero" class="row flex-lg-row-reverse align-items-center g-5 py-5 justify-content-center">
 
-                </linearGradient>
-            </defs>
-        </svg>
-            <div id="hero-text">
-                <h1>Next level campaign management</h1>
-                <p>
-                    Metis is a next generation D&D campaign management bot for Discord. It is designed to be easy to use
-                    and
-                    powerful.
-                </p>
-                <button class="get-started" type="button" id="start">Get Started</button>
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <svg class="d-block mx-lg-auto img-fluid" id="hero-logo" width="100%" height="100%" viewBox="0 0 2000 2000" version="1.1"
+                         xmlns="http://www.w3.org/2000/svg"
+                         xml:space="preserve"
+                         style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                        <g transform="matrix(1.7865,0,0,1.6404,-740.045,-502.556)">
+                            <g id="Layer1">
+                                <g>
+                                    <path d="M561.043,1346.19C561.912,1342.22 571.425,1204.48 588.94,1131.59C626.214,976.487 651.375,891.905 697.321,828.246C806.205,677.386 904.338,668.706 1102.33,622.793C1264.66,585.15 1332.04,485.751 1332.04,485.751C1333.68,524.223 1325.38,658.114 1199.99,721.403C1129.02,757.221 925.917,761.097 842.153,928.842M842.153,928.842C834.311,942.918 902.706,859.278 1071.79,839.054C1213.87,822.06 1274,785.787 1282.45,780.693C1333.83,749.739 1343.71,723.17 1343.71,723.17C1343.71,723.17 1337.88,818.115 1260.54,915.15C1183.2,1012.19 1054.39,1004.28 1001.08,1021.17C907.005,1050.99 856.942,1099.71 849.135,1132.53C849.135,1132.53 864.221,1103.95 1001.08,1083.95C1159.59,1060.79 1220.05,1050.02 1275.1,1000C1275.1,1000 1184.5,1201.91 957.855,1246.9C731.214,1291.89 757.009,1227.75 561.043,1346.19"
+                                    />
+                                </g>
+                            </g>
+                        </g>
+                        <defs>
+                            <linearGradient id="MyGradient" x1="50%" y1="0%" x2="50%" y2="100%">
+                                <stop offset="0%" stop-color="#bd0bfcff">
+                                    <animate attributeName="stop-color" values="#bd0bfcff;#ED2027;#bd0bfcff" dur="4s"
+                                             repeatCount="indefinite"/>
+                                </stop>
+                                <stop offset="100%" stop-color="#ED2027">
+                                    <animate attributeName="stop-color" values="#ED2027;#bd0bfcff; #ED2027" dur="4s"
+                                             repeatCount="indefinite"/>
+                                </stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div id="hero-text" class="col-lg-6">
+                    <h1 class="display-5 fw-bold lh-1 mb-3">Next level campaign management</h1>
+                    <p class="lead">
+                        Metis is a next generation D&D campaign management bot for Discord. It is designed to be easy to
+                        use
+                        and
+                        powerful.
+                    </p>
+                    <button class="get-started" type="button" id="start">Get Started</button>
+                </div>
             </div>
         </div>
         <div class="scroll-indicator-div" id="scroll-indicator-div">
@@ -71,22 +74,23 @@
             Ever wanted to manage all the different campaigns going on your Dungeons and Dragons server? Fret not! Metis
             is here to help.
         </p>
-    <div class="d-flex align-items-center">
-        <div class="main-page-card container d-flex align-items-center">
-            <div class="text-center" style="max-width: 20vw">
-                <h1>Manage Campaigns</h1>
-                <p>Campaigns are all displayed in one channel and players can join them easily by clicking a button!</p>
+        <div class="d-flex align-items-center">
+            <div class="main-page-card container d-flex align-items-center">
+                <div class="text-center" style="max-width: 20vw">
+                    <h1>Manage Campaigns</h1>
+                    <p>Campaigns are all displayed in one channel and players can join them easily by clicking a
+                        button!</p>
+                </div>
+                <img src="assets/images/embed.png" style="min-width: 5rem; max-width: 50rem">
             </div>
-            <img src="assets/images/embed.png" style="min-width: 5rem; max-width: 50rem">
-        </div>
-        <div class="d-flex align-items-center  justify-content-center main-page-card">
-            <div class="text-center"style="max-width: 20vw">
-                <h1>Create Campaign</h1>
-                <p>Users can fill out a form to create their own campaign.</p>
+            <div class="d-flex align-items-center  justify-content-center main-page-card">
+                <div class="text-center" style="max-width: 20vw">
+                    <h1>Create Campaign</h1>
+                    <p>Users can fill out a form to create their own campaign.</p>
+                </div>
+                <img src="assets/images/form.png" style="min-width: 10rem">
             </div>
-            <img src="assets/images/form.png" style="min-width: 10rem">
         </div>
-    </div>
         <div class="custom-shape-divider-bottom-1668879377">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
                  preserveAspectRatio="none">
@@ -103,7 +107,8 @@
     <section class="purple">
         <h1><i class="fa-solid fa-music"></i> Play Music</h1>
         <p style="max-width: 60rem">
-            Our Bot has a custom music player where you can play music from YouTube, Spotify, SoundCloud, and more! Using a website, app or program, you can control the music from anywhere.
+            Our Bot has a custom music player where you can play music from YouTube, Spotify, SoundCloud, and more!
+            Using a website, app or program, you can control the music from anywhere.
         </p>
         <div class="main-page-card">
             <ul>
@@ -119,10 +124,14 @@
             </ul>
         </div>
         <div class="custom-shape-divider-bottom-1668892117">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                 preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+                      opacity=".25" class="shape-fill"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+                      opacity=".5" class="shape-fill"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+                      class="shape-fill"></path>
             </svg>
         </div>
     </section>
@@ -142,10 +151,14 @@
         </ul>
 
         <div class="custom-shape-divider-bottom-1668892480">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                 preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+                      opacity=".25" class="shape-fill"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+                      opacity=".5" class="shape-fill"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+                      class="shape-fill"></path>
             </svg>
         </div>
     </section>
@@ -156,7 +169,9 @@
             To get started, you need to invite the bot to your server. You can do this by clicking the button below.
         </p>
         <p>Afterwards run the <span>/help</span> command to begin the setup.</p>
-        <a type="button" class="invite-btn" href="https://discord.com/api/oauth2/authorize?client_id=950427347780259940&permissions=8&scope=applications.commands%20bot"><i class="fa-brands fa-discord"></i>Invite!</a>
+        <a type="button" class="invite-btn"
+           href="https://discord.com/api/oauth2/authorize?client_id=950427347780259940&permissions=8&scope=applications.commands%20bot"><i
+                class="fa-brands fa-discord"></i>Invite!</a>
     </section>
 </main>
 <div id="footer">
