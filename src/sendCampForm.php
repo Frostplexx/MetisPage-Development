@@ -43,8 +43,8 @@ if ($responseKeys["success"]) {
 	);
 	// open campGetBotResponse.php and send the json object to campGetBotResponse.php
 	$_SESSION["campData"] = json_encode($campData);
-	header("Location: ../src/campGetBotResponse.php");
+	header("Location: campGetBotResponse.php");
 	exit();
 } else {
-	header("Location: ../src/loadnewCampForm.php?error=recaptcha");
+	header("Location: loadnewCampForm.php?error=recaptcha");
 }

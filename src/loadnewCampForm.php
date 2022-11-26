@@ -36,7 +36,7 @@ if($guilds != null){
         $guildsString .= "<option value='" . $guild["id"] . "'>" . $guild["name"] . "</option>";
     }
 }
-$campForm = str_replace("SeerverListOptions", $guildsString, $campForm);
+$campForm = str_replace("ServerListOptions", $guildsString, $campForm);
 
 echo fread($header, filesize("../assets/oldHTML/header.html"));
 echo $campForm;

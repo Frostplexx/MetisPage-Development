@@ -95,4 +95,4 @@ $_SESSION["guilds"] = $decoded_response;
 
 curl_close($crl);
 
-header('Location: http://localhost:3001/src/loadnewCampForm.php');
+header('Location: '. getenv("DOMAIN")  . '/src/loadnewCampForm.php');
