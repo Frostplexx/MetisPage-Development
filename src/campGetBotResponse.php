@@ -19,7 +19,7 @@ $campData = $_SESSION["campData"];
 // open campGetBotResponse.php and send the json object
 //$_SESSION["campData"] = $campData;
 if($campData == ""){
-	echo "<script>window.location.href = 'newcamp.php';</script>";
+	echo "<script>window.location.href = 'login.php';</script>";
 }
 //send the json object to the bot 
 $crl = curl_init();

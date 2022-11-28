@@ -1,10 +1,13 @@
 <?php
-
+require_once "userHandler/user.php";
 session_start();
-$username = $_SESSION['username'];
-$avatar = $_SESSION['avatar'];
-$id = $_SESSION['id'];
-$guilds = $_SESSION['guilds'];
+$user = $_SESSION['user'];
+
+$username = $user->getUsername();
+$avatar = $user->getAvatar();
+$id = $user->getId();
+$guilds = $user->getGuilds();
+
 $guildsString = "";
 
 // load newcamp.html
