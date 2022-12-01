@@ -135,6 +135,9 @@ section p {
 	font-size: 1.2rem;
 }
 
+.main{
+	z-index: -1;
+}
 
 .invite-btn{
 	font-family: 'Montserrat', sans-serif;

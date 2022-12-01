@@ -1,0 +1,111 @@
+<script type="module" src="../assets/js/newcamp.js"></script>
+<div class="d-flex flex-column align-items-end justify-content-center">
+    <div>
+        <img src="usericon" id="icn">
+    </div>
+
+
+    <div id="loggedinCard" class="text-center hidden">
+
+        <div id="usercard">
+            <img
+                    id="dmDiscordTagImg"
+                    src="usericon"
+                    alt="Discord Tag"
+            />
+            <span id="dmDiscordTag">username</span>
+        </div>
+        <div id="btns">
+            <a href="/src/profile.php" class="btn btn-primary">
+                Profile
+                <i class="fa-solid fa-user"></i>
+            </a>
+            <a href="/src/logout.php" class="btn btn-danger">
+                Logout
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+        </div>
+    </div>
+
+</div>
+<style>
+    #btns {
+        margin-top: 1rem;
+    }
+
+    #icn {
+        max-width: 2.5rem;
+        max-height: 2.5rem;
+        border-radius: 25px;
+        border: #1e2125 2px solid;
+    }
+
+    root {
+        pointer-events: none
+    }
+
+    #loggedinCard {
+        position: absolute;
+        top: 90%;
+        pointer-events: all;
+        z-index: 10;
+        display: block;
+        padding: 1rem;
+        background: #1e2125;
+        border-radius: 10px;
+        box-shadow: black 0px 0px 10px;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    #icn:hover {
+        cursor: pointer;
+        -webkit-filter: brightness(60%);
+        transition: all .1s ease;
+    }
+
+    #usercard {
+        background: linear-gradient(45deg, var(--color1), var(--color2));
+        border-radius: 10px;
+        width: fit-content;
+        padding: 1rem;
+        box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    #usercard > span {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    #usercard > img {
+        width: 100%;
+        max-width: 50px;
+        position: relative;
+        border-radius: 100%;
+        margin-right: .5rem;
+        box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+    }
+</style>
+
+<script>
+
+    //if user click outside of card, hide card
+    window.onclick = function (event) {
+        console.log(event.target)
+        if (!event.target.matches('#loggedinCard') && !event.target.matches('#icn') && !event.target.parentNode.matches('#loggedinCard')) {
+            const card = document.getElementById("loggedinCard");
+            if (!card.classList.contains("hidden")) {
+                card.classList.add("hidden");
+            }
+        } else if (event.target.matches('#icn')) {
+            const card = document.getElementById("loggedinCard");
+            if (card.classList.contains("hidden")) {
+                card.classList.remove("hidden");
+            } else {
+                card.classList.add("hidden");
+            }
+        }
+    }
+</script>

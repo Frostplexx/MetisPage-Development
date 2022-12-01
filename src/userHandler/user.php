@@ -50,6 +50,10 @@ class User
     }
 
 
+    /**
+     * @return void
+     * Fetches the user info from the discord api
+     */
     private function fetchUserInfo(): void
     {
         //-------------- get user info from discord
@@ -88,6 +92,45 @@ class User
             "Authorization: Bearer $this->token"
         ));
 
+        $response = curl_exec($crl);
+        $decoded_response = json_decode($response, true);
+        curl_close($crl);
+        return $decoded_response;
+    }
+
+    /**
+     * @return bool true if the user is authenticated and false if not
+     * Checks if the user is authenticated
+     */
+    public function isAuthenticated(): bool
+    {
+        if ($this->token == null) {
+            return false;
+        }
+        if ($this->expires_in <= time()) {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * @return mixed array of guilds the user and the bot are in
+     * Returns the guilds the user and the bot are in
+     */
+    public function getCampaignGuilds()
+    {
+        // ----- send guilds to bot to get the correct guilds back
+
+        $crl = curl_init();
+        curl_setopt($crl, CURLOPT_URL, getenv("BOT_URL") . "/guilds");
+        curl_setopt($crl, CURLOPT_POST, 1);
+        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($crl, CURLOPT_POSTFIELDS, $this->guilds);
+        curl_setopt($crl, CURLOPT_HTTPHEADER, array(
+            "Content-Type: application/json",
+            "Authorization: Bearer " . getenv("BOT_BEARER")
+        ));
         $response = curl_exec($crl);
         $decoded_response = json_decode($response, true);
         curl_close($crl);

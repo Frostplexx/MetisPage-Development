@@ -3,4 +3,4 @@
 session_start(); 
 session_destroy(); 
 
-header('Location: '. getenv("DOMAIN"). '/index.php');
+header('Location: '. getenv("DOMAIN"). '/src/index.php');

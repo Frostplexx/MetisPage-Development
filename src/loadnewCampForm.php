@@ -1,7 +1,7 @@
 <?php
 require_once "userHandler/user.php";
 session_start();
-$user = $_SESSION['user'];
+$user = unserialize($_SESSION['user']);
 
 $username = $user->getUsername();
 $avatar = $user->getAvatar();
@@ -11,7 +11,6 @@ $guilds = $user->getGuilds();
 $guildsString = "";
 
 // load newcamp.html
-$header = fopen("../assets/oldHTML/header.html", "r");
 $footer = fopen("../assets/oldHTML/footer.html", "r");
 $newcamp = fopen("../assets/oldHTML/newcamp.html", "r");
 
@@ -41,11 +40,11 @@ if($guilds != null){
 }
 $campForm = str_replace("ServerListOptions", $guildsString, $campForm);
 
-echo fread($header, filesize("../assets/oldHTML/header.html"));
-echo $campForm;
+require_once "utils.php";
+
+loadHeader();echo $campForm;
 echo fread($footer, filesize("../assets/oldHTML/footer.html"));
 
 
-fclose($header);
 fclose($footer);
 fclose($newcamp);

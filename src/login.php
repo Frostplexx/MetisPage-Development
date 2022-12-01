@@ -8,29 +8,37 @@ session_start(); // start session
 // get date
 $today = time();
 $redirect = "/src/index.php";
-if(isset($_GET['code'])){
+if (isset($_GET['code'])) {
     $code = $_GET['code'];
 }
-if(isset($_GET['to'])){
-    if($_GET['to'] == "camp"){
+if (isset($_GET['to'])) {
+    if ($_GET['to'] == "camp") {
         $redirect = "/src/loadnewCampForm.php";
+    } else if ($_GET["to"] == "index") {
+        $redirect = "/src/index.php";
     }
+}
+
+$user = null;
+if (isset($_SESSION['user'])) {
+    $user = unserialize($_SESSION['user']);
 }
 
 if (empty($code) and !isset($_SESSION['user'])) {
     $newcamp = fopen("../assets/html/newCampLogin.html", "r");
     echo fread($newcamp, filesize("../assets/html/newCampLogin.html"));
     fclose($newcamp);
-} else if (isset($_SESSION['user']) and $_SESSION['user'] instanceof User and ($_SESSION['user'])->getExpiresIn() >= $today) {
+} else if ($user != null and $user instanceof User and $user->isAuthenticated()) {
     // redirect to loadnewCampForm.php
-    echo "<script>window.location.href = 'loadnewCampForm.php';</script>";
-} else {
-    // show loading screen while getting the access token and user info
-    $loading = fopen("../assets/html/newCampLoading.html", "r");
-    echo fread($loading, filesize("../assets/html/newCampLoading.html"));
-    fclose($loading);
-    // html redirect to newCamp2.php
-    echo "<script>window.location.href='getAccessToken.php?code=$code&redirect=$redirect'</script>";
+    header('Location: ' . getenv("DOMAIN") . $redirect);
+    exit();
+} else if (isset($code)) {
+
+    $user = new User($code);
+    $user->authenticate();
+    $_SESSION['user'] = serialize($user);
+    header('Location: ' . getenv("DOMAIN") . $redirect);
+    exit();
 }
 echo fread($footer, filesize("../assets/oldHTML/footer.html"));
 
