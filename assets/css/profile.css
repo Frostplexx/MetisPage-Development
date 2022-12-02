@@ -1,0 +1,92 @@
+body{
+    background-color: #36393f !important;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.container{
+    background-color: #1e2125;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+#icn{
+    max-width: 4rem;
+    max-height: 4rem;
+    border: #1e2125 solid 1px;
+    border-radius: 50%;
+}
+
+#name{
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: .5rem;
+}
+
+.divider{
+    display: flex;
+    max-width: 100%;
+    min-width: 100%;
+    height: 2px;
+    border-radius: 25px;
+    background-color: #6c757d;
+    margin: 1rem;
+    opacity: .7;
+}
+
+.gldtitl{
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
+
+.guildTitle{
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: .5rem;
+}
+
+.guildimg{
+    max-width: 3rem;
+    max-height: 4rem;
+    border: #1e2125 solid 1px;
+    border-radius: 50%;
+}
+
+.camptlt{
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.campaigncontainer{
+    color: white;
+    background: #141618;
+    border-radius: 1rem;
+    margin: .5rem;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.campaigncontainer > p{
+    opacity: .7;
+}
+
+.addinfo{
+    font-weight: 400;
+    opacity: .9;
+    padding: .1rem;
+}
+
+.campaigncontainer ul{
+    margin-top: .5rem;
+    padding-left: 40px;
+    text-indent: -10px;
+    line-height: 1.8rem;
+}
+
+li > span{
+    opacity: .7 !important;
+}
+
+li{
+    list-style-type: none;
+    opacity: .9;
+}

@@ -75,14 +75,13 @@ class User
 
         //-------------- get guilds from discord
         $this->guilds = $this->makeAPICall("https://discord.com/api/v10/users/@me/guilds");
-
     }
 
     /**
      * @param $url string the url to make the api call to
      * @return $decoded_response the decoded response
      */
-    private function makeAPICall(string $url)
+    private function makeAPICall(string $url, $payload = "")
     {
         $crl = curl_init();
         curl_setopt($crl, CURLOPT_URL, $url);
@@ -91,7 +90,9 @@ class User
             "Content-Type: application/json",
             "Authorization: Bearer $this->token"
         ));
-
+        if ($payload != "") {
+            curl_setopt($crl, CURLOPT_POSTFIELDS, $payload);
+        }
         $response = curl_exec($crl);
         $decoded_response = json_decode($response, true);
         curl_close($crl);
@@ -115,26 +116,17 @@ class User
 
 
     /**
-     * @return mixed array of guilds the user and the bot are in
+     * @return json the json of the user
      * Returns the guilds the user and the bot are in
      */
-    public function getCampaignGuilds()
+    public function getCampaignsUserInfo()
     {
-        // ----- send guilds to bot to get the correct guilds back
-
-        $crl = curl_init();
-        curl_setopt($crl, CURLOPT_URL, getenv("BOT_URL") . "/guilds");
-        curl_setopt($crl, CURLOPT_POST, 1);
-        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_POSTFIELDS, $this->guilds);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array(
-            "Content-Type: application/json",
-            "Authorization: Bearer " . getenv("BOT_BEARER")
-        ));
-        $response = curl_exec($crl);
-        $decoded_response = json_decode($response, true);
-        curl_close($crl);
-        return $decoded_response;
+        $response = $this->makeAPICall(getenv("BOT_URL") . "/userinfo", json_encode(array(
+            "user_id" => $this->id,
+            "guilds" => $this->guilds
+        )));
+        session_start();
+        return $response;
     }
 
     /**
@@ -178,3 +170,4 @@ class User
     }
 
 }
+
