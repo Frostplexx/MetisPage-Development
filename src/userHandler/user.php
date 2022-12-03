@@ -121,6 +121,7 @@ class User
      */
     public function getCampaignsUserInfo()
     {
+
         $response = $this->makeAPICall(getenv("BOT_URL") . "/userinfo", json_encode(array(
             "user_id" => $this->id,
             "guilds" => $this->guilds

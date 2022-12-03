@@ -32,3 +32,25 @@ function loadHeader($noIcon = false): void
     echo $headerString;
     fclose($header);
 }
+
+/**
+ * @param $url string the url to make the api call to
+ * @return $decoded_response the decoded response
+ */
+function makeAPICall(string $url,$bearer, $payload = "")
+{
+    $crl = curl_init();
+    curl_setopt($crl, CURLOPT_URL, $url);
+    curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($crl, CURLOPT_HTTPHEADER, array(
+        "Content-Type: application/json",
+        "Authorization: Bearer $bearer"
+    ));
+    if ($payload != "") {
+        curl_setopt($crl, CURLOPT_POSTFIELDS, $payload);
+    }
+    $response = curl_exec($crl);
+    $decoded_response = json_decode($response, true);
+    curl_close($crl);
+    return $decoded_response;
+}

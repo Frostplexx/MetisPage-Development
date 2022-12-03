@@ -7,15 +7,17 @@ echo fread($header, filesize("../assets/oldHTML/header.html"));
 session_start(); // start session
 // get date
 $today = time();
-$redirect = "/src/index.php";
+
 if (isset($_GET['code'])) {
     $code = $_GET['code'];
 }
 if (isset($_GET['to'])) {
     if ($_GET['to'] == "camp") {
-        $redirect = "/src/loadnewCampForm.php";
+        $_SESSION["redirect"] = "/src/loadnewCampForm.php";
     } else if ($_GET["to"] == "index") {
-        $redirect = "/src/index.php";
+        $_SESSION["redirect"] = "/src/index.php";
+    } else if($_GET["to"] == "profile"){
+        $_SESSION["redirect"] = "/src/profile.php";
     }
 }
 
@@ -26,18 +28,22 @@ if (isset($_SESSION['user'])) {
 
 if (empty($code) and !isset($_SESSION['user'])) {
     $newcamp = fopen("../assets/html/newCampLogin.html", "r");
-    echo fread($newcamp, filesize("../assets/html/newCampLogin.html"));
+    $newCampStr =  fread($newcamp, filesize("../assets/html/newCampLogin.html"));
+    $newCampStr = str_replace("hans", $_GET['to'], $newCampStr);
+    echo $newCampStr;
     fclose($newcamp);
 } else if ($user != null and $user instanceof User and $user->isAuthenticated()) {
     // redirect to loadnewCampForm.php
-    header('Location: ' . getenv("DOMAIN") . $redirect);
+    header('Location: ' . getenv("DOMAIN") . $_SESSION["redirect"]);
+    $_SESSION["redirect"] = "";
     exit();
 } else if (isset($code)) {
 
     $user = new User($code);
     $user->authenticate();
     $_SESSION['user'] = serialize($user);
-    header('Location: ' . getenv("DOMAIN") . $redirect);
+    header('Location: ' . getenv("DOMAIN") . $_SESSION["redirect"]);
+    $_SESSION["redirect"] = "";
     exit();
 }
 echo fread($footer, filesize("../assets/oldHTML/footer.html"));

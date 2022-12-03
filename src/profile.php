@@ -5,7 +5,7 @@ require_once "userHandler/user.php";
 session_start();
 $user = unserialize($_SESSION['user']);
 if ($user == null or !$user->isAuthenticated() or !$user instanceof User) {
-    header("Location: index.php");
+    header("Location: login.php?to=profile");
     exit();
 }
 
@@ -38,11 +38,18 @@ foreach ($guilds as $guild) {
             $temp = str_replace("difficulty", $campaign["difficulty"], $temp);
             $temp = str_replace("playerscur", $campaign["current_players"], $temp);
             $temp = str_replace("playersmax", $campaign["max_players"], $temp);
-            $temp = str_replace("dm", $campaign["dm_name"], $temp);
+            $temp = str_replace("dm", $campaign["dm_name"] . " | " . $campaign["dm_tag"], $temp);
             $temp = str_replace("lang", $campaign["language"], $temp);
             $temp = str_replace("loc", $campaign["location"], $temp);
             $temp = str_replace("time", $campaign["time"], $temp);
             $temp = str_replace("notes", $campaign["notes"], $temp);
+
+            $temp = str_replace("messagelink", "https://discord.com/channels/". $campaign["server_id"] . "/" . $campaign["channels"]["textChannel"] . "/" . $campaign["message_id"], $temp);
+
+
+            if($campaign["dm_tag"] == $user->getUsername()) {
+                $temp = str_replace("<!-- edit bnt -->", '<a href="/src/editcamp.php?id='. $campaign["campaign_id"] .'" class="btn btn-secondary">Edit <i class="fa-solid fa-pen-to-square"></i></a>', $temp);
+            }
             $echostring .= $temp;
         }
     }
