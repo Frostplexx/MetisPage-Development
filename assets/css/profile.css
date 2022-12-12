@@ -1,29 +1,30 @@
-body{
+body {
     background-color: #36393f !important;
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
 
 
-.container{
+.container {
     background-color: #1e2125;
     border-radius: 1rem;
     padding: 1rem;
 }
-#icn{
+
+#icn {
     max-width: 4rem;
     max-height: 4rem;
     border: #1e2125 solid 1px;
     border-radius: 50%;
 }
 
-#name{
+#name {
     font-size: 1.3rem;
     font-weight: 600;
     padding: .5rem;
 }
 
-.divider{
+.divider {
     display: flex;
     max-width: 100%;
     min-width: 100%;
@@ -34,30 +35,30 @@ body{
     opacity: .7;
 }
 
-.gldtitl{
+.gldtitl {
     margin-top: 1rem;
     margin-bottom: .5rem;
 }
 
-.guildTitle{
+.guildTitle {
     font-size: 1.3rem;
     font-weight: 600;
     padding: .5rem;
 }
 
-.guildimg{
+.guildimg {
     max-width: 3rem;
     max-height: 4rem;
     border: #1e2125 solid 1px;
     border-radius: 50%;
 }
 
-.camptlt{
+.camptlt {
     font-size: 1.4rem;
     font-weight: 600;
 }
 
-.campaigncontainer{
+.campaigncontainer {
     color: white;
     background: #141618;
     border-radius: 1rem;
@@ -65,28 +66,61 @@ body{
     border: 3px solid rgba(255, 255, 255, 0.1);
 }
 
-.campaigncontainer > p{
+.campaigncontainer > p {
     opacity: .7;
 }
 
-.addinfo{
+.addinfo {
     font-weight: 400;
     opacity: .9;
     padding: .1rem;
 }
 
-.campaigncontainer ul{
+.campaigncontainer ul {
     margin-top: .5rem;
     padding-left: 40px;
     text-indent: -10px;
     line-height: 1.8rem;
 }
 
-li > span{
+li > span {
     opacity: .7 !important;
 }
 
-li{
+li {
     list-style-type: none;
     opacity: .9;
+}
+
+.collapsible {
+    background: transparent;
+    bottom: 0;
+    border: none;
+    color: white;
+    padding: 0;
+    margin: 0;
+    height: 100% !important;
+}
+
+.collapsible > i {
+    transition: transform 0.3s ease;
+}
+
+.camps{
+    height: 0;
+    overflow: hidden;
+}
+
+.camps.active {
+    height: 100%;
+}
+
+.camps.active {
+    animation: rotate 1s ease-in-out !important;
+}
+
+
+.collapsible.expanded > i{
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
 }

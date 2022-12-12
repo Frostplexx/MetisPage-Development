@@ -1,8 +1,6 @@
 window.onload = async function () {
     const imagesrc = document.getElementById("dmDiscordTagImg");
-    console.log(imagesrc);
     const color = await ColorExtract(imagesrc.src)
-    console.log(color);
     document.getElementById("usercard").style.setProperty("--color1", "#" + color);
     const color2 = changeBrightness(hexToRgbA("#" + color), 1.3);
     document.getElementById("usercard").style.setProperty("--color2", color2);
@@ -23,7 +21,7 @@ function ColorExtract(src) {
 //     wait for image to load
     return  new Promise((resolve, reject) => {
         img.onload = function () {
-            console.log("loaded");
+
             let canvas = document.createElement("canvas");
             let c = canvas.getContext('2d');
             c.width = canvas.width = img.width;
@@ -78,7 +76,6 @@ function ColorExtract(src) {
             })
             //sort by highest deviation = most colorful
             let StandardDeviationSortMap = new Map([...StandardDeviationMap.entries()].sort((k, h) => h[1] - k[1]));
-            console.log(StandardDeviationSortMap);
             //return that hex color
             resolve(StandardDeviationSortMap.keys().next().value);
         }

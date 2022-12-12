@@ -49,6 +49,47 @@ class User
         $this->fetchUserInfo();
     }
 
+    public function tryRefreshToken(): void
+    {
+        if ($this->isAuthenticated()) {
+            return;
+        }
+        if ($this->refresh_token == null) {
+            return;
+        }
+        if ($this->refresh_token == "") {
+            return;
+        }
+
+        $clientID = getenv('DISCORD_CLIENT_ID');
+        $clientSecret = getenv('DISCORD_CLIENT_SECRET');
+        $redirectURI = getenv('DISCORD_REDIRECT_URI');
+
+
+        $crl = curl_init();
+        curl_setopt($crl, CURLOPT_URL, "https://discord.com/api/v10/oauth2/token");
+        curl_setopt($crl, CURLOPT_POST, 1);
+        curl_setopt($crl, CURLOPT_POSTFIELDS, "client_id=$clientID&client_secret=$clientSecret&grant_type=refresh_token&code=$this->refresh_token");
+        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($crl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/x-www-form-urlencoded'
+        ));
+
+        $response = curl_exec($crl);
+        curl_close($crl);
+
+        // decode to json
+        $decoded_response = json_decode($response, true);
+        $acces_token = $decoded_response['access_token'];
+        // convert minutes to date
+        $expires_in = time() + $decoded_response['expires_in'] * 60;
+        $this->token = $acces_token;
+        $this->expires_in = $expires_in;
+        $this->refresh_token = $decoded_response['refresh_token'];
+
+        $this->fetchUserInfo();
+    }
+
 
     /**
      * @return void
@@ -109,11 +150,11 @@ class User
             return false;
         }
         if ($this->expires_in <= time()) {
-            return false;
+            $this->tryRefreshToken();
+            return true;
         }
         return true;
     }
-
 
     /**
      * @return json the json of the user

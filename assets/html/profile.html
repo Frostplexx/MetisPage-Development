@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="../assets/css/profile.css"/>
-
 <body>
 <div class="container d-flex align-items-center justify-content-center flex-column">
 
@@ -17,9 +16,18 @@
         </div>
     </div>
     <div class="divider"></div>
-    <h2 class="align-self-start">Servers</h2>
     <div class="w-100">
         <!-- servers -->
     </div>
 </div>
+<script>
+    document.querySelectorAll('.collapsible').forEach(item => {
+        item.addEventListener('click',function (){
+            //toggle the class collapsible on the item
+            const campstuff = this.parentNode.nextSibling.nextSibling;
+            this.classList.toggle("expanded");
+            campstuff.classList.toggle('active');
+        })
+    });
+</script>
 </body>
