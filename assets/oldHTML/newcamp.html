@@ -254,7 +254,7 @@
                                 required
                         >
                             <option value="" selected disabled>Select Server</option>
-                            SeerverListOptions
+                            ServerListOptions
                         </select>
                         <div id="serverhelp" class="form-text">
                             Select the server you want to post the campaign on
@@ -280,36 +280,42 @@
             <div class="card bg-dark" style="margin-bottom: 1rem">
                 <div class="card-header">
                     <i class="fa-regular fa-calendar-days"></i>
-                    Schedule
+                    Reminder
                 </div>
+
                 <div class="card-body">
-                    <div class="row row-cols-lg-auto g-3 align-items-center">
-                        <div class="col-12">
+                    <div class="form-label opacity-75">
+                        This section is used for creating a reminder for your campaigns. If you choose to create one, an additional message
+                        will be sent to the automatically generated channel of your campaign. Players can then "Subscribe" to the reminder and get
+                        notified at the specified time. If you don't want to use this feature, just leave the "Schedule start" and "Time" field empty.
+                        You can also edit and delete this reminder at any time.
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col">
                             <label for="dateSel" class="form-label">Schedule Start</label>
                             <input
                                     type="date"
                                     class="form-control"
-                                    name="date"
+                                    name="schedule_start"
                                     id="dateSel"
                                     aria-describedby="dateSelHelp"
                                     maxlength="200"
-                                    required
+
                             />
                             <div id="dateSelHelp" class="form-text">
                                 The date when the schedule should start
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col">
                             <label for="timeSel" class="form-label">Time</label>
                             <input
                                     type="time"
                                     class="form-control"
-                                    name="time"
+                                    name="schedule_time"
                                     id="timeSel"
                                     aria-describedby="timeSelHelp"
                                     maxlength="200"
-                                    required
                             />
                             <div id="timeSelHelp" class="form-text">
                                 The time when the schedule should start
@@ -317,31 +323,36 @@
                         </div>
                     </div>
 
-                    <div class="form-check mt-4">
-                        <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                        <label class="form-check-label" for="inlineFormCheck">
-                            Repeating
-                        </label>
-                    </div>
 
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <label for="amount" class="form-label">Frequency</label>
+                            <select class="form-select" id="amount" aria-describedby="freqSelHelp" name="frequency">
+                                <option selected value="Days">Daily</option>
+                                <option value="Weeks">Weekly</option>
+                                <option value="Months">Monthly</option>
+                                <option value="Years">Yearly</option>
+                            </select>
+                            <div id="freqSelHelp" class="form-text">
+                                How often should the schedule repeat
+                            </div>
 
-                    <label for="amount" class="mt-2">Frequency</label>
-                    <select class="form-select" id="amount" >
+                        </div>
 
-                        <option selected disabled hidden="hidden">Choose...</option>
-                        <option value="Day">Daily</option>
-                        <option value="Week">Weekly</option>
-                        <option value="Month">Monthly</option>
-                        <option value="Year">Yearly</option>
-                    </select>
-
-
-                    <label class="visually-hidden" for="amount">Repeating</label>
-                    <div class="input-group mt-2">
-                        <span class="input-group-text" id="every">Every</span>
-                        <input type="number" class="form-control" placeholder="1" aria-label="ehriuwp"
-                               aria-describedby="ehriuwp" value="1" min="1" max="100">
-                        <span class="input-group-text" id="repamount">X</span>
+                        <div class="col">
+                            <label for="amount" class="form-label"></label>
+                            <label class="visually-hidden" for="amount">Repeating</label>
+                            <div class="input-group mt-2" aria-describedby="amountChooseHelp">
+                                <span class="input-group-text" id="every">Every</span>
+                                <input type="number" class="form-control" placeholder="1" aria-label="ehriuwp"
+                                       name="repamount"
+                                       aria-describedby="ehriuwp" value="1" min="1" max="100">
+                                <span class="input-group-text" id="repamount">Days</span>
+                            </div>
+                            <div id="amountChooseHelp" class="form-text">
+                                Every X amount of days/weeks/months/years
+                            </div>
+                        </div>
                     </div>
 
                 </div>

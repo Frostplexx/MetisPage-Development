@@ -1,5 +1,6 @@
 <?php
 require_once 'env.php';
+require_once 'userHandler/user.php';
 session_start();
 if (isset($_POST['g-recaptcha-response'])) {
 	$captcha = $_POST['g-recaptcha-response'];
@@ -24,9 +25,30 @@ if ($responseKeys["success"]) {
 	$notes = $_POST["notes"] ?? "No notes";
 	$dm_name = $_POST["dm_name"];
 	$serverid = $_POST["dmServer"];
-	$user_id = $_SESSION["id"];
 
-	// parse variables into a json object
+    //get user stuff from session
+    $user = unserialize($_SESSION['user']);
+    //check if user is of type User
+    if ($user == null or !$user->isAuthenticated() or !$user instanceof User) {
+        header("Location: login.php?to=profile");
+        exit();
+    }
+    $username = $user->getUsername();
+    $user_id = $user->getId();
+
+    $schedule_start = $_POST["schedule_start"];
+    $schedule_time = $_POST["schedule_time"];
+
+    $frequency = $_POST["frequency"];
+    $repamount = $_POST["repamount"];
+
+    $scheduleData = array(
+        "schedule_start" => $schedule_start,
+        "schedule_time" => $schedule_time,
+        "frequency" => $frequency,
+        "repamount" => $repamount
+    );
+    // parse variables into a json object
 	$campData = array(
 		"campaign_name" => $campName,
 		"language" => $language,
@@ -37,9 +59,10 @@ if ($responseKeys["success"]) {
 		"difficulty" => $difficulty,
 		"notes" => $notes,
 		"dm_name" => $dm_name,
-		"dm_tag" => $_SESSION["username"],
+		"dm_tag" => $username,
 		"server_id" => $serverid,
-		"user_id" => $user_id
+		"user_id" => $user_id,
+        "schedule" => $scheduleData
 	);
 	// open campGetBotResponse.php and send the json object to campGetBotResponse.php
 	$_SESSION["campData"] = json_encode($campData);

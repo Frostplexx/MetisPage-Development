@@ -158,7 +158,7 @@ class User
 
     /**
      * @return json the json of the user
-     * Returns the guilds the user and the bot are in
+     * Returns the guilds the user and the bot are in and  the campaigns the user is in
      */
     public function getCampaignsUserInfo()
     {

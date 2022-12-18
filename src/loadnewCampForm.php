@@ -6,7 +6,7 @@ $user = unserialize($_SESSION['user']);
 $username = $user->getUsername();
 $avatar = $user->getAvatar();
 $id = $user->getId();
-$guilds = $user->getGuilds();
+$guilds = $user->getCampaignsUserInfo()["guilds"];
 
 $guildsString = "";
 
