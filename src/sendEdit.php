@@ -28,10 +28,12 @@ $campData = array(
     "dm_name" => $dm_name,
     "dm_tag" => $_SESSION["username"],
     "server_id" => $serverid,
-    "user_id" => $user_id
+    "user_id" => $user_id,
+    "schedule" => "" //TODO
 );
 
-$camp = $_POST[''];
-$url = getenv("BOT_URL") . "/id/";
+// send the data to the api
+$url = getenv("BOT_URL") . "/form";
 $bearer = getenv("BOT_BEARER");
-$payload = json_encode();
+$payload = json_encode($campData);
+

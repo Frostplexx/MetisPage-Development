@@ -2,16 +2,30 @@
 require_once 'env.php';
 require_once 'userHandler/user.php';
 session_start();
-if (isset($_POST['g-recaptcha-response'])) {
-	$captcha = $_POST['g-recaptcha-response'];
+
+if (isset($_POST['cf-turnstile-response'])) {
+	$captcha = $_POST['cf-turnstile-response'];
+} else {
+    echo "No captcha response";
+    exit();
 }
 
 $secretKey = getenv('CAPTCHA_KEY');
 $ip = $_SERVER['REMOTE_ADDR'];
 // post request to server
-$url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
-$response = file_get_contents($url);
+$url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+//add post fields
+$data = array('response' => $captcha, 'secret' => $secretKey);
+
+// make curl request
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
 $responseKeys = json_decode($response, true);
+
 // should return JSON with success as true
 if ($responseKeys["success"]) {
 	// load the form data

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../assets/css/newcamp.css"/>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script type="module" src="../assets/js/newcamp.js"></script>
 </head>
 
@@ -359,7 +359,7 @@
             </div>
 
 
-            <div class="g-recaptcha" data-sitekey="6Lf7jgMjAAAAAIwh8qf-Mz4SD4e8qmmGFcH1J65l"></div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAABvOQ7DefGO-0YR" data-callback="javascriptCallback"></div>
             <div id="recaptchaError"></div>
             <!-- recaptchaError -->
             <div class="mb-3" style="margin-top: 5px">
@@ -410,12 +410,12 @@
             form.addEventListener(
                 "submit",
                 (event) => {
-                    console.log(grecaptcha.getResponse());
+                    console.log(turnstile.getResponse());
                     if (!form.checkValidity()) {
                         event.preventDefault();
                         event.stopPropagation();
                     }
-                    if (grecaptcha.getResponse() == "") {
+                    if (turnstile.getResponse() == "") {
                         event.preventDefault();
                         event.stopPropagation();
                         document.getElementById("recaptchaError").innerHTML =

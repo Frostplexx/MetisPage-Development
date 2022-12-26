@@ -10,7 +10,7 @@ body{
 	background: transparent !important;
 }
 
-h1{
+h1, h2, h3{
 	font-family: 'Montserrat', serif !important;
 	font-weight: 700 !important;
 }
@@ -37,8 +37,65 @@ section{
 
 .main-page-card ul li{
 	font-weight: 600;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	padding: .5rem;
+}
+
+.main-page-card p{
+	font-size: 1rem;
+	opacity: .7;
+}
+
+.main-page-card{
+	background-color: var(--background-color);
+	padding: 1rem;
+	margin: 2rem;
+	border-radius: 10px;
+	overflow-wrap: break-word;
+	/*min-width: 35rem;*/
+	max-width: 35rem;
+
+	/*min-height: 9rem !important;*/
+	max-height: 12rem !important;
+}
+.page-card-body{
+	padding-left: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+.card-icon{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 5rem !important;
+	width: 5rem !important;
+	min-width: 5rem;
+	text-align: center;
+	border-radius: 50%;
+}
+.card-icon > i{
+	font-size: 2.6em;
+}
+
+.card-icon-color-red{
+	/* transaprent red */
+	background: rgba(255, 0, 0, 0.4);
+	/* red */
+	color: #ff0000;
+}
+
+.card-icon-color-yellow{
+	/* transaprent yellow */
+	background: rgba(255, 255, 0, 0.4);
+	/* yellow */
+	color: #ffff00;
+}
+
+.card-icon-color-blue{
+	/* transaprent blue */
+	background: rgba(0, 100, 255, 0.4);
+	/* blue */
+	color: #0064ff;
 }
 
 #more-commands{
@@ -116,18 +173,6 @@ section{
 }
 .get-started:hover{
 	box-shadow: 0 0 5px 1px #ED2027;
-}
-
-
-
-.main-page-card{
-	background-color: var(--background-color);
-	padding: 1rem;
-	margin: 2rem;
-	border-radius: 10px;
-	overflow-wrap: break-word;
-	min-height: 43rem;
-	max-width: 45vw;
 }
 
 
