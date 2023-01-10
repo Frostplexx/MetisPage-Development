@@ -56,7 +56,8 @@ section{
 	max-width: 35rem;
 
 	/*min-height: 9rem !important;*/
-	max-height: 12rem !important;
+	/*max-height: 12rem !important;*/
+	overflow: auto;
 }
 .page-card-body{
 	padding-left: 1rem;
@@ -119,7 +120,7 @@ section{
 }
 
 .violet{
-	background: #bd0bfcff;
+	background: #5865f2;
 }
 
 .scroll-indicator-div {
@@ -166,13 +167,13 @@ section{
 	font-weight: 500;
 	border: none;
 	color: white;
-	background: linear-gradient(34deg, #ED2027 0%, #d33174 100%);
+	background: linear-gradient(34deg, #5865f2 0%, #454fbf 100%);
 	padding: .5rem;
 	border-radius: 15px;
 	transition: box-shadow .2s ease;
 }
 .get-started:hover{
-	box-shadow: 0 0 5px 1px #ED2027;
+	box-shadow: 0 0 5px 1px #5865f2;
 }
 
 
@@ -202,7 +203,7 @@ section p {
 .invite-btn:hover{
 	font-size: 2rem;
 	color: white;
-	box-shadow: 0 0 5px 1px #ED2027;
+	box-shadow: 0 0 5px 1px var(--main-accent-color);
 }
 
 
@@ -237,7 +238,7 @@ section p {
 }
 
 .custom-shape-divider-bottom-1668879277 .shape-fill {
-	fill: #202225;
+	fill: #121415;
 }
 
 .custom-shape-divider-bottom-1668879377 {
@@ -258,7 +259,7 @@ section p {
 }
 
 .custom-shape-divider-bottom-1668879377 .shape-fill {
-	fill: #ED2027;
+	fill: var(--main-accent-color);
 }
 
 .custom-shape-divider-bottom-1668892117 {
@@ -279,7 +280,7 @@ section p {
 }
 
 .custom-shape-divider-bottom-1668892117 .shape-fill {
-	fill: #202225;
+	fill: #121415;
 }
 
 .custom-shape-divider-bottom-1668892480 {
@@ -300,5 +301,5 @@ section p {
 }
 
 .custom-shape-divider-bottom-1668892480 .shape-fill {
-	fill: #BD0BFC;
+	fill: #5865f2;
 }
